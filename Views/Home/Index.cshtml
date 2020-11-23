@@ -1,0 +1,257 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Mix_MTA2.Models.ThanhVien tv = null;
+    if (Session["ThanhVien"] == null)
+    {
+        tv = null;
+    }
+    if (Session["ThanhVien"] != null)
+    {
+        tv = Session["ThanhVien"] as Mix_MTA2.Models.ThanhVien;
+    }
+}
+
+<style>
+    .kt {
+        width: 100%;
+    }
+</style>
+<title>Mix-MTA | Trang chủ</title>
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand " href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Nav Start -->
+                        <div class="classynav" id="">
+                            <ul>
+                                <li class="active"><a href="/Home/Index">Trang chủ</a></li>
+                                <li><a href="/Home/About">Giới thiệu</a></li>
+                                <li><a href="/Home/Receipt">Công thức</a></li>
+                                <li><a href="/Home/Blog">Blog</a></li>
+                                <li><a href="/Home/Contact">Liên hệ</a></li>
+                            </ul>
+
+                            <!-- Newsletter Form -->
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        @foreach (Mix_MTA2.Models.Slider item in ViewBag.slide)
+        {
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide bg-img" style="background-image: url('/Content/User/img/bg-img/@item.AnhMinhHoa');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                                <h2 data-animation="fadeInUp" data-delay="300ms">@item.TieuDe</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">@item.NoiDung</p>
+                                @*<a href="#" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">Khám phá</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+<!-- ##### Top Catagory Area Start ##### -->
+<section class="top-catagory-area section-padding-80-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3><b>Loại công thức</b></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Top Catagory Area -->
+            @foreach (Mix_MTA2.Models.LoaiCongThuc item in ViewBag.list_lct)
+            {
+                <div class="col-12 col-lg-6">
+                    <div class="single-top-catagory">
+                        <img src="~/Content/User/img/bg-img/bg8.jpg" alt="">
+                        <!-- Content -->
+                        <div class="top-cta-content text-center">
+                            <h3>@item.TenLoaiCT</h3>
+                            <h6>Đơn giản & dễ làm</h6>
+                            <a href="/Home/Receipt" class="btn delicious-btn">Khám phá</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- ##### Top Catagory Area End ##### -->
+<!-- ##### Best Receipe Area Start ##### -->
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3><b>Món ăn nổi bật</b></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (Mix_MTA2.Models.CongThuc it in ViewBag.list_top)
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="/Content/User/img/bg-img/@it.AnhMinhHoa" alt="">
+                        <div class="receipe-content">
+                            <a href="/Home/Chitietcongthuc?id=@it.ID_congthuc">
+                                <h5>@it.TenCongThuc</h5>
+                            </a>
+                            <div class="ratings">
+                                @for (int i = 1; i <= it.DoKho; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                }
+                                @for (int j = 1; j <= 5 - it.DoKho; j++)
+                                {
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- ##### Best Receipe Area End ##### -->
+<!-- ##### CTA Area Start ##### -->
+<section class="cta-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg4.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <!-- Cta Content -->
+                <div class="cta-content text-center">
+                    <h2>Công thức làm bánh</h2>
+                    <p>Tổng hợp những công thức làm bánh, hướng dẫn cách làm bánh và mẹo làm tại nhà siêu ngon cho chị em. Hãy cùng Mix-MTA khám phá những bí quyết làm cách loại bánh siêu ngon tại nhà của các bậc thầy làm bánh trên thế giới nhé!</p>
+                    <a href="/Home/Receipt" class="btn delicious-btn">Khám phá thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### CTA Area End ##### -->
+<!-- ##### Small Receipe Area Start ##### -->
+<section class="small-receipe-area section-padding-80-0">
+    <div class="container">
+        <div class="row">
+            @foreach (Mix_MTA2.Models.CongThuc item in ViewBag.list_nm)
+            {
+                <!-- Small Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-small-receipe-area d-flex">
+                        <!-- Receipe Thumb -->
+                        <div class="receipe-thumb">
+                            <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt="">
+                        </div>
+                        <!-- Receipe Content -->
+                        <div class="receipe-content">
+                            <span>@item.NgayTao</span>
+                            <a href="/Home/Chitietcongthuc?id=@item.ID_congthuc">
+                                <h5>@item.TenCongThuc</h5>
+                            </a>
+                            <div class="ratings">
+                                @for (int i = 1; i <= item.DoKho; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                }
+                                @for (int j = 1; j <= 5 - item.DoKho; j++)
+                                {
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                }
+                            </div>
+                            @if (@item.SLPH > 0)
+                            {
+                                <p>@item.SLPH phản hồi</p>
+                            }
+                            else
+                            {
+                                <p>0 phản hồi</p>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- ##### Small Receipe Area End ##### -->
+<!-- ##### Quote Subscribe Area Start ##### -->
+<section class="quote-subscribe-adds">
+    <div class="container">
+        <div class="row align-items-end">
+            <!-- Quote -->
+            <div class="col-12 col-lg-4">
+                <div class="quote-area text-center">
+                    <span>"</span>
+                    <h4>Không có một tình cảm nào chân thành hơn là tình yêu dành cho thức ăn.</h4>
+                    <p>- B.Đ.Việt -</p>
+                    <div class="date-comments d-flex justify-content-between">
+                        <div class="date">August 30, 2020</div>
+                        <div class="comments">2 Bình luận</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-12 col-lg-4">
+                <div class="newsletter-area">
+                    <h4>Đăng ký ủng hộ Mix-MTA</h4>
+                    <!-- Form -->
+                    <div class="newsletter-form bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg1.jpg');">
+                        <form action="/Home/Dangky" method="get">
+                            @*<input type="email" name="email" placeholder="Email,Gmail,...">
+                                <input type="text" name="username" placeholder="Username...">
+                                <input type="text" name="password" placeholder="Password...">*@
+                            <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                        </form>
+                        <p>Đăng ký và theo dõi chúng tôi để cập nhật những công thức làm bánh hấp dẫn nhất nhé.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adds -->
+            <div class="col-12 col-lg-4">
+                <div class="delicious-add">
+                    <img src="~/Content/User/img/bg-img/hbg.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Quote Subscribe Area End ##### -->

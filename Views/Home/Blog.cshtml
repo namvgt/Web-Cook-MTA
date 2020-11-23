@@ -1,0 +1,211 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .timkiem {
+        margin-top: 15px;
+        padding-top: 45px;
+        padding: 15px;
+    }
+
+    p {
+        width: 100%;
+        white-space: pre-wrap;
+        overflow: hidden; /*ẩn nội dung khi kích thước lớn hơn chiều rộng khối bên ngoài*/
+        text-overflow: ellipsis; /*// thêm dấu 3 chấm*/
+        -webkit-line-clamp: 2; /*//số dòng muốn hiển thị*/
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+    }
+</style>
+<title>Mix-MTA | Blog</title>
+<!-- Search Wrapper -->
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="Index">Trang chủ</a></li>
+                                <li><a href="About">Giới thiệu</a></li>
+                                <li><a href="Receipt">Công thức</a></li>
+                                <li class="active"><a href="Blog">Blog</a></li>
+                                <li><a href="Contact">Liên hệ</a></li>
+                                @*<li><a href="Login">Đăng nhập</a></li>*@
+
+                            </ul>
+
+                            <!-- Newsletter Form -->
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-text text-center">
+                    <h2><b>Blog</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<!-- Receipe Post Search -->
+<div class="receipe-post-search mb-80">
+    <div class="container timkiem">
+        <form action="/Home/Timkiem_blog" method="get">
+            <div class="row">
+                <div class="col-12 col-lg-5">
+                    <p><b><h4>Bí quyết và mẹo vặt nấu nướng</h4></b></p>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <input type="search" name="noidung" placeholder="Tìm kiếm chuyên đề...">
+                </div>
+                <div class="col-12 col-lg-2 text-right">
+                    <button type="submit" class="btn delicious-btn">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="blog-posts-area">
+
+                    <!-- Single Blog Area -->
+                    @foreach (Mix_MTA2.Models.Blog item in Model)
+                    {
+                        <div class="single-blog-area mb-80">
+                            <!-- Thumbnail -->
+                            <div class="blog-thumbnail">
+                                <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" alt="">
+                                <!-- Post Date -->
+                                <div class="post-date">
+                                    @*<a href="#"><span>30</span>Aug<br>2020</a>*@
+                                    <p>@item.NgayTao</p>
+                                </div>
+                            </div>
+                            <!-- Content -->
+                            <div class="blog-content">
+                                <a href="#" class="post-title">@item.TenBlog</a>
+                                @foreach (Mix_MTA2.Models.NguoiDung us in ViewBag.list_us)
+                                {
+                                    if (us.UserID == item.MaNguoiTao)
+                                    {
+                                        @*<div class="meta-data">*@
+                                        <p>by @us.HoTen is @us.CapDo</p>
+                                        @*</div>*@
+                                    }
+                                }
+                                <p>@item.TieuDe</p>
+                                <a href="/Home/ChitietBlog?id=@item.MaBlog" class="btn delicious-btn mt-30">Đọc thêm</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @*Phân trang========================================*@
+                @*<nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item active"><a class="page-link" href="#">01.</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02.</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03.</a></li>
+                        <
+                    </nav>*@
+                <br />
+                @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("Blog", new { page }))*@
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="blog-sidebar-area">
+
+                    <!-- Widget -->
+                    @*<div class="single-widget mb-80">
+                            <h6>Nhật ký</h6>
+                            <ul class="list">
+                                <li><p href="#">Tháng 7-2020</p></li>
+                                <li><p href="#">Tháng 6-2020</p></li>
+                                <li><p href="#">Tháng 5-2020</p></li>
+                                <li><p href="#">Tháng 4-2020</p></li>
+                                <li><p href="#">Tháng 3-2020</p></li>
+                            </ul>
+                        </div>*@
+
+                    <!-- Widget -->
+                    @*<div class="single-widget mb-80">
+                            <h6>Tùy chọn</h6>
+                            <ul class="list">
+                                <li><p href="#">Nhà hàng</p></li>
+                                <li><p href="#">Food &amp; Drinks</p></li>
+                                <li><p href="#">Món chay</p></li>
+                                <li><p href="#">Ảnh &amp; Lối sống</p></li>
+                                <li><p href="#">Chưa xác định</p></li>
+                            </ul>
+                        </div>*@
+
+                    <!-- Widget -->
+                    <div class="single-widget mb-80">
+                        <h6>Đăng ký ngay</h6>
+
+                        <!-- Form -->
+                        <div class="newsletter-form bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg1.jpg');">
+                            <form action="Dangky" method="post">
+                                <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                            </form>
+                            <p>Đăng ký và theo dõi chúng tôi để cập nhật những công thức làm bánh hấp dẫn nhất nhé.</p>
+                        </div>
+                    </div>
+
+                    <!-- Widget -->
+                    <div class="single-widget mb-80">
+                        <div class="quote-area text-center">
+                            <span>"</span>
+                            <h4>Trong rượu, ta tìm thấy trí tuệ. Trong bia, ta thấy được sức mạnh. Trong nước lọc, ta phát hiện vi khuẩn, và cuối cùng trong ăn uống, ta tìm thấy niềm vui.</h4>
+                            <p>- GS.Banana -</p>
+                            <div class="date-comments d-flex justify-content-between">
+                                <div class="date">September 04, 2020</div>
+                                <div class="comments">199 Comments</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Blog Area End ##### -->

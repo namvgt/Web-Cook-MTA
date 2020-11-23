@@ -1,0 +1,148 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Mix_MTA2.Models.ThanhVien tv = null;
+    if (Session["ThanhVien"] == null)
+    {
+        tv = null;
+    }
+    if (Session["ThanhVien"] != null)
+    {
+        tv = Session["ThanhVien"] as Mix_MTA2.Models.ThanhVien;
+    }
+}
+<title>Mix-MTA | Giới thiệu</title>
+<!-- Search Wrapper -->
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="Index">Trang chủ</a></li>
+                                <li class="active"><a href="About">Giới thiệu</a></li>
+                                <li><a href="Receipt">Công thức</a></li>
+                                <li><a href="Blog">Blog</a></li>
+                                <li><a href="Contact">Liên hệ</a></li>
+                                @*<li><a href="Login">Đăng nhập</a></li>*@
+                            </ul>
+
+                            <!-- Newsletter Form -->
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb1.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-text text-center">
+                    <h2><b>Giới thiệu</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### About Area Start ##### -->
+<section class="about-area section-padding-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Mix-MTA</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h6 class="sub-heading pb-5">Chào bạn,<br>Cảm ơn bạn đã ghé thăm Mix-MTA :)) <br> Mix-MTA là một nhóm học tập, với sự kết hợp giữa học viên MTA với học viên quốc tế.</h6>
+
+                <p class="text-center">Đây là sản phẩm đầu tiên của nhóm, các thông tin trên đây đều được thu thập từ nhiều nguồn khác nhau. Mong nhận được sự ủng hộ của các bạn.</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mt-70">
+            <!-- Single Cool Fact -->
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <img class="mb-70" src="~/Content/img/bg-img/about.png" alt="">
+                <p class="text-center">Một lần nữa cảm ơn các bạn đã quan tâm tới Mix-MTA. Hãy gửi phản hồi của bạn cho chúng tôi về sản phảm này ở phía dưới nhé.<br>Thank you!</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### About Area End ##### -->
+<!-- ##### Contact Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Phản hồi của bạn</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="P_hoi_web" method="get">
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-12">
+                                <textarea name="noidung" class="form-control" id="message" cols="30" rows="10" placeholder="Nội dung"></textarea>
+                            </div>
+                            @if (Session["ThanhVien"] != null)
+                            {
+                                <button class="btn delicious-btn mt-30">Đăng</button>
+                            }
+                        </div>
+                    </form>
+
+                    @if (Session["ThanhVien"] == null)
+                    {
+                        <a href="/Home/Login" class="btn delicious-btn mt-30">Đăng</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Contact Area End ##### -->

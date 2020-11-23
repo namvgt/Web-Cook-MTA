@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Phản hồi</h1>
+    <br />
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Phản hồi và bình luận</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th style="width:30px">STT</th>
+                            <th style="width:120px">Tên thành viên</th>
+                            <th>Email</th>
+                            <th>Phản hồi từ mục</th>
+                            <th>Trả lời</th>
+                            <th>Ngày gửi</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 1;}
+                        @foreach (Mix_MTA2.Models.PhanHoi it in ViewBag.DS)
+                        {
+
+                            <tr id="row_@it.MaPhanHoi">
+                                <th>@i</th>
+                                <th style="width: 100px"><a data-toggle="modal" data-target="#info_@it.ThanhVien.ID_user" href="#">@it.ThanhVien.HoTen</a></th>
+                                <th>@it.ThanhVien.Email</th>
+                                @if (it.ID_congthuc != null)
+                                {
+                                    <th style="text-decoration:none;max-width:185px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">Công thức-<a href="/Admin/Recipe/Recipe_detail/@it.ID_congthuc" style="text-decoration:none" >@it.CongThuc.TenCongThuc</a></th>
+                                }
+                                else
+                                {
+                                    <th style="text-decoration:none;max-width:185px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">Blog-<a href="/Admin/Blog/Blog_detail/@it.ID_blog" style="text-decoration:none">@it.Blog.TenBlog</a></th>
+                                }
+                                <th>
+                                    @Ajax.ActionLink(it.TraLoi_PhanHoi.Count().ToString(), "Feedback_detail", new { id = it.MaPhanHoi }, new AjaxOptions
+                                    {
+                                   HttpMethod = "GET",
+                                   UpdateTargetId = "table",
+                                   InsertionMode = InsertionMode.Replace
+                               })
+                                </th>
+                                <th>@it.NgayDang.Value.Day/@it.NgayDang.Value.Month/@it.NgayDang.Value.Year @it.NgayDang.Value.Hour:@it.NgayDang.Value.Minute:@it.NgayDang.Value.Second</th>
+                                <th class="center" style="width:25px"><a style="color:#fff" href="Detail/@it.MaPhanHoi"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                                <th>
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaPhanHoi+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Feedback/Delete/@it.MaPhanHoi" style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
+                                </th>
+                            </tr>
+                            <div class="modal fade" id="info_@it.ThanhVien.ID_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thông tin thành viên</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="well well-sm">
+                                                            <div class="row">
+                                                                <div class="col-sm-6 col-md-4">
+                                                                    <img style="border-radius:50%" src="https://via.placeholder.com/200x200?text=Ảnh+đại+diện" alt="" class="img-rounded img-responsive" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <h3>
+                                                            @it.ThanhVien.Username
+                                                        </h3>
+                                                        <p>
+                                                            <hr />
+                                                            Họ và tên: @it.ThanhVien.HoTen
+                                                            <br />
+                                                            Email: @it.ThanhVien.Email
+                                                            <br />
+                                                            Giới tính: @it.ThanhVien.GioiTinh
+                                                            <br />
+                                                            Ngày đăng ký: @it.ThanhVien.NgayDangky.Value.Day/@it.ThanhVien.NgayDangky.Value.Month/@it.ThanhVien.NgayDangky.Value.Year
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="table"></div>
+
+</div>
+<!-- /.container-fluid -->

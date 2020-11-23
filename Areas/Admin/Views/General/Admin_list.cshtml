@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Admin_list";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Danh sách biên tập viên
+                </h1>
+            </div>
+            <!-- /.col-lg-12 -->
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr align="center">
+                        <th>ID</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ Tên</th>
+                        <th>Cấp độ</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Mix_MTA2.Models.NguoiDung it in ViewBag.DS)
+                    {
+                        <tr class="odd gradeX" align="center" id="row_@it.UserID">
+                            <td>@it.UserID</td>
+                            <td>@it.UserName</td>
+                            <td>@it.HoTen</td>
+                            <td>@it.CapDo</td>
+                            <td>@it.Email</td>
+                            <td class="">
+                                <a data-ajax="true" data-ajax-complete="$('#row_2').remove()" data-ajax-confirm="Bạn có chắc muốn xóa?" data-ajax-method="Delete" href="/Admin/General/Delete_User/2" style="color:#fff"><img src="~/Content/Admin/img/delete.png"/></a>
+                            </td>
+                            @*<td class="fix"><a href="Blog_edit" style="color:#fff">Sửa</a></td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->

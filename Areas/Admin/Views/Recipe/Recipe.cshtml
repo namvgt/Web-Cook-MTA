@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Recipe";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Công Thức</h1>
+    <p class="mb-4">Điều chỉnh các công thức được hiển thị ở các vị trí trên web người dùng</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Công thức làm bánh</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Tên món ăn</th>
+                            <th>Thể loại</th>
+                            <th>Tiêu đề</th>
+                            <th>Chuẩn bị</th>
+                            <th>TG nấu</th>
+                            <th>Trạng thái</th>
+                            <th>Top Hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Tên món ăn</th>
+                            <th>Thể loại</th>
+                            <th>Tiêu đề</th>
+                            <th>Chuẩn bị</th>
+                            <th>TG nấu</th>
+                            <th>Trạng thái</th>
+                            <th>Top Hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (Mix_MTA2.Models.CongThuc it in ViewBag.DS)
+                        {
+                        <tr id="row_@it.ID_congthuc">
+                            <th>@it.ID_congthuc</th>
+                            <th style="width:100px">@it.TenCongThuc</th>
+                            <th>@it.LoaiCongThuc.TenLoaiCT</th>
+                            <th style="text-align:left">@it.TieuDe</th>
+                            <th>@it.ThoiGianCB phút</th>
+                            <th>@it.ThoiGianNau phút</th>
+                            <th>
+                                @if (it.TrangThai == true)
+                                {
+                                    <form method="post" action="Status" id="status_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                            <label class="toggle-btn-true" for="toggle_@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+
+                                }
+                                else
+                                {
+                                    <form method="post" action="Status" id="status_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                            <label class="toggle-btn" for="toggle__@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+                                }
+
+                            </th>
+                            <th>
+                                @if (it.TopHot == true)
+                                {
+                                    <form method="post" action="Tophot" id="tophot_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="tophot" />
+                                            <label class="toggle-btn-true" for="toggle_@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+
+                                }
+                                else
+                                {
+                                    <form method="post" action="Tophot" id="tophot_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="tophot" />
+                                            <label class="toggle-btn" for="toggle__@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+                                }
+                            </th>
+                            <th class="center"><a style="color:#fff" href="Recipe_detail/@it.ID_congthuc"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                            <th>
+                                <a data-ajax="true" data-ajax-complete="$('#row_'+@it.ID_congthuc+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Recipe/Delete_recipe/@it.ID_congthuc" style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                            </th>
+                            <th class="center"><a style="color:#fff" href="Recipe_edit/@it.ID_congthuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+<script type="text/javascript">
+    function status(id) {
+        var form_id = "status_" + id.toString();
+        document.getElementById(form_id).submit();
+    }
+    function tophot(id) {
+        var form_id = "tophot_" + id.toString();
+        document.getElementById(form_id).submit();
+    }
+</script>

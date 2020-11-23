@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewBag.Title = "Recipe_add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<link href="~/Content/Admin/css/UploadImg.css" rel="stylesheet" />
+<script src="~/Content/Admin/js/UploadImg.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Thêm công thức mới
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="Recipe_add" method="POST" id="Recipe_add">
+                    <input name="ID_congthuc" style="width:0.1px;height:0.1px;border-width:0" />
+                    <div class="form-group">
+                        <label>Tên công thức</label>
+                        <input type="text" class="form-control" name="TenCongThuc" placeholder="Nhập tên công thức" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Loại công thức</label>
+                        <input list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" />
+                        <datalist id="DanhSach">
+                            @foreach (Mix_MTA2.Models.LoaiCongThuc it in ViewBag.DS)
+                            {
+                                <option value="@it.TenLoaiCT"></option>
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh minh họa</label>
+                        <div class="file-upload">
+                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                            </div>
+                            <div class="file-upload-content">
+                                <img style="width:552px" class="file-upload-image" src="" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Bỏ chọn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <textarea rows="2" class="form-control" name="TieuDe" placeholder="Nhập tiêu đề"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <a href="javascript:void(0)" id="add" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm nguyên liệu</a>
+                        <div id="answer">
+                            <div class="item">
+                                <label>
+                                    <span>Nguyên liệu 1:</span><br />
+                                    <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" />
+                                    <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" />
+                                </label>
+                                <a href="javascript:void(0)" class="del">Xóa</a>
+                            </div>
+                            <div class="item">
+                                <label>
+                                    <span>Nguyên liệu 2:</span><br />
+                                    <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" />
+                                    <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" />
+                                </label>
+                                <a href="javascript:void(0)" class="del">Xóa</a>
+                            </div>
+                            <div class="item">
+                                <label>
+                                    <span>Nguyên liệu 3:</span><br />
+                                    <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" />
+                                    <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" />
+                                </label>
+                                <a href="javascript:void(0)" class="del">Xóa</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a href="javascript:void(0)" id="add1" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm bước</a>
+                        <br />
+                        <div id="answer1">
+                            <div class="item1">
+                                <label>
+                                    <span>Bước 1:</span><br />
+                                    <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức"></textarea>
+                                </label>
+                                <a href="javascript:void(0)" class="del1">Xóa</a>
+
+
+                            </div>
+                            <div class="item1">
+                                <label>
+                                    <span>Bước 2:</span><br />
+                                    <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức"></textarea>
+                                </label>
+                                <a href="javascript:void(0)" class="del1">Xóa</a>
+
+
+                            </div>
+                            <div class="item1">
+                                <label>
+                                    <span>Bước 3:</span><br />
+                                    <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức"></textarea>
+                                </label>
+                                <a href="javascript:void(0)" class="del1">Xóa</a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label>Thời gian chuẩn bị(phút)</label>
+                        <input type="text" class="form-control" name="ThoiGianCB" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian nấu(phút)</label>
+                        <input type="text" class="form-control" name="ThoiGianNau" />
+                    </div>
+                    <div class="form-group">
+                        <label>Độ khó</label>
+                        <input list="DoKho" autocomplete="off" class="form-control" name="DoKho" placeholder="Độ khó từ 1 đến 5" />
+                        <datalist id="DoKho">
+                            <option value="1"></option>
+                            <option value="2"></option>
+                            <option value="3"></option>
+                            <option value="4"></option>
+                            <option value="5"></option>
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Top hot:</label>
+                        <br />
+
+                        <label class="radio-inline">
+                            <input name="TopHot" checked="checked" value="true" type="radio"> Có
+                        </label>
+                        <label class="radio-inline">
+                            <input name="TopHot" value="false" type="radio" style="margin-left:30px"> Không
+                        </label>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái:</label>
+                        <br />
+
+                        <label class="radio-inline">
+                            <input name="TrangThai" checked="checked" value="true" type="radio"> Online
+                        </label>
+                        <label class="radio-inline">
+                            <input name="TrangThai" value="false" type="radio" style="margin-left:30px"> Offline
+                        </label>
+
+                    </div>
+                    <button type="submit" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Lưu</button>
+                    <a href="Recipe" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Nhập lại</a>
+                </form>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<!-- recipe_add Modal-->
+@*<div class="modal fade" id="recipe_addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Công thức đã được thêm. Tiếp tục thêm?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Chọn "Tiếp tục" để tiếp tục thêm công thức mới.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Tiếp tục</button>
+                    <a class="btn btn-primary" href="Recipe">Rời</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<script>
+    $(document).ready(function () {
+
+        // hàm đếm số lượng text field đang có trên màn hình
+        function countItem() {
+            var items = $("#answer").children().length;
+            return items;
+        }
+
+
+        // thêm text field, giới hạn chỉ có tối đa 10 cái
+        $("#add").click(function () {
+            var n = countItem();
+            if (n == 20) {
+                alert("Number of answers isn't greater than 10");
+            } else {
+                n++;
+                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /><input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
+            }
+        });
+
+        // xoá text filed khi click vào nút del ở dòng tương ứng
+        $(document).on("click", "a.del", function () {
+            var n = countItem();
+            if (n == 2) {
+                alert("Number of answers isn't less than 2");
+            } else {
+                var check = $(this).siblings().find("input").val();
+                // cách viết khác
+                // var check = $(this).parent().find("label input").val();
+
+                $(this).parent().remove();
+                for (i = 0; i < n - 1; i++) {
+                    $("#answer .item:eq(" + i + ") label span").html("Nguyên liệu " + (parseInt(i) + 1) + ":");
+
+                }
+            }
+        });
+        function countItem1() {
+            var items = $("#answer1").children().length;
+            return items;
+        }
+
+
+        // thêm text field, giới hạn chỉ có tối đa 10 cái
+        $("#add1").click(function () {
+            var n = countItem1();
+            if (n == 20) {
+                alert("Number of answers isn't greater than 10");
+            } else {
+                n++;
+                $("#answer1").append("<div class='item1'><label><span>Bước " + n + ":</span><br/><textarea rows='3' class='NoiDung' name='NoiDung[]' placeholder='Nhập nội dung công thức'></textarea></label><a href='javascript:void(0)' class='del1'>Xóa</a></div>");
+            }
+        });
+
+        // xoá text filed khi click vào nút del ở dòng tương ứng
+        $(document).on("click", "a.del1", function () {
+            var n = countItem1();
+            if (n == 2) {
+                alert("Number of answers isn't less than 2");
+            } else {
+                var check = $(this).siblings().find("input").val();
+                // cách viết khác
+                // var check = $(this).parent().find("label input").val();
+
+                $(this).parent().remove();
+                for (i = 0; i < n - 1; i++) {
+                    $("#answer1 .item1:eq(" + i + ") label span").html("Bước " + (parseInt(i) + 1) + ":");
+
+                }
+            }
+        });
+    });
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+</script>

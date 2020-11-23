@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+@using Mix_MTA2.Models
+@model PhanHoi
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Phản hồi từ @Model.ThanhVien.HoTen
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" readonly value="@Model.ThanhVien.Email" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <input class="form-control" readonly value="@Model.TieuDe" />
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <textarea rows="5" class="form-control" readonly>@Model.NoiDung</textarea>
+                    </div>
+                </form>
+                <div id="answer" style="display:none">
+                    <hr />
+                    <form method="post" action="reply">
+                        <input name="Maphanhoi" value="@Model.MaPhanHoi" type="hidden" />
+                        <div class="form-group">
+                            <label>Tiêu đề</label>
+                            <input id="title" class="form-control" name="Tieude" type="text" placeholder="Nhập tiêu đề" />
+                        </div>
+                        <div class="form-group">
+                            <label>Nội dung</label>
+                            <textarea rows="5" class="form-control" name="Noidung" placeholder="Nhập nội dung"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                        <a style = "background-color:darkred; color: rgba(255,255,255,.8)" class = "btn btn-default" onclick="cancel()">Hủy</a>
+                    </form>
+                </div>
+                <div id="btn">
+                    @Ajax.ActionLink("Xóa", "Delete", "Feedback", new { id = Model.MaPhanHoi }, new AjaxOptions
+                           {
+                               Confirm = "Bạn có chắc muốn xóa",
+                               HttpMethod = "Delete",
+
+                           }, new { @style = "background-color:darkred; color: rgba(255,255,255,.8)", @class = "btn btn-default" })
+                    <a class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)" onclick="answer()">Trả lời</a>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<script type="text/javascript">
+    function cancel() {
+        document.getElementById("answer").style.display = 'none';
+        document.getElementById("btn").style.display = 'block';
+    }
+    function answer() {
+        document.getElementById("answer").style.display = 'block';
+        document.getElementById("btn").style.display = 'none';
+        document.getElementById("title").focus();
+    }
+</script>

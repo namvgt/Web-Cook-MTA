@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "Blog_edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+@using Mix_MTA2.Models
+@model Blog
+<link href="~/Content/Admin/css/UploadImg.css" rel="stylesheet" />
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Thay đổi Blog
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="Recipe_edit" method="POST">
+                    <input name="MaBlog" value="@Model.MaBlog" type="hidden" />
+                    <div class="form-group">
+                        <label>Tên công thức</label>
+                        <textarea rows="2" class="form-control" name="Tenblog" placeholder="Nhập tên blog">@Model.TenBlog</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh minh họa</label>
+                        <div class="file-upload">
+                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <img style="width:552px" src="~/Content/Admin/img/blog-img/@Model.AnhMinhHoa" />
+                            </div>
+                            <div class="file-upload-content">
+                                <img style="width:552px" class="file-upload-image" src="" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Bỏ chọn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <textarea rows="3" class="form-control" name="TieuDe" placeholder="Nhập tiêu đề cho blog">@Model.TieuDe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <br />
+                        <div id="answer1">
+                            @{var i = 1; }
+                            @foreach (Mix_MTA2.Models.NoiDung_Blog nd in Model.NoiDung_Blog)
+                            {
+                                <div class="item1">
+                                    <label>
+                                        <span>@i .</span><br />
+                                        <input type="hidden" value="@nd.ID" name="maND[]" />
+                                        <textarea rows="2" class="NoiDung" style="width:604px" name="_TieuDe[]" placeholder="Nhập tiêu đề">@nd.TieuDe</textarea>
+                                        <textarea rows="5" class="NoiDung" style="width:604px" name="NoiDung[]" placeholder="Nhập nội dung">@nd.NoiDung</textarea>
+                                        <span>Ảnh minh họa</span><br />
+                                        <input type="file" name="_AnhMinhHoa[]" value="@nd.AnhMinhHoa"/>
+                                        <br />
+                                        @Ajax.ActionLink("Xóa", "Delete_ND_blog", new { id = nd.ID }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có chắc muốn xóa?",
+                                   OnComplete = "$(this).parent().remove()",
+                                   HttpMethod = "Delete"
+                               }, new { @style = "background-color:#4e73df; color: rgba(255,255,255,.8)", @class = "btn btn-default" })
+                                    </label>
+                                    @*<a href="javascript:void(0)" class="del1">Xóa</a>*@
+
+                                </div>
+                                i++;
+                            }
+                        </div>
+                        <a href="javascript:void(0)" id="add1" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm nội dung mới</a>
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái:</label>
+                        <br />
+                        @if (Model.TrangThai == true)
+                        {
+                            <label class="radio-inline">
+                                <input name="TrangThai" checked="checked" value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="false" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="false" checked="checked" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Top hot:</label>
+                        <br />
+                        @if (Model.TopHot == true)
+                        {
+                            <label class="radio-inline">
+                                <input name="Tophot" checked="checked" value="true" type="radio"> có
+                            </label>
+                            <label class="radio-inline">
+                                <input name="Tophot" value="false" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input name="Tophot" value="true" type="radio"> Có
+                            </label>
+                            <label class="radio-inline">
+                                <input name="Tophot" value="false" checked="checked" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Lưu</button>
+                    <a class="btn btn-default" style="background-color:darkred; color: rgba(255,255,255,.8)" href="../Blog_list">Hủy</a>
+                </form>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    $(document).ready(function () {
+
+        function countItem1() {
+            var items = $("#answer1").children().length;
+            return items;
+        }
+
+        // thêm text field, giới hạn chỉ có tối đa 10 cái
+        $("#add1").click(function () {
+            var n = countItem1();
+            if (n == 20) {
+                alert("Number of answers isn't greater than 10");
+            } else {
+                n++;
+                $("#answer1").append("<div class='item1'><label><span>" + n + ".</span><br/><input type='hidden' name='maND[]' value='0'/><textarea rows='2' class='NoiDung' style='width:604px' name='_TieuDe[]' placeholder='Nhập tiêu đề'></textarea><textarea rows='5' class='NoiDung' style='width:604px' name='NoiDung[]' placeholder='Nhập nội dung'></textarea><input type='file' name='_AnhMinhHoa[]'/><br/><a href='javascript:void(0)' class='del1 btn btn-default' style = 'background-color:#4e73df; color: rgba(255,255,255,.8)'>Xóa</a></label></div>");
+            }
+        });
+
+        // xoá text filed khi click vào nút del ở dòng tương ứng
+        $(document).on("click", "a.del1", function () {
+            var n = countItem1();
+            if (n == 2) {
+                alert("Number of answers isn't less than 2");
+            } else {
+                var check = $(this).siblings().find("input").val();
+                // cách viết khác
+                // var check = $(this).parent().find("label input").val();
+
+                $(this).parent().remove();
+                for (i = 0; i < n - 1; i++) {
+                    $("#answer1 .item1:eq(" + i + ") label span").html("" + (parseInt(i) + 1) + ".");
+
+                }
+            }
+        });
+    });
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+</script>

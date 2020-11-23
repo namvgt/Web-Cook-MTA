@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Mix_MTA2.Models.CongThuc>
+<!-- Begin Page Content -->
+<!-- Custom styles for this template-->
+<link href="~/Content/Admin/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="~/Content/Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <p class="mb-4">Hiển thị toàn bộ công thức cho danh mục</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Công thức làm bánh</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Tên món ăn</th>
+                            <th>Thể loại</th>
+                            <th>Tiêu đề</th>
+                            <th>Chuẩn bị</th>
+                            <th>TG nấu</th>
+                            <th>Trạng thái</th>
+                            <th>Top Hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Tên món ăn</th>
+                            <th>Thể loại</th>
+                            <th>Tiêu đề</th>
+                            <th>Chuẩn bị</th>
+                            <th>TG nấu</th>
+                            <th>Trạng thái</th>
+                            <th>Top Hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (Mix_MTA2.Models.CongThuc it in ViewBag.DS)
+                        {
+                        <tr id="row_@it.ID_congthuc">
+                            <th>@it.ID_congthuc</th>
+                            <th style="width:100px">@it.TenCongThuc</th>
+                            <th>@it.LoaiCongThuc.TenLoaiCT</th>
+                            <th style="text-align:left">@it.TieuDe</th>
+                            <th>@it.ThoiGianCB phút</th>
+                            <th>@it.ThoiGianNau phút</th>
+                            <th>
+                                @if (it.TrangThai == true)
+                                {
+                                    <form method="post" action="Status" id="status_@it.ID_congthuc" >
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                            <label class="toggle-btn-true" for="toggle_@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+
+                                }
+                                else
+                                {
+                                    <form method="post" action="Status" id="status_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                            <label class="toggle-btn" for="toggle__@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+                                }
+
+                            </th>
+                            <th>
+                                @if (it.TopHot == true)
+                                {
+                                    <form method="post" action="Tophot" id="tophot_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="tophot" />
+                                            <label class="toggle-btn-true" for="toggle_@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+
+                                }
+                                else
+                                {
+                                    <form method="post" action="Tophot" id="tophot_@it.ID_congthuc">
+                                        <div class="toggle-button-demo">
+                                            <input type="hidden" name="id" value="@it.ID_congthuc" />
+                                            <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="tophot" />
+                                            <label class="toggle-btn" for="toggle__@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                        </div>
+                                    </form>
+                                }
+                            </th>
+                            <th class="center"><a style="color:#fff" href="../Recipe/Recipe_detail/@it.ID_congthuc"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                            <th>
+                                <a data-ajax="true" data-ajax-complete="$('#row_'+@it.ID_congthuc+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Admin/Delete_recipe/@it.ID_congthuc" style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                            </th>
+                            <th class="center"><a style="color:#fff" href="Recipe_edit/@it.ID_congthuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+<script src="~/Content/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="~/Content/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script>
+    $(document).ready(function () {
+        $('#dataTable_list').DataTable();
+    });
+</script>

@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Blog_list";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Blog</h1>
+    <p class="mb-4">Điều chỉnh các Blog được hiển thị ở các vị trí trên web người dùng</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Công thức làm bánh</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th style="width:5px">ID</th>
+                            <th>Tên Blog</th>
+                            <th>Tiêu đề</th>
+                            <th>Trạng thái</th>
+                            <th>Top hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th style="width:5px">ID</th>
+                            <th>Tên món ăn</th>
+                            <th>Tiêu đề</th>
+                            <th>Trạng thái</th>
+                            <th>Top hot</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{ var i = 1;}
+                        @foreach (Mix_MTA2.Models.Blog it in ViewBag.DS)
+                        {
+                            <tr id="row_@it.MaBlog">
+                                <th style="width:5px">@i</th>
+                                <th style="max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">@it.TenBlog</th>
+                                <th style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:325px">@it.TieuDe</th>
+                                <th>
+                                    @if (it.TrangThai == true)
+                                    {
+                                        <form method="post" action="Status" id="status_@it.MaBlog">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaBlog"/>
+                                                <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="Trangthai" />
+                                                <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                            </div>
+                                        </form>
+
+                                    }
+                                    else
+                                    {
+                                        <form method="post" action="Status" id="status_@it.MaBlog">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaBlog" />
+                                                <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="Trangthai" />
+                                                <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                            </div>
+                                        </form>
+                                    }
+
+                                </th>
+                                <th>
+                                    @if (it.TopHot == true)
+                                    {
+                                        <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaBlog" />
+                                                <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="tophot" />
+                                                <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                            </div>
+                                        </form>
+
+                                    }
+                                    else
+                                    {
+                                        <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaBlog" />
+                                                <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="tophot" />
+                                                <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                            </div>
+                                        </form>
+                                    }
+                                </th>
+                                <th class="center" style="width:25px"><a style="color:#fff" href="Blog_detail/@it.MaBlog"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                                <th class="delete" style="width:25px;">
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Blog/Delete_blog/@it.MaBlog" style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
+                                <th class="center" style="width:25px;"><a style="color:#fff;" href="Blog_edit/@it.MaBlog"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+<script type="text/javascript">
+    function status(id)
+    {
+        var form_id = "status_" + id.toString();
+        document.getElementById(form_id).submit();
+    }
+    function tophot(id) {
+        var form_id = "tophot_" + id.toString();
+        document.getElementById(form_id).submit();
+    }
+</script>

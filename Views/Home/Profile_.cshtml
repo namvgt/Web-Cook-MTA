@@ -1,0 +1,421 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Mix_MTA2.Models.ThanhVien
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+
+
+<style>
+    body {
+        background: #F1F3FA;
+    }
+
+
+    .profile {
+        margin: 20px 0;
+    }
+
+    .profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #fff;
+    }
+
+
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    .profile-usermenu {
+        margin-top: 5px;
+    }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+
+            .profile-usermenu ul li:last-child {
+                border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+                color: #93a3b5;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+
+                .profile-usermenu ul li a i {
+                    margin-right: 8px;
+                    font-size: 14px;
+                }
+
+                .profile-usermenu ul li a:hover {
+                    background-color: #fafcfd;
+                    color: #5b9bd1;
+                }
+
+
+            .profile-usermenu ul li.active {
+                border-bottom: none;
+            }
+
+
+                .profile-usermenu ul li.active a {
+                    color: #5b9bd1;
+                    background-color: #f6f9fb;
+                    border-left: 2px solid #5b9bd1;
+                    margin-left: -2px;
+                }
+
+
+    .profile-content {
+        background: #fff;
+        min-height: 460px;
+    }
+
+    /*Thong tin chi tiet*/
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .preview {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    media screen and (max-width: 996px) {
+        .preview
+
+    {
+        margin-bottom: 20px;
+    }
+
+    }
+
+    .preview-pic {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+
+    .preview-thumbnail.nav-tabs {
+        border: none;
+        margin-top: 15px;
+    }
+
+        .preview-thumbnail.nav-tabs li {
+            width: 18%;
+            margin-right: 2.5%;
+        }
+
+            .preview-thumbnail.nav-tabs li img {
+                max-width: 100%;
+                display: block;
+            }
+
+            .preview-thumbnail.nav-tabs li a {
+                padding: 0;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            .preview-thumbnail.nav-tabs li:last-of-type {
+                margin-right: 0;
+            }
+
+    .tab-content {
+        overflow: hidden;
+    }
+
+        .tab-content img {
+            width: 100%;
+            -webkit-animation-name: opacity;
+            animation-name: opacity;
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+        }
+
+    .card {
+        margin-top: 0px;
+        background: #eee;
+        padding: 3em;
+        line-height: 1.5em;
+    }
+
+    media screen and (min-width: 997px) {
+        .wrapper
+
+    {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    }
+
+    .details {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .colors {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+
+    .product-title, .price, .sizes, .colors {
+        text-transform: UPPERCASE;
+        font-weight: bold;
+    }
+
+        .checked, .price span {
+            color: #ff9f1a;
+        }
+
+    .product-title, .rating, .product-description, .price, .vote, .sizes {
+        margin-bottom: 15px;
+    }
+
+    .product-title {
+        margin-top: 0;
+    }
+
+    .size {
+        margin-right: 10px;
+    }
+
+        .size:first-of-type {
+            margin-left: 40px;
+        }
+
+    .color {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        height: 2em;
+        width: 2em;
+        border-radius: 2px;
+    }
+
+        .color:first-of-type {
+            margin-left: 20px;
+        }
+
+    .add-to-cart, .like {
+        background: #ff9f1a;
+        padding: 1.2em 1.5em;
+        border: none;
+        text-transform: UPPERCASE;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+        -webkit-transition: background .3s ease;
+        transition: background .3s ease;
+    }
+
+        .add-to-cart:hover, .like:hover {
+            background: #b36800;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    .not-available {
+        text-align: center;
+        line-height: 2em;
+    }
+
+        .not-available:before {
+            font-family: fontawesome;
+            content: "\f00d";
+            color: #fff;
+        }
+
+
+    .tooltip-inner {
+        padding: 1.3em;
+    }
+
+    -webkit-keyframes opacity {
+        0%
+
+    {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform: scale(3);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    }
+
+    keyframes opacity {
+        0%
+
+    {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform: scale(3);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .container-ok {
+        padding-left: 0px;
+        padding-bottom: 0px;
+    }
+</style>
+<title>Mix-MTA | Tài khoản</title>
+<div class="container">
+    <div class="container">
+        <div class="row profile">
+            <div class="col-md-3">
+                <div class="profile-sidebar">
+                    <div class="profile-userpic">
+                        <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" class="img-responsive" alt="Thông tin cá nhân">
+                    </div>
+                    <div class="profile-usertitle">
+                        @*<div class="profile-usertitle-name">@Model.Username</div>*@
+                        <div class="profile-usertitle-job">@Model.HoTen</div>
+                    </div>
+                    <div class="profile-userbuttons">
+                        <a class="btn btn-success btn-sm" href="Index">Trang chủ</a>
+                        <a href="Login" class="btn btn-danger btn-sm">Đăng xuất</a>
+                    </div>
+                    <div class="profile-usermenu">
+                        <ul class="nav">
+                            <div class="logo_menuchinh" style="float:left; padding-top:5px; padding-left:10px; color:#fff; margin-left:auto; margin-right:auto; text-align=center; line-height:40px; font-size:16px;font-weight:bold;font-family:Arial">HOCWEBGIARE.COM</div>
+                            @*<li class="active">
+                                    <a href="#"> <i class="glyphicon glyphicon-info-sign"></i>Cập nhật thông tin cá nhân </a>
+                                </li>*@
+                            @*<li>
+                                    <a href="Index"><button type="submit" style="border:hidden; background:none"  > <i class="glyphicon glyphicon-edit"></i>Quản lý tài khoản</button></a>
+                                </li>*@
+                            @*<li>
+                                    <a href="#" target="_blank"><i class="glyphicon glyphicon-shopping-cart"></i> Quản lý đơn hàng </a>
+                                </li>*@
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-envelope"></i>Lịch sử hoạt động</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="profile-content">
+                    @*<img src="~/Content/User/img/bg-img/kitchen.jpg" />*@
+                    <div class="container-ok">
+                        <div class="card">
+                            <div class="container-fliud">
+                                <div class="wrapper row">
+                                    <div class="preview col-md-6">
+                                        <div class="preview-pic tab-content">
+                                            <div class="tab-pane active" id="pic-1">
+                                                <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="details col-md-6">
+                                        <h3 class="product-title">Thông tin chi tiết</h3>
+                                        <h5 class="sizes">Họ tên:  @Model.HoTen</h5>
+                                        <h5 class="sizes">Email:  @Model.Email</h5>
+                                        <h5 class="sizes">Tài khoản:  @Model.Username</h5>
+                                        <h5 class="sizes">Mật khẩu:  @Model.PassWord</h5>
+                                        <h5 class="sizes">Giới tính:  @Model.GioiTinh</h5>
+                                        <h5 class="sizes">Ngày đăng ký:  @Model.NgayDangky</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

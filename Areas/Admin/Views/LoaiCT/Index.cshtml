@@ -1,0 +1,35 @@
+﻿@model Mix_MTA2.Models.LoaiCongThuc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>LoaiCongThuc</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenLoaiCT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLoaiCT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TopHot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TopHot)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLoaiCongThuc }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

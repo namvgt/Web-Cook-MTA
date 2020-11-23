@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "Recipe_edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+@using Mix_MTA2.Models
+@model CongThuc
+<link href="~/Content/Admin/css/UploadImg.css" rel="stylesheet" />
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Thay đổi công thức
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="Recipe_edit" method="POST">
+                    <input name="ID_congthuc" value="@Model.ID_congthuc" type="hidden" />
+                    <div class="form-group">
+                        <label>Tên công thức</label>
+                        <input type="text" class="form-control" name="TenCongThuc" value="@Model.TenCongThuc" />
+                    </div>
+                    <div class="form-group">
+                        <label>Loại công thức</label>
+                        <input list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" value="@Model.LoaiCongThuc.TenLoaiCT" />
+                        <datalist id="DanhSach">
+                            @foreach (var it in ViewBag.DS)
+                            {
+                                <option value="@it.TenLoaiCT"></option>
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh minh họa</label>
+                        <div class="file-upload">
+                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <img style="width:552px" src="~/Content/Admin/img/blog-img/@Model.AnhMinhHoa" />
+                            </div>
+                            <div class="file-upload-content">
+                                <img style="width:552px" class="file-upload-image" src="" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Bỏ chọn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <textarea rows="3" class="form-control" name="TieuDe">@Model.TieuDe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Các nguyên liệu cần thiết</label>
+                        <div id="answer">
+                            @{ var i = 1;}
+                            @foreach (Mix_MTA2.Models.NguyenLieu nl in Model.NguyenLieux)
+                            {
+                                <div class="item">
+                                    <label>
+                                        <span>Nguyên liệu @i:</span><br />
+                                        <input type="hidden" name="maNL[]" value="@nl.MaNguyenLieu" />
+                                        <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" value="@nl.TenNguyenLieu" />
+                                        <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" value="@nl.SoLuong" />
+                                    </label>
+                                    @*<a href="javascript:void(0)" class="del">Xóa</a>*@
+                                    @Ajax.ActionLink("Xóa", "Delete_nguyenlieu", new { id = nl.MaNguyenLieu }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có chắc muốn xóa?",
+                                   OnComplete = "$(this).parent().remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                </div>
+                                i++;
+                            }
+                        </div>
+                        <a href="javascript:void(0)" id="add" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm nguyên liệu</a>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Các bước cần thiết</label>
+                        <br />
+                        <div id="answer1">
+                            @{i = 1; }
+                            @foreach (Mix_MTA2.Models.NoiDungCT nd in Model.NoiDungCTs)
+                            {
+                                <div class="item1">
+                                    <label>
+                                        <span>Bước @i:</span><br />
+                                        <input type="hidden" value="@nd.MaNoiDungCT" name="maND[]" />
+                                        <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức">@nd.NoiDung</textarea>
+                                    </label>
+                                    @*<a href="javascript:void(0)" class="del1">Xóa</a>*@
+                                    @Ajax.ActionLink("Xóa", "Delete_ND", new { id = nd.MaNoiDungCT }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có chắc muốn xóa?",
+                                   OnComplete = "$(this).parent().remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                </div>
+                                i++;
+                            }
+                        </div>
+                        <a href="javascript:void(0)" id="add1" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm bước</a>
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian chuẩn bị(phút)</label>
+                        <input type="text" class="form-control" name="ThoiGianCB" value="@Model.ThoiGianCB" />
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian nấu(phút)</label>
+                        <input type="text" class="form-control" name="ThoiGianNau" value="@Model.ThoiGianNau" />
+                    </div>
+                    <div class="form-group">
+                        <label>Độ khó</label>
+                        <input type="text" class="form-control" name="DoKho" value="@Model.DoKho" />
+                    </div>
+                    <div class="form-group">
+                        <label>Top hot:</label>
+                        <br />
+                        @if (Model.TopHot == true)
+                        {
+                            <label class="radio-inline">
+                                <input name="TopHot" checked="checked" value="true" type="radio"> Có
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TopHot" value="false" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input name="TopHot" value="true" type="radio"> Có
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TopHot" value="false" checked="checked" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái:</label>
+                        <br />
+                        @if (Model.TrangThai == true)
+                        {
+                            <label class="radio-inline">
+                                <input name="TrangThai" checked="checked" value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="false" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input name="TrangThai" value="false" checked="checked" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Lưu</button>
+                    <a  class="btn btn-default" style="background-color:darkred; color: rgba(255,255,255,.8)" href="../Recipe">Hủy</a>
+                </form>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    $(document).ready(function () {
+
+        // hàm đếm số lượng text field đang có trên màn hình
+        function countItem() {
+            var items = $("#answer").children().length;
+            return items;
+        }
+
+
+        // thêm text field, giới hạn chỉ có tối đa 10 cái
+        $("#add").click(function () {
+            var n = countItem();
+            if (n == 20) {
+                alert("Number of answers isn't greater than 10");
+            } else {
+                n++;
+                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='hidden' name='maNL[]' value='0'/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /><input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
+            }
+        });
+
+        // xoá text filed khi click vào nút del ở dòng tương ứng
+        $(document).on("click", "a.del", function () {
+            var n = countItem();
+            if (n == 2) {
+                alert("Number of answers isn't less than 2");
+            } else {
+                var check = $(this).siblings().find("input").val();
+                // cách viết khác
+                // var check = $(this).parent().find("label input").val();
+
+                $(this).parent().remove();
+                for (i = 0; i < n - 1; i++) {
+                    $("#answer .item:eq(" + i + ") label span").html("Nguyên liệu " + (parseInt(i) + 1) + ":");
+
+                }
+            }
+        });
+        function countItem1() {
+            var items = $("#answer1").children().length;
+            return items;
+        }
+
+
+        // thêm text field, giới hạn chỉ có tối đa 10 cái
+        $("#add1").click(function () {
+            var n = countItem1();
+            if (n == 20) {
+                alert("Number of answers isn't greater than 10");
+            } else {
+                n++;
+                $("#answer1").append("<div class='item1'><label><span>Bước " + n + ":</span><br/><input type='hidden' name='maND[]' value='0'/><textarea rows='3' class='NoiDung' name='NoiDung[]' placeholder='Nhập nội dung công thức'></textarea></label><a href='javascript:void(0)' class='del1'>Xóa</a></div>");
+            }
+        });
+
+        // xoá text filed khi click vào nút del ở dòng tương ứng
+        $(document).on("click", "a.del1", function () {
+            var n = countItem1();
+            if (n == 2) {
+                alert("Number of answers isn't less than 2");
+            } else {
+                var check = $(this).siblings().find("input").val();
+                // cách viết khác
+                // var check = $(this).parent().find("label input").val();
+
+                $(this).parent().remove();
+                for (i = 0; i < n - 1; i++) {
+                    $("#answer1 .item1:eq(" + i + ") label span").html("Bước " + (parseInt(i) + 1) + ":");
+
+                }
+            }
+        });
+    });
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+</script>

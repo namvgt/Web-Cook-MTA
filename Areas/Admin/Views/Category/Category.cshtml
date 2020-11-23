@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Danh mục</h1>
+    <p class="mb-4">Danh sách toàn bộ các loại công thức</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Loại công thức</th>
+                            <th>Số lượng công thức</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th style="width:100px">Loại công thức</th>
+                            <th>Số lượng công thức</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (Mix_MTA2.Models.LoaiCongThuc it in ViewBag.DS)
+                        {
+                            <tr id="row_@it.MaLoaiCongThuc">
+                                <th>@it.MaLoaiCongThuc</th>
+                                <th style="width:300px">@it.TenLoaiCT</th>
+                                <th>@it.CongThucs.Count()</th>
+                                <th class="center" style="width:70px">
+                                    <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#table" href="/Admin/Category/Category_detail/@it.MaLoaiCongThuc" style="color:#fff"><img src="~/Content/Admin/img/detail.png" /></a>
+                                </th>
+                                <th class="delete" style="width:70px">
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaLoaiCongThuc+'').remove()" data-ajax-confirm="Thao tác này sẽ xóa toàn bộ công thức trong danh mục này.Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Admin/Delete_category/@it.MaLoaiCongThuc" style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                                </th>
+                                <th class="center fix" style="width:70px"><a style="color:#fff" href="#" data-toggle="modal" data-target="#fix_modal_@it.MaLoaiCongThuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                            </tr>
+                            <div class="modal fade" id="fix_modal_@it.MaLoaiCongThuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin danh mục</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="Category_update" id="form_@it.MaLoaiCongThuc">
+                                                <div class="form-group">
+                                                    <label>Nhập lại tên danh mục</label>
+                                                    <input type="hidden" value="@it.MaLoaiCongThuc" name="id" />
+                                                    <input type="text" class="form-control" name="TenloaiCT" value="@it.TenLoaiCT"/>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" form="form_@it.MaLoaiCongThuc" class="btn btn-primary">Lưu</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="table"></div>
+<!-- /.container-fluid -->
+
+

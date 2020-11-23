@@ -1,0 +1,142 @@
+﻿@model Mix_MTA2.Models.CongThuc
+
+@{
+    ViewBag.Title = "Recipe_detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Chi tiết công thức
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="">
+                    <input name="ID_congthuc" value="@Model.ID_congthuc" type="hidden" />
+                    <div class="form-group">
+                        <label>Tên công thức</label>
+                        <input type="text" class="form-control" value="@Model.TenCongThuc" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Loại công thức</label>
+                        <input autocomplete="off" class="form-control" readonly value="@Model.LoaiCongThuc.TenLoaiCT" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh minh họa</label>
+                        <br />
+                        <img src="~/Content/Admin/img/bg-img/@Model.AnhMinhHoa" width="600"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <textarea rows="3" class="form-control" readonly>@Model.TieuDe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Các nguyên liệu cần thiết</label>
+                        <div id="answer">
+                            @{ var i = 1;}
+                            @foreach (Mix_MTA2.Models.NguyenLieu nl in Model.NguyenLieux)
+                            {
+                                <div class="item">
+                                    <label>
+                                        <span>Nguyên liệu @i:</span><br />
+                                        <input type="text" readonly class="NguyenLieu" value="@nl.TenNguyenLieu" />
+                                        <input type="text" readonly class="NguyenLieu" value="@nl.SoLuong" />
+                                    </label>
+                                </div>
+                                i++;
+                            }
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Các bước cần thiết</label>
+                        <br />
+                            @{i = 1; }
+                            @foreach (Mix_MTA2.Models.NoiDungCT nd in Model.NoiDungCTs)
+                            {
+                                        <label>Bước @i:</label><br />
+                                        <textarea rows="4" class="form-control" style="width:100%" readonly>@nd.NoiDung</textarea>
+
+                                i++;
+                            }
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian chuẩn bị(phút)</label>
+                        <input type="text" class="form-control" readonly value="@Model.ThoiGianCB" />
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian nấu(phút)</label>
+                        <input type="text" class="form-control" readonly value="@Model.ThoiGianNau" />
+                    </div>
+                    <div class="form-group">
+                        <label>Độ khó</label>
+                        <input type="text" class="form-control" readonly value="@Model.DoKho" />
+                    </div>
+                    <div class="form-group">
+                        <label>Top hot:</label>
+                        <br />
+                        @if (Model.TopHot == true)
+                        {
+                            <label class="radio-inline">
+                                <input readonly checked="checked" value="true" type="radio"> Có
+                            </label>
+                            <label class="radio-inline">
+                                <input readonly value="false" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input readonly value="true" type="radio"> Có
+                            </label>
+                            <label class="radio-inline">
+                                <input readonly value="false" checked="checked" type="radio" style="margin-left:30px"> Không
+                            </label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái:</label>
+                        <br />
+                        @if (Model.TrangThai == true)
+                        {
+                            <label class="radio-inline">
+                                <input readonly checked="checked" value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input readonly value="false" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="radio-inline">
+                                <input readonly value="true" type="radio"> Online
+                            </label>
+                            <label class="radio-inline">
+                                <input readonly value="false" checked="checked" type="radio" style="margin-left:30px"> Offline
+                            </label>
+                        }
+                    </div>
+
+                </form>
+                <a href="../Recipe_edit/@Model.ID_congthuc" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Sửa</a>
+                @Ajax.ActionLink("Xóa", "Delete_recipe", "Recipe", new { @ID_CongThuc = Model.ID_congthuc }, new AjaxOptions
+                           {
+                               Confirm = "Bạn có chắc muốn xóa",
+                               HttpMethod = "Delete",
+
+                           }, new { @style = "background-color:darkred; color: rgba(255,255,255,.8)",@class="btn btn-default" })
+                <a href="../Recipe" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Quay lại</a>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+

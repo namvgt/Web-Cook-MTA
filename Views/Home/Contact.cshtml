@@ -1,0 +1,178 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Mix_MTA2.Models.ThanhVien tv = null;
+    if (Session["ThanhVien"] == null)
+    {
+        tv = null;
+    }
+    if (Session["ThanhVien"] != null)
+    {
+        tv = Session["ThanhVien"] as Mix_MTA2.Models.ThanhVien;
+    }
+}
+<title>Mix-MTA | Liên hệ</title>
+<!-- Search Wrapper -->
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="Index">Trang chủ</a></li>
+                                <li><a href="About">Giới thiệu</a></li>
+                                <li><a href="Receipt">Công thức</a></li>
+                                <li><a href="Blog">Blog</a></li>
+                                <li class="active"><a href="Contact">Liên hệ</a></li>
+                                @*<li><a href="Login">Đăng nhập</a></li>*@
+                            </ul>
+
+                            <!-- Newsletter Form -->
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb4.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-text text-center">
+                    <h2></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Contact Information Area Start ##### -->
+<div class="contact-information-area section-padding-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="logo mb-80">
+                    <img src="~/Content/User/img/core-img/your-logo.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Contact Text -->
+            <div class="col-12 col-lg-5">
+                <div class="contact-text">
+                    <p>Mọi vấn đề liên quan đến sao chép, đăng tải, sử dụng lại một phần hoặc toàn bộ nội dung bài viết/ ảnh, và trao đổi hợp tác mời các bạn liên hệ theo địa chỉ email <u>bogia28101999@gmail.com</u>.</p>
+                    <p>Các câu liên quan tới công thức, cách nấu, kiến thức, kĩ thuật nấu ăn, làm bánh...vui lòng đặt trực tiếp tại mục <a href="Receipt"><u>công thức</u></a> hoặc hỏi đáp tại <a href="Blog"><u>blog</u></a>, không gửi tới địa chỉ mail trên đây.</p>
+                    <p>Cảm ơn các bạn rất nhiều.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-3">
+                <!-- Single Contact Information -->
+                <div class="single-contact-information mb-30">
+                    <h6>Địa chỉ:</h6>
+                    <p>236 Hoàng Quốc Việt - Bắc Từ Liêm - Hà Nội</p>
+                </div>
+                <!-- Single Contact Information -->
+                <div class="single-contact-information mb-30">
+                    <h6>Số điện thoại:</h6>
+                    <p>+84 984 324 674 <br>+84 253 876 987</p>
+                </div>
+                <!-- Single Contact Information -->
+                <div class="single-contact-information mb-30">
+                    <h6>Email:</h6>
+                    <p>bogia28101999@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Newsletter Area -->
+            <div class="col-12 col-lg-4">
+                <div class="newsletter-form bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg1.jpg');">
+                    <form action="Dangky" method="post">
+                        @*<input type="email" name="email" placeholder="Email,Gmail,...">
+                            <input type="text" name="username" placeholder="Username...">
+                            <input type="text" name="password" placeholder="Password...">*@
+                        <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                    </form>
+                    <p>Đăng ký và theo dõi chúng tôi để cập nhật những công thức làm bánh hấp dẫn nhất nhé.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Contact Information Area End ##### -->
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Phản hồi của bạn</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="P_hoi_web" method="get">
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-12">
+                                <textarea name="noidung" class="form-control" id="message" cols="30" rows="10" placeholder="Nội dung"></textarea>
+                            </div>
+                            @if (Session["ThanhVien"] != null)
+                            {
+                                <button class="btn delicious-btn mt-30">Đăng</button>
+                            }
+                        </div>
+                    </form>
+
+                    @if (Session["ThanhVien"] == null)
+                    {
+                        <a href="/Home/Login" class="btn delicious-btn mt-30">Đăng</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ##### Contact Form Area End ##### -->
+<div class="row">
+    <div class="col-12">
+        <img class="mb-99" src="~/Content/User/img/bg-img/about.png" alt="">
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Blog_detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+@using Mix_MTA2.Models
+@model Blog
+<link href="~/Content/Admin/css/UploadImg.css" rel="stylesheet" />
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="h3 mb-2 text-gray-800">
+                    Chi tiết Blog
+                </h1>
+                <br />
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-7" style="padding-bottom:120px">
+                <form action="Recipe_edit" method="POST">
+                    <input name="ID_congthuc" value="@Model.MaBlog" type="hidden" />
+                    <div class="form-group">
+                        <label>Tên công thức</label>
+                        <textarea readonly rows="2" class="form-control" name="Tenblog" placeholder="Nhập tiêu đề">@Model.TenBlog</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ảnh minh họa</label>
+                        <img style="width:552px" src="~/Content/Admin/img/blog-img/@Model.AnhMinhHoa" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tiêu đề</label>
+                        <textarea readonly rows="3" class="form-control" name="TieuDe">@Model.TieuDe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Các bước cần thiết</label>
+                        <br />
+                        <div id="answer1">
+                            @{var i = 1; }
+                            @foreach (Mix_MTA2.Models.NoiDung_Blog nd in Model.NoiDung_Blog)
+                            {
+                                <div class="item1">
+                                    <label>
+                                        <span>@i .</span><br />
+                                        <input type="hidden" value="@nd.ID" name="maND[]" />
+                                        <textarea readonly rows="2" class="NoiDung" style="width:604px" name="TieuDe[]" placeholder="Nhập tiêu đề">@nd.TieuDe</textarea>
+                                        <textarea readonly rows="3" class="NoiDung" style="width:604px" name="NoiDung[]" placeholder="Nhập nội dung">@nd.NoiDung</textarea>
+                                        <img src="~/Content/Admin/img/blog-img/@nd.AnhMinhHoa" alt="ERROR" style="width:300px" />
+                                    </label>
+                                </div>
+                                i++;
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        @{ Mix_MTA2.Models.NguoiDung user = ViewBag.UserCre;}
+                        <label>Được thêm bởi: @user.HoTen</label>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày tạo: @Model.NgayTao.Value.Day/@Model.NgayTao.Value.Month/@Model.NgayTao.Value.Year</label>
+                    </div>
+                    @if (Model.MaNguoiChinhSua != null)
+                    {
+                        <div class="form-group">
+                            
+                            @{ Mix_MTA2.Models.NguoiDung userEdit = ViewBag.UserEdit;}    
+                            <label>Chỉnh sửa lần cuối bởi: @userEdit.HoTen</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày chỉnh sửa: @Model.NgayChinhSua.Value.Day/@Model.NgayChinhSua.Value.Month/@Model.NgayChinhSua.Value.Year</label>
+                            
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label>Trạng thái:</label>
+                        @if (Model.TrangThai == true)
+                        {
+                            <label>Online</label>
+                        }
+                        else
+                        {
+                            <label>Offline</label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Top hot:</label>
+                        @if (Model.TopHot == true)
+                        {
+                            <label>Có</label>
+                        }
+                        else
+                        {
+                            <label>Không</label>
+                        }
+                    </div>
+                </form>
+                <a href="../Blog_edit/@Model.MaBlog" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Sửa</a>
+                @Ajax.ActionLink("Xóa", "Delete_blog", "Blog", new { id = Model.MaBlog }, new AjaxOptions
+                           {
+                               Confirm = "Bạn có chắc muốn xóa",
+                               HttpMethod = "Delete",
+                           }, new { @style = "background-color:darkred; color: rgba(255,255,255,.8)", @class = "btn btn-default" })
+                <a href="../Blog_list" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Quay lại</a>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->

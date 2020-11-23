@@ -1,0 +1,351 @@
+﻿@model Mix_MTA2.Models.Blog
+
+@{
+    ViewBag.Title = "ChitietBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Mix_MTA2.Models.ThanhVien tv = null;
+    if (Session["ThanhVien"] == null)
+    {
+        tv = null;
+    }
+    if (Session["ThanhVien"] != null)
+    {
+        tv = Session["ThanhVien"] as Mix_MTA2.Models.ThanhVien;
+    }
+}
+
+<style>
+    .mb-1000 {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+    /*------------review--------*/
+    .recipe-review {
+        width: 100%;
+        float: left;
+    }
+
+        .recipe-review .recipe-review-item {
+            width: 100%;
+            float: left;
+            padding-bottom: 16px;
+        }
+
+    .recipe-review-item .review-owner-avatar {
+        width: 35px;
+        border-radius: 50%;
+        float: left;
+    }
+
+    .recipe-review-item .review-item-info {
+        float: left;
+        width: 85%;
+        padding-left: 8px;
+    }
+
+        .recipe-review-item .review-item-info .review-owner-name {
+            display: block;
+            color: #111;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .recipe-review-item .review-item-info .review-created-day {
+            display: block;
+            color: #acacac;
+            font-size: 12px;
+        }
+
+        .recipe-review-item .review-item-info .review-desc {
+            width: 100%;
+            padding-top: 8px;
+            display: block;
+            font-size: 14px;
+        }
+    /*----------------- button trả lời-----------------*/
+    .recipe-review-item .review-acts {
+        padding: 5px 15px;
+        font-size: 12px;
+    }
+</style>
+
+<title>Mix-MTA | @Model.TenBlog</title>
+<!-- Search Wrapper -->
+<!-- Navbar Area -->
+<div class="delicious-main-menu">
+    <div class="classy-nav-container breakpoint-off">
+        <div class="container">
+            <!-- Menu -->
+            <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                <!-- Logo -->
+                <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+
+                    <!-- close btn -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+                            <li><a href="Index">Trang chủ</a></li>
+                            <li><a href="About">Giới thiệu</a></li>
+                            <li><a href="Receipt">Công thức</a></li>
+                            <li class="active"><a href="Blog">Blog</a></li>
+                            <li><a href="Contact">Liên hệ</a></li>
+                            @*<li><a href="Login">Đăng nhập</a></li>*@
+                        </ul>
+
+                        <!-- Newsletter Form -->
+                        <div class="search-btn">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-text text-center">
+                    @*<h2><b>@Model.TieuDe</b></h2>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="receipe-post-area section-padding-80">
+    <div class="mb-1000"> <img src="~/Content/User/img/blog-img/@Model.AnhMinhHoa"></div>
+    <!-- Receipe Content Area -->
+    <div class="receipe-content-area">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="receipe-headline my-5">
+                        <span>@Model.NgayTao</span>
+                        <h2>@Model.TenBlog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <!-- Single Preparation Step -->
+                @{ var td = 1;}
+                @foreach (Mix_MTA2.Models.NoiDung_Blog it in ViewBag.nd)
+                {
+                    <div class="col-12 col-lg-12">
+                        <h5>@td.  @it.TieuDe</h5>
+                        <p style="word-wrap:break-word">@it.NoiDung</p>
+                        <img style="width:1000px;height:auto;margin-bottom:20px;padding-left:150px;" src="~/Content/User/img/blog-img/1.jpg" />
+
+                    </div>
+                    td++;
+                }
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-left">
+                        <h3>Bình luận</h3>
+                    </div>
+                </div>
+            </div>
+
+            @foreach (Mix_MTA2.Models.Review view in ViewBag.rv_bl)
+            {
+                <div class="recipe-review">
+                    <div class="recipe-review-item">
+                        <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@view.HinhDaiDien">
+                        <div class="review-item-info">
+                            <span class="review-owner-name">@view.HoTen</span>
+                            <span class="review-created-day">@view.NgayDang</span>
+                            <div class="review-desc">@view.NoiDung</div>
+                            <div class="review-acts">
+                                <a href="#" onclick="a(@view.MaPhanHoi)" class="text-gray" style="font-size:12px;color: #888;"> Trả lời</a>
+                            </div>
+
+                            <div class="review-acts">
+                                <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                                    Ẩn câu trả lời &#10094;
+                                </a>
+                            </div>
+                            @foreach (Mix_MTA2.Models.View_traloi traloi_ in ViewBag.Answer)/*--------------------------------------------------------*/
+                            {
+                                if (view.MaPhanHoi == traloi_.MaPhanHoi)
+                                {
+                                    @*<div class="review-acts">
+                                            <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                                                Ẩn câu trả lời &#10094;
+                                            </a>
+                                        </div>*@
+                                    <div class="recipe-review">
+                                        <div class="recipe-review-item">
+                                            <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@traloi_.HinhDaiDien">
+                                            <div class="review-item-info">
+                                                <span class="review-owner-name">@traloi_.HoTen</span>
+                                                <span class="review-created-day">@traloi_.NgayDang</span>
+                                                <div class="review-desc">@traloi_.NoiDung</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+                            @if (Session["ThanhVien"] != null)
+                            {
+                                <form action="Traloi_ph_hoi_blog" method="get">
+                                    <div class="recipe-review" id="cmt_@view.MaPhanHoi" style="display:none;">
+                                        <div class="recipe-review-item">
+                                            <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@tv.HinhDaiDien">
+                                            <div class="comment-content review-item-info">
+                                                <input name="id" value="@view.MaPhanHoi" style="display:none;">
+                                                <textarea style="padding-right:50px;height: 33px;width: 100%;border-radius: 2px;border-color: #ddd;" name="noidung" class="form-comment-control ng-pristine ng-valid ng-empty ng-touched" contenteditable="true" placeholder="Bình luận của bạn..."></textarea>
+                                                <div class="full text-right" style="padding:5px 8px 0 0">
+                                                    <button class="btn btn-primary btn-sm">Trả lời</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <div class="recipe-review" id="cmt_@view.MaPhanHoi" style="display:none;">
+                                    <div class="recipe-review-item">
+                                        <img class="review-owner-avatar" src="~/Content/User/img/bg-img/out.png">
+                                        <div class="comment-content review-item-info">
+                                            <textarea style="padding-right:50px;height: 33px;width: 100%;border-radius: 2px;border-color: #ddd;" class="form-comment-control ng-pristine ng-valid ng-empty ng-touched" contenteditable="true" placeholder="Bình luận của bạn..."></textarea>
+                                            <div class="full text-right" style="padding:5px 8px 0 0">
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#logoutModal">Trả lời</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="contact-form-area">
+                        <form action="P_hoi_blog" method="get">
+                            <div class="row">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="col-12">
+                                    <textarea name="noidung" class="form-control" id="message" cols="30" rows="10" placeholder="Bình luận của bạn"></textarea>
+                                </div>
+                                @if (Session["ThanhVien"] != null)
+                                {
+                                    <button class="btn delicious-btn mt-30">Đăng</button>
+                                }
+                            </div>
+                        </form>
+
+                        @if (Session["ThanhVien"] == null)
+                        {
+                            <button class="btn delicious-btn mt-30" data-toggle="modal" data-target="#logoutModal">Đăng</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="login-wrap">
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked="checked"><label for="tab-1" class="tab">Sign In</label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                    <div class="login-form">
+                        <form action="Login" method="post">
+                            <div class="sign-in-htm">
+                                <div class="group">
+                                    <label for="user" class="label">Username</label>
+                                    <input id="user" name="username" type="text" class="input">
+                                </div>
+                                <div class="group">
+                                    <label for="pass" class="label">Password</label>
+                                    <input id="pass" name="password" type="password" class="input" data-type="password">
+                                </div>
+                                <div class="group">
+                                    <input id="check" type="checkbox" class="check" checked>
+                                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                                </div>
+                                <div class="group">
+                                    <input type="submit" class="button" value="Sign In">
+                                </div>
+                                <div class="hr"></div>
+                                @*<div class="foot-lnk">
+                                        <a href="#forgot">Forgot Password?</a>
+                                    </div>*@
+                            </div>
+                        </form>
+                        <form action="Dangky" method="get">
+                            <div class="sign-up-htm">
+                                <div class="group">
+                                    <label for="pass" class="label">Full Name</label>
+                                    <input id="pass" name="Hoten" type="password" class="input" data-type="password">
+                                </div>
+                                <div class="group">
+                                    <label for="user" class="label">Username</label>
+                                    <input id="user" name="Username" type="text" class="input">
+                                </div>
+                                <div class="group">
+                                    <label for="pass" class="label">Password</label>
+                                    <input id="pass" name="Password" type="password" class="input" data-type="password">
+                                </div>
+
+                                <div class="group">
+                                    <label for="pass" class="label">Email Address</label>
+                                    <input id="pass" name="Email" type="text" class="input">
+                                </div>
+                                <div class="group">
+                                    <input type="submit" class="button" value="Sign Up">
+                                </div>
+                                <div class="hr"></div>
+                                @*<div class="foot-lnk">
+                                        <label for="tab-1">Already Member?</a>
+                                    </div>*@
+                            </div>
+                        </form>>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function a(i) {
+        var id = "cmt_" + i.toString();
+        document.getElementById(id).style.display = 'block';
+    }
+</script>

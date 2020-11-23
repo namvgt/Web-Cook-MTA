@@ -1,0 +1,186 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Mix_MTA2.Models
+<style>
+    .mb-1000 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+
+    .kt {
+        width: 120px;
+        height: auto;
+    }
+
+    .pagination > li > a {
+        background-color: white;
+        color: green
+    }
+
+    .page-item.active .page-link {
+        background-color: green;
+        border-color: green
+    }
+
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover {
+        color: green;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+
+    .pagination > .active > a {
+        color: white;
+        background-color: green;
+        border: solid 1px green;
+    }
+
+        .pagination > .active > a:hover {
+            background-color: green;
+            border: solid 1px green;
+        }
+
+    p {
+        width: 100%;
+        white-space: pre-wrap;
+        overflow: hidden; /*ẩn nội dung khi kích thước lớn hơn chiều rộng khối bên ngoài*/
+        text-overflow: ellipsis; /*// thêm dấu 3 chấm*/
+        -webkit-line-clamp: 2; /*//số dòng muốn hiển thị*/
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+    }
+</style>
+
+<title>Mix-MTA | Chia sẻ công thức</title>
+<!-- Search Wrapper -->
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="Index">Trang chủ</a></li>
+                                <li><a href="About">Giới thiệu</a></li>
+                                <li class="active"><a href="Receipt">Công thức</a></li>
+                                <li><a href="Blog">Blog</a></li>
+                                <li><a href="Contact">Liên hệ</a></li>
+                                @*<li><a href="Login">Đăng nhập</a></li>*@
+                            </ul>
+
+                            <!-- Newsletter Form -->
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb3.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-text text-center">
+                    <h2><b>Công thức</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<hr />
+<div class="mb-1000">
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=1" class="btn btn-danger kt">Ăn sáng</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=6" class="btn btn-danger kt">Bánh</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=8" class="btn btn-danger kt">Thức uống</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=11" class="btn btn-danger kt">Pasta</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=2" class="btn btn-danger kt">Ăn vặt</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=3" class="btn btn-danger kt">Khai vị</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=13" class="btn btn-danger kt">Snacks</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=12" class="btn btn-danger kt">Gà</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=14" class="btn btn-danger kt">Bún-mì-phở</a>
+    </div>
+</div>
+<hr />
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in ViewBag.DS)
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="~/Content/User/img/bg-img/@item.AnhMinhHoa" alt="">
+                        <div class="thumbnail">
+                            <h3>@item.TenCongThuc</h3>
+                            <p>@item.TieuDe</p>
+                            <p><a href="Chitietcongthuc?id=@item.ID_congthuc" class="btn btn-primary" role="button">Khám phá</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        @*<ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Trước | </a></li>
+                <li class="page-item"><a class="page-link" href="#">1 |</a></li>
+                <li class="page-item"><a class="page-link" href="#"> 2 |</a></li>
+                <li class="page-item"><a class="page-link" href="#"> 3 |</a></li>
+                <li class="page-item"><a class="page-link" href="#"> 4 |</a></li>
+                <li class="page-item"><a class="page-link" href="#"> 5 |</a></li>
+                <li class="page-item"><a class="page-link" href="#"> Sau</a></li>
+            </ul>*@
+    </div>
+</section>
+
+
