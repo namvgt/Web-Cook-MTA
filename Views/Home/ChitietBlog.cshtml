@@ -183,34 +183,42 @@
                             <div class="review-acts">
                                 <a href="#" onclick="a(@view.MaPhanHoi)" class="text-gray" style="font-size:12px;color: #888;"> Trả lời</a>
                             </div>
-
-                            <div class="review-acts">
-                                <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                            <div class="review-acts" id="an" style="display:block;">
+                                <a href="#" onclick="b(@view.MaPhanHoi,0)" class="text-gray" style="font-size:12px;color: #888;display:block;" id="">
                                     Ẩn câu trả lời &#10094;
                                 </a>
                             </div>
-                            @foreach (Mix_MTA2.Models.View_traloi traloi_ in ViewBag.Answer)/*--------------------------------------------------------*/
-                            {
-                                if (view.MaPhanHoi == traloi_.MaPhanHoi)
+                            @{ var count = 0;}
+                            <div id="cmt__@view.MaPhanHoi" style="display:block;">
+                                @foreach (Mix_MTA2.Models.View_traloi traloi_ in ViewBag.Answer)/*--------------------------------------------------------*/
                                 {
-                                    @*<div class="review-acts">
-                                            <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
-                                                Ẩn câu trả lời &#10094;
-                                            </a>
-                                        </div>*@
-                                    <div class="recipe-review">
-                                        <div class="recipe-review-item">
-                                            <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@traloi_.HinhDaiDien">
-                                            <div class="review-item-info">
-                                                <span class="review-owner-name">@traloi_.HoTen</span>
-                                                <span class="review-created-day">@traloi_.NgayDang</span>
-                                                <div class="review-desc">@traloi_.NoiDung</div>
+                                    if (view.MaPhanHoi == traloi_.MaPhanHoi)
+                                    {
+                                        @*<div class="review-acts">
+                                                <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                                                    Ẩn câu trả lời &#10094;
+                                                </a>
+                                            </div>*@
+                                        <div class="recipe-review">
+                                            <div class="recipe-review-item">
+                                                <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@traloi_.HinhDaiDien">
+                                                <div class="review-item-info">
+                                                    <span class="review-owner-name">@traloi_.HoTen</span>
+                                                    <span class="review-created-day">@traloi_.NgayDang.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
+                                                    <div class="review-desc">@traloi_.NoiDung</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                        count++;
+                                    }
 
-                            }
+                                }
+                            </div>
+                            <div class="review-acts" id="hien" style="display:none;">
+                                <a href="#" onclick="b(@view.MaPhanHoi,1)" class="text-gray" style="font-size:12px;color: #888;">
+                                    &#10551; Hiển thị câu trả lời
+                                </a>
+                            </div>
 
                             @if (Session["ThanhVien"] != null)
                             {
@@ -312,7 +320,7 @@
                             <div class="sign-up-htm">
                                 <div class="group">
                                     <label for="pass" class="label">Full Name</label>
-                                    <input id="pass" name="Hoten" type="password" class="input" data-type="password">
+                                    <input id="user" name="Hoten" type="text" class="input">
                                 </div>
                                 <div class="group">
                                     <label for="user" class="label">Username</label>
@@ -347,5 +355,19 @@
     function a(i) {
         var id = "cmt_" + i.toString();
         document.getElementById(id).style.display = 'block';
+    }
+    function b(i, x) {
+        var id = "cmt__" + i.toString();
+        if (x == 0) {
+            document.getElementById(id).style.display = 'none';
+            document.getElementById("an").style.display = 'none';
+            document.getElementById("hien").style.display = 'block';
+        }
+        else {
+            document.getElementById(id).style.display = 'block';
+            document.getElementById("an").style.display = 'block';
+            document.getElementById("hien").style.display = 'none';
+        }
+
     }
 </script>

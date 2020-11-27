@@ -51,10 +51,8 @@ namespace Mix_MTA2.Models
 
         public int? SLPH { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(200)]
         public string Video { get; set; }
-
-        public long? LuotXem { get; set; }
 
         public virtual LoaiCongThuc LoaiCongThuc { get; set; }
 
