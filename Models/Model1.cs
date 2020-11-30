@@ -8,7 +8,7 @@ namespace Mix_MTA2.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model113")
+            : base("name=Model1")
         {
         }
 
@@ -28,6 +28,7 @@ namespace Mix_MTA2.Models
         public virtual DbSet<TraLoi_PhanHoi> TraLoi_PhanHoi { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<View_traloi> View_traloi { get; set; }
+        public virtual DbSet<TruyCap> TruyCaps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

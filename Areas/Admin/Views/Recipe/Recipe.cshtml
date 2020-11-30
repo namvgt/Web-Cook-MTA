@@ -108,7 +108,7 @@
                             </th>
                             <th class="center"><a style="color:#fff" href="Recipe_detail/@it.ID_congthuc"><img src="~/Content/Admin/img/detail.png" /></a></th>
                             <th>
-                                <a data-ajax="true" data-ajax-complete="$('#row_'+@it.ID_congthuc+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Recipe/Delete_recipe/@it.ID_congthuc" style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                                <a data-ajax="true" data-ajax-complete="$('#row_'+@it.ID_congthuc+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_recipe","Recipe",new { id_congthuc = it.ID_congthuc })' style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
                             </th>
                             <th class="center"><a style="color:#fff" href="Recipe_edit/@it.ID_congthuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
                         </tr>
