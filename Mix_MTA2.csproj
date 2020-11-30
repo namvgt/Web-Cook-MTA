@@ -3025,6 +3025,7 @@
     <Content Include="Areas\Admin\Views\Feedback\Reply.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Feedback\Detail_.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Confirm_logout.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />

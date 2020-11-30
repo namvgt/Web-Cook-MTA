@@ -57,10 +57,21 @@
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href='@Url.Action("User_list","General")'>
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Người dùng</span>
-                </a>
+                @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo == "Admin")
+                {
+                    <a class="nav-link" href='@Url.Action("User_list","General")'>
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Người dùng</span>
+                    </a>
+                }
+                else
+                {
+                     <a class="nav-link" href="#" data-toggle="modal" data-target="#logout">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Người dùng</span>
+                    </a>
+                }
+
             </li>
             <!-- Nav Item - Admin Collapse Menu -->
             <li class="nav-item">
@@ -70,8 +81,16 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href='@Url.Action("Admin_list","General")'>Danh sách</a>
-                        <a class="collapse-item" href='@Url.Action("Admin_add","General")'>Thêm mới</a>
+                        @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo == "Admin")
+                        {
+                            <a class="collapse-item" href='@Url.Action("Admin_list","General")'>Danh sách</a>
+                            <a class="collapse-item" href='@Url.Action("Admin_add","General")'>Thêm mới</a>
+                        }
+                        else
+                        {
+                            <a class="collapse-item" href="#" data-toggle="modal" data-target="#logout">Danh sách</a>
+                            <a class="collapse-item" href="#" data-toggle="modal" data-target="#logout">Thêm mới</a>
+                        }
                     </div>
                 </div>
             </li>
@@ -355,6 +374,24 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     @Html.ActionLink("Đăng xuất", "Logout", "Login", "Admin", new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Bạn không có quyền truy cập nội dung này. Đăng nhập lại?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    @Html.ActionLink("OK", "Logout", "Login", "Admin", new { @class = "btn btn-primary" })
                 </div>
             </div>
         </div>

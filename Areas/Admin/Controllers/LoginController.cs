@@ -42,5 +42,9 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+        public ActionResult Confirm_logout()
+        {
+            return View();
+        }
     }
 }
