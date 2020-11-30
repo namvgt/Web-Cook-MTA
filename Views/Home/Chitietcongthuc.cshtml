@@ -68,6 +68,10 @@
         padding: 5px 15px;
         font-size: 12px;
     }
+
+    a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <title>Mix-MTA | @Model.TenCongThuc</title>
@@ -100,8 +104,8 @@
                         <ul>
                             <li><a href="Index">Trang chủ</a></li>
                             <li><a href="About">Giới thiệu</a></li>
-                            <li><a href="Receipt">Công thức</a></li>
-                            <li class="active"><a href="Blog">Blog</a></li>
+                            <li class="active"><a href="Receipt">Công thức</a></liclass="active">
+                            <li><a href="Blog">Blog</a></li>
                             <li><a href="Contact">Liên hệ</a></li>
                             @*<li><a href="Login">Đăng nhập</a></li>*@
                         </ul>
@@ -133,7 +137,7 @@
 </div>
 <hr />
 <div class="receipe-post-area section-padding-80">
-    <div class="mb-1000"> <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa"></div>
+    <div class="mb-1000"> <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" style="width:1000px;height:800px;"></div>
     <!-- Receipe Content Area -->
     <div class="receipe-content-area">
         <div class="container">
@@ -221,39 +225,47 @@
                         <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@view.HinhDaiDien">
                         <div class="review-item-info">
                             <span class="review-owner-name">@view.HoTen</span>
-                            <span class="review-created-day">@view.NgayDang</span>
+                            <span class="review-created-day">@view.NgayDang.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
                             <div class="review-desc">@view.NoiDung</div>
                             <div class="review-acts">
                                 <a href="#" onclick="a(@view.MaPhanHoi)" class="text-gray" style="font-size:12px;color: #888;"> Trả lời</a>
                             </div>
-                            <div class="review-acts">
-                                <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                            <div class="review-acts" id="an" style="display:block;">
+                                <a href="#" onclick="b(@view.MaPhanHoi,0)" class="text-gray" style="font-size:12px;color: #888;display:block;" id="">
                                     Ẩn câu trả lời &#10094;
                                 </a>
                             </div>
-                            @foreach (Mix_MTA2.Models.View_traloi traloi_ in ViewBag.Answer)/*--------------------------------------------------------*/
-                            {
-                                if (view.MaPhanHoi == traloi_.MaPhanHoi)
+                            @{ var count = 0;}
+                            <div id="cmt__@view.MaPhanHoi" style="display:block;">
+                                @foreach (Mix_MTA2.Models.View_traloi traloi_ in ViewBag.Answer)/*--------------------------------------------------------*/
                                 {
-                                    @*<div class="review-acts">
-                                            <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
-                                                Ẩn câu trả lời &#10094;
-                                            </a>
-                                        </div>*@
-                                    <div class="recipe-review">
-                                        <div class="recipe-review-item">
-                                            <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@traloi_.HinhDaiDien">
-                                            <div class="review-item-info">
-                                                <span class="review-owner-name">@traloi_.HoTen</span>
-                                                <span class="review-created-day">@traloi_.NgayDang</span>
-                                                <div class="review-desc">@traloi_.NoiDung</div>
+                                    if (view.MaPhanHoi == traloi_.MaPhanHoi)
+                                    {
+                                        @*<div class="review-acts">
+                                                <a href="#" onclick="" class="text-gray" style="font-size:12px;color: #888;">
+                                                    Ẩn câu trả lời &#10094;
+                                                </a>
+                                            </div>*@
+                                        <div class="recipe-review">
+                                            <div class="recipe-review-item">
+                                                <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@traloi_.HinhDaiDien">
+                                                <div class="review-item-info">
+                                                    <span class="review-owner-name">@traloi_.HoTen</span>
+                                                    <span class="review-created-day">@traloi_.NgayDang.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
+                                                    <div class="review-desc">@traloi_.NoiDung</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        count++;
+                                    }
+
                                 }
-
-                            }
-
+                            </div>
+                            <div class="review-acts" id="hien" style="display:none;">
+                                <a href="#" onclick="b(@view.MaPhanHoi,1)" class="text-gray" style="font-size:12px;color: #888;">
+                                    &#10551; Hiển thị câu trả lời
+                                </a>
+                            </div>
                             @if (Session["ThanhVien"] != null)
                             {
                                 <form action="Traloi_ph_hoi_cthuc" method="get">
@@ -304,7 +316,7 @@
                                 </div>
                                 @if (Session["ThanhVien"] != null)
                                 {
-                                    <button class="btn delicious-btn mt-30">Đăng</button>
+                                    <button class="btn delicious-btn mt-30"type="submit">Đăng</button>
                                 }
                             </div>
                         </form>
@@ -354,7 +366,7 @@
                             <div class="sign-up-htm">
                                 <div class="group">
                                     <label for="pass" class="label">Full Name</label>
-                                    <input id="pass" name="Hoten" type="password" class="input" data-type="password">
+                                    <input id="user" name="Hoten" type="text" class="input">
                                 </div>
                                 <div class="group">
                                     <label for="user" class="label">Username</label>
@@ -384,11 +396,30 @@
         </div>
     </div>
 </div>
-</div>
+        </div>
 
 <script>
     function a(i) {
         var id = "cmt_" + i.toString();
         document.getElementById(id).style.display = 'block';
     }
+    function b(i, x) {
+        var id = "cmt__" + i.toString();
+        if (x == 0) {
+            document.getElementById(id).style.display = 'none';
+            document.getElementById("an").style.display = 'none';
+            document.getElementById("hien").style.display = 'block';
+        }
+        else {
+            document.getElementById(id).style.display = 'block';
+            document.getElementById("an").style.display = 'block';
+            document.getElementById("hien").style.display = 'none';
+        }
+
+    }
+    function tailai() {
+
+        location.reload();
+    }
 </script>
+
