@@ -331,7 +331,7 @@
     }
 
     keyframes opacity {
-        0%
+
 
     {
         opacity: 0;
@@ -357,7 +357,7 @@
             <div class="col-md-3">
                 <div class="profile-sidebar">
                     <div class="profile-userpic">
-                        <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" class="img-responsive" alt="Thông tin cá nhân">
+                        <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" class="img-responsive" alt="Thông tin cá nhân" style="width:200px;height:200px;">
                     </div>
                     <div class="profile-usertitle">
                         @*<div class="profile-usertitle-name">@Model.Username</div>*@
@@ -367,29 +367,23 @@
                         <a class="btn btn-success btn-sm" href="Index">Trang chủ</a>
                         <a href="Login" class="btn btn-danger btn-sm">Đăng xuất</a>
                     </div>
-                    <div class="profile-usermenu">
+                    @*<div class="profile-usermenu">
                         <ul class="nav">
-                            <div class="logo_menuchinh" style="float:left; padding-top:5px; padding-left:10px; color:#fff; margin-left:auto; margin-right:auto; text-align=center; line-height:40px; font-size:16px;font-weight:bold;font-family:Arial">HOCWEBGIARE.COM</div>
-                            @*<li class="active">
-                                    <a href="#"> <i class="glyphicon glyphicon-info-sign"></i>Cập nhật thông tin cá nhân </a>
-                                </li>*@
-                            @*<li>
-                                    <a href="Index"><button type="submit" style="border:hidden; background:none"  > <i class="glyphicon glyphicon-edit"></i>Quản lý tài khoản</button></a>
-                                </li>*@
-                            @*<li>
-                                    <a href="#" target="_blank"><i class="glyphicon glyphicon-shopping-cart"></i> Quản lý đơn hàng </a>
-                                </li>*@
-                            <li>
-                                <a href="#"><i class="glyphicon glyphicon-envelope"></i>Lịch sử hoạt động</a>
+                            <li class="">
+                                <a href="#" onclick="load_(1)"> <i class="glyphicon glyphicon-user"></i>Thông tin cá nhân</a>
                             </li>
+                            <li class="">
+                                <a href="#" onclick="load_(0)"> <i class="glyphicon glyphicon-bell"></i>Lịch sử hoạt động </a>
+                            </li>
+
                         </ul>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="profile-content">
                     @*<img src="~/Content/User/img/bg-img/kitchen.jpg" />*@
-                    <div class="container-ok">
+                    <div class="container-ok" id="ctiet" >
                         <div class="card">
                             <div class="container-fliud">
                                 <div class="wrapper row">
@@ -413,9 +407,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="container-ok" id="lichsu" style="display:none;">
+                        <div class="card">
+                            <div class="container-fliud">
+                                <p>dmdmdmmdmdmdmdmdm</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function load_(i) {
+        if (i == 1) {
+            document.getElementById("lichsu").style.display = 'none';
+            document.getElementById("ctiet").style.display = 'block';
+        }
+        else {
+            document.getElementById("ctiet").style.display = 'none';
+            document.getElementById("lichsu").style.display = 'block';
+
+        }
+    }
+</script>
 

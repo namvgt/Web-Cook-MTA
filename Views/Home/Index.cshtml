@@ -95,7 +95,7 @@
             {
                 <div class="col-12 col-lg-6">
                     <div class="single-top-catagory">
-                        <img src="~/Content/User/img/bg-img/bg8.jpg" alt="">
+                        <img src="~/Content/User/img/bg-img/bg8.jpg">
                         <!-- Content -->
                         <div class="top-cta-content text-center">
                             <h3>@item.TenLoaiCT</h3>
@@ -125,7 +125,7 @@
             {
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="/Content/User/img/bg-img/@it.AnhMinhHoa" alt="">
+                        <a href="/Home/Chitietcongthuc?id=@it.ID_congthuc"><img src="/Content/User/img/bg-img/@it.AnhMinhHoa" alt=""></a>
                         <div class="receipe-content">
                             <a href="/Home/Chitietcongthuc?id=@it.ID_congthuc">
                                 <h5>@it.TenCongThuc</h5>
@@ -176,11 +176,11 @@
                     <div class="single-small-receipe-area d-flex">
                         <!-- Receipe Thumb -->
                         <div class="receipe-thumb">
-                            <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt="">
+                            <a href="/Home/Chitietcongthuc?id=@item.ID_congthuc"> <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt=""></a>
                         </div>
                         <!-- Receipe Content -->
                         <div class="receipe-content">
-                            <span>@item.NgayTao</span>
+                            <span>@item.NgayTao.Value.ToString("dd/MM/yyyy")</span>
                             <a href="/Home/Chitietcongthuc?id=@item.ID_congthuc">
                                 <h5>@item.TenCongThuc</h5>
                             </a>
