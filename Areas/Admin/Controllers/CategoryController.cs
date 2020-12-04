@@ -29,14 +29,13 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete_category(long id)
         {
-            db.LoaiCongThucs.Remove(db.LoaiCongThucs.Find(id));
-            db.SaveChanges();
             var list = db.CongThucs.Where(x => x.MaLoaiCongThuc == id).ToList();
             foreach (var item in list)
             {
                 db.CongThucs.Remove(item);
-                db.SaveChanges();
             }
+            db.LoaiCongThucs.Remove(db.LoaiCongThucs.Find(id));
+            db.SaveChanges();
             return View();
         }
         [HttpPost]

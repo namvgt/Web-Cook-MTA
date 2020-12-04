@@ -46,7 +46,7 @@
                                     <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#table" href="/Admin/Category/Category_detail/@it.MaLoaiCongThuc" style="color:#fff"><img src="~/Content/Admin/img/detail.png" /></a>
                                 </th>
                                 <th class="delete" style="width:70px">
-                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaLoaiCongThuc+'').remove()" data-ajax-confirm="Thao tác này sẽ xóa toàn bộ công thức trong danh mục này.Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Admin/Delete_category/@it.MaLoaiCongThuc" style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaLoaiCongThuc+'').remove()" data-ajax-confirm="Thao tác này sẽ xóa toàn bộ công thức trong danh mục này.Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_category","Category",new { id = it.MaLoaiCongThuc})' style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
                                 </th>
                                 <th class="center fix" style="width:70px"><a style="color:#fff" href="#" data-toggle="modal" data-target="#fix_modal_@it.MaLoaiCongThuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
                             </tr>

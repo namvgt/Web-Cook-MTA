@@ -100,7 +100,7 @@
                                 </th>
                                 <th class="center" style="width:25px"><a style="color:#fff" href="Blog_detail/@it.MaBlog"><img src="~/Content/Admin/img/detail.png" /></a></th>
                                 <th class="delete" style="width:25px;">
-                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href="/Admin/Blog/Delete_blog/@it.MaBlog" style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_blog","Blog",new { id = it.MaBlog})' style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
                                 <th class="center" style="width:25px;"><a style="color:#fff;" href="Blog_edit/@it.MaBlog"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
                             </tr>
                             i++;

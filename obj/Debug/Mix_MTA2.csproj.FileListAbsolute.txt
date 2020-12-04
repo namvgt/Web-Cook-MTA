@@ -284,3 +284,4 @@ C:\Users\ADMIN\Documents\GitHub\Web-Cook-MTA\obj\Debug\Mix_MTA2.csproj.GenerateR
 C:\Users\ADMIN\Documents\GitHub\Web-Cook-MTA\obj\Debug\Mix_MTA2.csproj.CopyComplete
 C:\Users\ADMIN\Documents\GitHub\Web-Cook-MTA\obj\Debug\Mix_MTA2.dll
 C:\Users\ADMIN\Documents\GitHub\Web-Cook-MTA\obj\Debug\Mix_MTA2.pdb
+C:\Users\ADMIN\Documents\GitHub\Web-Cook-MTA\obj\Debug\Mix_MTA2.csprojAssemblyReference.cache
