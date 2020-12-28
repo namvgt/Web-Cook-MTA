@@ -63,9 +63,16 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                            <i class="fa fa-search "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -76,6 +83,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- Example split danger button -->
+<br />
 <div class="mb-1000">
     <div class="btn-group">
         <button type="button" class="btn btn-circle kt">Loại món</button>

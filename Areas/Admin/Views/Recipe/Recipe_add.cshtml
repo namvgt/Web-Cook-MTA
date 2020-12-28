@@ -51,10 +51,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group" id="video-form">
+                        <label>Video (Youtube code/link)</label>
+                        <input type="text" name="Video" id="inVideo" class="form-control" onchange="loadVideo()" />
+                        <br />
+                        <iframe id="video" width="560" height="315" style="display:none; margin:auto; border-radius:7px" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <video id="video2"  width="560" height="315" style="display:none; margin:auto; border-radius:7px" autoplay>
+                            <source id="video1" src="" type="video/mp4"/>
+                        </video>
+                    </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <textarea rows="2" class="form-control" name="TieuDe" placeholder="Nhập tiêu đề"></textarea>
+                        <textarea rows="2" class="form-control" name="TieuDe" placeholder="Nhập nội dung mô tả ngắn gọn về công thức"></textarea>
                     </div>
+                    <h5 style="color:#5a5c69">Nguyên liệu cần thiết</h5>
                     <div class="form-group">
                         <div id="answer">
                             <div class="item">
@@ -81,11 +91,12 @@
                                 </label>
                                 <a href="javascript:void(0)" class="del">Xóa</a>
                             </div>
-                            <a href="javascript:void(0)" id="add" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm nguyên liệu</a>
+
                         </div>
+                        <a href="javascript:void(0)" id="add" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm nguyên liệu</a>
                     </div>
+                    <h5 style="color:#5a5c69">Các bước thực hiện</h5>
                     <div class="form-group">
-                        <br />
                         <div id="answer1">
                             <div class="item1">
                                 <label>
@@ -118,11 +129,11 @@
                         <a href="javascript:void(0)" id="add1" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8);margin-bottom:10px">Thêm bước</a>
                     </div>
                     <div class="form-group">
-                        <label>Thời gian chuẩn bị(phút)</label>
+                        <label>Thời gian chuẩn bị (phút)</label>
                         <input type="text" class="form-control" name="ThoiGianCB" placeholder="" />
                     </div>
                     <div class="form-group">
-                        <label>Thời gian nấu(phút)</label>
+                        <label>Thời gian nấu (phút)</label>
                         <input type="text" class="form-control" name="ThoiGianNau" />
                     </div>
                     <div class="form-group">
@@ -205,7 +216,7 @@
                 alert("Number of answers isn't greater than 10");
             } else {
                 n++;
-                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /><input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
+                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /> <input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
             }
         });
 
@@ -280,7 +291,7 @@
             reader.onload = function (e) {
                 $('.image-upload-wrap').hide();
 
-                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-image').attr('src', ("#inVideo").trimEnd);
                 $('.file-upload-content').show();
 
             };
@@ -289,6 +300,27 @@
 
         } else {
             removeUpload();
+        }
+    }
+    function loadVideo() {
+
+        var link = document.getElementById("inVideo").value;
+        if (link.substr(0, 7) == "<iframe") {
+            $("#video-form").append(link);
+        }
+        else {
+            if (link.substr(link.length - 4, 4) == ".mp4") {
+                link = "/Content/User/video/" + link;
+                $("#video1").attr('src', link);
+                document.getElementById("video2").style.display = 'block';
+            }
+            else {
+                link = "https://www.youtube.com/embed/" + link;
+            console.log(link);
+            $("#video").attr('src', link);
+            document.getElementById("video").style.display = 'block';
+            }
+            
         }
     }
 </script>

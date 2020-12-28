@@ -42,7 +42,7 @@
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
                             <div class="image-upload-wrap">
                                 <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
-                                <img style="width:552px" src="~/Content/Admin/img/bg-img/@Model.AnhMinhHoa" />
+                                <img style="width:552px" src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" />
                             </div>
                             <div class="file-upload-content">
                                 <img style="width:552px" class="file-upload-image" src="" alt="your image" />
@@ -192,7 +192,7 @@
                 alert("Number of answers isn't greater than 10");
             } else {
                 n++;
-                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='hidden' name='maNL[]' value='0'/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /><input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
+                $("#answer").append("<div class='item'><label><span>Nguyên liệu " + n + ":</span><br/><input type='hidden' name='maNL[]' value='0'/><input type='text' name='NL[]' placeholder='Tên nguyên liệu' class='NguyenLieu' /> <input type='text' name='SL[]' placeholder='Số lượng' class='NguyenLieu' /></label><a href='javascript:void(0)' class='del'>Xóa</a></div>");
             }
         });
 
