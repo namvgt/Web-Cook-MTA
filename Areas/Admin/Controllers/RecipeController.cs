@@ -48,6 +48,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             congthuc = db.CongThucs.Find(ct.ID_congthuc);
             congthuc.TenCongThuc = ct.TenCongThuc;
             congthuc.AnhMinhHoa = ct.AnhMinhHoa;
+            congthuc.Video = ct.Video.Trim();
             congthuc.DoKho = ct.DoKho;
             congthuc.TieuDe = ct.TieuDe;
             congthuc.ThoiGianCB = ct.ThoiGianCB;
@@ -102,6 +103,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         {
             NguoiDung nd = (NguoiDung)Session["NguoiDung"];
             var lct = db.LoaiCongThucs.FirstOrDefault(x => x.TenLoaiCT == LoaiCongThuc);
+            ct.Video.Trim();
             ct.MaLoaiCongThuc = lct.MaLoaiCongThuc;
             ct.MaNguoiTao = nd.UserID;
             ct.NgayTao = DateTime.Now;

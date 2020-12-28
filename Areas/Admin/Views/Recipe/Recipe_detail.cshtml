@@ -30,7 +30,13 @@
                     <div class="form-group">
                         <label>Ảnh minh họa</label>
                         <br />
-                        <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" width="600"/>
+                        <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" width="560" style="border-radius:7px; margin: auto; display:block" />
+                    </div>
+                    <div class="form-group" id="video-form">
+                        <label>Video (Youtube code/link)</label>
+                        <input readonly type="text" name="Video" value="@Model.Video" id="inVideo" class="form-control" onchange="loadVideo()" />
+                        <br />
+                        <iframe id="video" width="560" height="315" style="display:block; margin:auto; border-radius:7px" src="https://www.youtube.com/embed/@Model.Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
@@ -57,14 +63,14 @@
                     <div class="form-group">
                         <label>Các bước cần thiết</label>
                         <br />
-                            @{i = 1; }
-                            @foreach (Mix_MTA2.Models.NoiDungCT nd in Model.NoiDungCTs)
-                            {
-                                        <label>Bước @i:</label><br />
-                                        <textarea rows="4" class="form-control" style="width:100%" readonly>@nd.NoiDung</textarea>
+                        @{i = 1; }
+                        @foreach (Mix_MTA2.Models.NoiDungCT nd in Model.NoiDungCTs)
+                        {
+                            <label>Bước @i:</label><br />
+                            <textarea rows="4" class="form-control" style="width:100%" readonly>@nd.NoiDung</textarea>
 
-                                i++;
-                            }
+                            i++;
+                        }
                     </div>
                     <div class="form-group">
                         <label>Thời gian chuẩn bị(phút)</label>

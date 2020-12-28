@@ -41,7 +41,7 @@
                         <div class="file-upload">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <input class="file-upload-input" value="@Model.AnhMinhHoa" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
                                 <img style="width:552px" src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" />
                             </div>
                             <div class="file-upload-content">
@@ -51,6 +51,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group" id="video-form">
+                        <label>Video (Youtube code/link)</label>
+                        <input type="text" name="Video" id="inVideo" value="@Model.Video" class="form-control" onchange="loadVideo()" />
+                        <br />
+                        <iframe id="video" width="560" height="315" style="display:block; margin:auto; border-radius:7px" src="https://www.youtube.com/embed/@Model.Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
@@ -166,7 +172,7 @@
                         }
                     </div>
                     <button type="submit" class="btn btn-default" style="background-color:#4e73df; color: rgba(255,255,255,.8)">Lưu</button>
-                    <a  class="btn btn-default" style="background-color:darkred; color: rgba(255,255,255,.8)" href="../Recipe">Hủy</a>
+                    <a class="btn btn-default" style="background-color:darkred; color: rgba(255,255,255,.8)" href="../Recipe">Hủy</a>
                 </form>
             </div>
         </div>
@@ -276,6 +282,21 @@
 
         } else {
             removeUpload();
+        }
+
+    }
+    function loadVideo() {
+        var link = document.getElementById("inVideo").value;
+        if (link.substr(0, 7) == "<iframe") {
+            link = link.substr(68, 11);
+            $("#video").attr('src', "https://www.youtube.com/embed/" + link);
+            console.log(link);
+            $("#inVideo").val(link);
+        }
+        else {
+            link = "https://www.youtube.com/embed/" + link;
+            console.log(link);
+            $("#video").attr('src', link);
         }
     }
 </script>

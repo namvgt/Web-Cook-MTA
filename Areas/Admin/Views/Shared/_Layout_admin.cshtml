@@ -57,7 +57,7 @@
             </li>
 
             <li class="nav-item ">
-                @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo == "Admin")
+                @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo.Trim() == "Admin")
                 {
                     <a class="nav-link" href='@Url.Action("User_list","General")'>
                         <i class="fas fa-fw fa-user"></i>
@@ -81,7 +81,7 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo == "Admin")
+                        @if ((Session["NguoiDung"] as Mix_MTA2.Models.NguoiDung).CapDo.Trim() == "Admin")
                         {
                             <a class="collapse-item" href='@Url.Action("Admin_list","General")'>Danh sách</a>
                             <a class="collapse-item" href='@Url.Action("Admin_add","General")'>Thêm mới</a>
