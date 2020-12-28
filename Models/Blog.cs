@@ -40,7 +40,7 @@ namespace Mix_MTA2.Models
 
         public bool? TrangThai { get; set; }
 
-        public long? SLPH { get; set; }
+        public int? SLPH { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NoiDung_Blog> NoiDung_Blog { get; set; }
