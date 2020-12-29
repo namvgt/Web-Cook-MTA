@@ -12,6 +12,7 @@ namespace Mix_MTA2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CongThuc()
         {
+            Luu_tru = new HashSet<Luu_tru>();
             NguyenLieux = new HashSet<NguyenLieu>();
             NoiDungCTs = new HashSet<NoiDungCT>();
             PhanHois = new HashSet<PhanHoi>();
@@ -53,6 +54,11 @@ namespace Mix_MTA2.Models
 
         [StringLength(200)]
         public string Video { get; set; }
+
+        public long? LuotXem { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Luu_tru> Luu_tru { get; set; }
 
         public virtual LoaiCongThuc LoaiCongThuc { get; set; }
 

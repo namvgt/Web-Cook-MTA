@@ -12,6 +12,7 @@ namespace Mix_MTA2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Blog()
         {
+            Luu_tru = new HashSet<Luu_tru>();
             NoiDung_Blog = new HashSet<NoiDung_Blog>();
             PhanHois = new HashSet<PhanHoi>();
         }
@@ -40,7 +41,12 @@ namespace Mix_MTA2.Models
 
         public bool? TrangThai { get; set; }
 
-        public int? SLPH { get; set; }
+        public long? SLPH { get; set; }
+
+        public long? LuotXem { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Luu_tru> Luu_tru { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NoiDung_Blog> NoiDung_Blog { get; set; }

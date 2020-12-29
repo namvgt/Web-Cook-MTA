@@ -12,6 +12,7 @@ namespace Mix_MTA2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThanhVien()
         {
+            Luu_tru = new HashSet<Luu_tru>();
             PhanHois = new HashSet<PhanHoi>();
             TraLoi_PhanHoi = new HashSet<TraLoi_PhanHoi>();
         }
@@ -39,6 +40,9 @@ namespace Mix_MTA2.Models
 
         [StringLength(100)]
         public string PassWord { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Luu_tru> Luu_tru { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhanHoi> PhanHois { get; set; }
