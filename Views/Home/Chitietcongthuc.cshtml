@@ -4,6 +4,7 @@
     ViewBag.Title = "Chitietcongthuc";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Mix_MTA2.Models.ThanhVien tv = null;
+    Mix_MTA2.Models.Luu_tru lt = null;
     if (Session["ThanhVien"] == null)
     {
         tv = null;
@@ -11,6 +12,14 @@
     if (Session["ThanhVien"] != null)
     {
         tv = Session["ThanhVien"] as Mix_MTA2.Models.ThanhVien;
+    }
+    if (Session["Luu"] == null)
+    {
+        lt = null;
+    }
+    if (Session["Luu"] != null)
+    {
+        lt = Session["Luu"] as Mix_MTA2.Models.Luu_tru;
     }
 }
 
@@ -84,7 +93,7 @@
             <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                 <!-- Logo -->
-                <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+                <a class="nav-brand" href="/Home/Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
@@ -102,25 +111,18 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="Index">Trang chủ</a></li>
-                            <li><a href="About">Giới thiệu</a></li>
-                            <li class="active"><a href="Receipt">Công thức</a></li class="active">
-                            <li><a href="Blog">Blog</a></li>
-                            <li><a href="Contact">Liên hệ</a></li>
+                            <li><a href="/Home/Index">Trang chủ</a></li>
+                            <li><a href="/Home/About">Giới thiệu</a></li>
+                            <li class="active"><a href="/Home/Receipt">Công thức</a></li>
+                            <li><a href="/Home/Blog">Blog</a></li>
+                            <li><a href="/Home/Contact">Liên hệ</a></li>
                             @*<li><a href="Login">Đăng nhập</a></li>*@
                         </ul>
 
                         <!-- Newsletter Form -->
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
-                                        <i class="fa fa-search "></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="search-btn">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
                     </div>
                     <!-- Nav End -->
                 </div>
@@ -173,6 +175,31 @@
                             </h6>
                         </div>
                     </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    @if (Session["ThanhVien"] == null)
+                    {
+                        <div class="receipe-ratings text-right my-5">
+                            <a href="/Home/Luu" class="btn delicious-btn">Like</a>
+                        </div>
+
+                    }
+                    else
+                    {
+                        if (Session["Luu"] != null && lt.ID_user == tv.ID_user)
+                        {
+                            <div class="receipe-ratings text-right my-5">
+                                <a href="/Home/Boluu" class="btn delicious-btn">Unlike</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="receipe-ratings text-right my-5">
+                                <a href="/Home/Luu" class="btn delicious-btn">Like</a>
+                            </div>
+                        }
+
+                    }
                 </div>
             </div>
             <div class="row">
@@ -275,7 +302,7 @@
                             </div>
                             @if (Session["ThanhVien"] != null)
                             {
-                                <form action="Traloi_ph_hoi_cthuc" method="get">
+                                <form action="/Home/Traloi_ph_hoi_cthuc" method="get">
                                     <div class="recipe-review" id="cmt_@view.MaPhanHoi" style="display:none;">
                                         <div class="recipe-review-item">
                                             <img class="review-owner-avatar" src="~/Content/User/img/bg-img/@tv.HinhDaiDien">
@@ -315,7 +342,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="contact-form-area">
-                        <form action="P_hoi" method="get">
+                        <form action="/Home/P_hoi" method="post">
                             <div class="row">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="col-12">
@@ -323,7 +350,7 @@
                                 </div>
                                 @if (Session["ThanhVien"] != null)
                                 {
-                                    <button class="btn delicious-btn mt-30"type="submit">Đăng</button>
+                                    <button class="btn delicious-btn mt-30" type="submit">Đăng</button>
                                 }
                             </div>
                         </form>
@@ -346,7 +373,7 @@
                     <input id="tab-1" type="radio" name="tab" class="sign-in" checked="checked"><label for="tab-1" class="tab">Sign In</label>
                     <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
                     <div class="login-form">
-                        <form action="Login" method="post">
+                        <form action="/Home/Login" method="post">
                             <div class="sign-in-htm">
                                 <div class="group">
                                     <label for="user" class="label">Username</label>
@@ -369,7 +396,7 @@
                                     </div>*@
                             </div>
                         </form>
-                        <form action="Dangky" method="get">
+                        <form action="/Home/Dangky" method="get">
                             <div class="sign-up-htm">
                                 <div class="group">
                                     <label for="pass" class="label">Full Name</label>
@@ -403,7 +430,7 @@
         </div>
     </div>
 </div>
-        </div>
+
 
 <script>
     function a(i) {
@@ -426,7 +453,7 @@
     }
     function tailai() {
 
-        location.reload();
+        window.location='Chitietcongthuc?id='+ @Model.ID_congthuc;
     }
 </script>
 

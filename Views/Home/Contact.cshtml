@@ -24,7 +24,7 @@
                 <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+                    <a class="nav-brand" href="/Home/Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -42,25 +42,18 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="Index">Trang chủ</a></li>
-                                <li><a href="About">Giới thiệu</a></li>
-                                <li><a href="Receipt">Công thức</a></li>
-                                <li><a href="Blog">Blog</a></li>
-                                <li class="active"><a href="Contact">Liên hệ</a></li>
+                                <li><a href="/Home/Index">Trang chủ</a></li>
+                                <li><a href="/Home/About">Giới thiệu</a></li>
+                                <li><a href="/Home/Receipt">Công thức</a></li>
+                                <li><a href="/Home/Blog">Blog</a></li>
+                                <li class="active"><a href="/Home/Contact">Liên hệ</a></li>
                                 @*<li><a href="Login">Đăng nhập</a></li>*@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
-                                            <i class="fa fa-search "></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -99,7 +92,7 @@
             <div class="col-12 col-lg-5">
                 <div class="contact-text">
                     <p>Mọi vấn đề liên quan đến sao chép, đăng tải, sử dụng lại một phần hoặc toàn bộ nội dung bài viết/ ảnh, và trao đổi hợp tác mời các bạn liên hệ theo địa chỉ email <u>bogia28101999@gmail.com</u>.</p>
-                    <p>Các câu liên quan tới công thức, cách nấu, kiến thức, kĩ thuật nấu ăn, làm bánh...vui lòng đặt trực tiếp tại mục <a href="Receipt"><u>công thức</u></a> hoặc hỏi đáp tại <a href="Blog"><u>blog</u></a>, không gửi tới địa chỉ mail trên đây.</p>
+                    <p>Các câu liên quan tới công thức, cách nấu, kiến thức, kĩ thuật nấu ăn, làm bánh...vui lòng đặt trực tiếp tại mục <a href="/Home/Receipt"><u>công thức</u></a> hoặc hỏi đáp tại <a href="/Home/Blog"><u>blog</u></a>, không gửi tới địa chỉ mail trên đây.</p>
                     <p>Cảm ơn các bạn rất nhiều.</p>
                 </div>
             </div>
@@ -125,11 +118,18 @@
             <!-- Newsletter Area -->
             <div class="col-12 col-lg-4">
                 <div class="newsletter-form bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg1.jpg');">
-                    <form action="Dangky" method="post">
+                    <form action="/Home/Dangky" method="post">
                         @*<input type="email" name="email" placeholder="Email,Gmail,...">
                             <input type="text" name="username" placeholder="Username...">
                             <input type="text" name="password" placeholder="Password...">*@
-                        <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                        @if (Session["ThanhVien"] == null)
+                        {
+                            <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn delicious-btn w-100">Đăng ký</a>
+                        }
                     </form>
                     <p>Đăng ký và theo dõi chúng tôi để cập nhật những công thức làm bánh hấp dẫn nhất nhé.</p>
                 </div>
@@ -152,7 +152,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="contact-form-area">
-                    <form action="P_hoi_web" method="get">
+                    <form action="/Home/P_hoi_web" method="get">
                         <div class="row">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="col-12">

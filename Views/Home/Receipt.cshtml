@@ -5,7 +5,7 @@
 <style>
     .mb-1000 {
         display: block;
-        margin-left: auto;
+        margin-left: 75px;
         margin-right: auto;
         width: 90%;
     }
@@ -88,25 +88,18 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="Index">Trang chủ</a></li>
-                                <li><a href="About">Giới thiệu</a></li>
-                                <li class="active"><a href="Receipt">Công thức</a></li>
-                                <li><a href="Blog">Blog</a></li>
-                                <li><a href="Contact">Liên hệ</a></li>
+                                <li><a href="/Home/Index">Trang chủ</a></li>
+                                <li><a href="/Home/About">Giới thiệu</a></li>
+                                <li class="active"><a href="/Home/Receipt">Công thức</a></li>
+                                <li><a href="/Home/Blog">Blog</a></li>
+                                <li><a href="/Home/Contact">Liên hệ</a></li>
                                 @*<li><a href="Login">Đăng nhập</a></li>*@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
-                                            <i class="fa fa-search "></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -156,8 +149,14 @@
         <a href="/Home/Phanloai?id_lct=12" class="btn btn-danger kt">Gà</a>
     </div>
     <div class="btn-group">
-        <a href="/Home/Phanloai?id_lct=14" class="btn btn-danger kt">Bún-mì-phở</a>
+        <a href="/Home/Phanloai?id_lct=5" class="btn btn-danger kt">Món chính</a>
     </div>
+    @*<div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=10" class="btn btn-danger kt">Nước chấm</a>
+    </div>
+    <div class="btn-group">
+        <a href="/Home/Phanloai?id_lct=7" class="btn btn-danger kt">Bổ dưỡng</a>
+    </div>*@
 </div>
 <hr />
 <section class="best-receipe-area">
@@ -167,11 +166,11 @@
             {
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <a href="Chitietcongthuc?id=@item.ID_congthuc"><img src="~/Content/User/img/bg-img/@item.AnhMinhHoa" style="width:1000px;height:300px;"></a>
+                        <a href="Chitietcongthuc/@item.ID_congthuc"><img src="~/Content/User/img/bg-img/@item.AnhMinhHoa" style="width:1000px;height:300px;"></a>
                         <div class="thumbnail">
                             <h3>@item.TenCongThuc</h3>
                             <p>@item.TieuDe</p>
-                            <p><a href="Chitietcongthuc?id=@item.ID_congthuc" class="btn btn-primary" role="button">Khám phá</a></p>
+                            <p><a href="Chitietcongthuc/@item.ID_congthuc" class="btn btn-primary" role="button">Khám phá</a></p>
                         </div>
                     </div>
                 </div>

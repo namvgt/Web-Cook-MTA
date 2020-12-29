@@ -89,9 +89,9 @@ namespace Mix_MTA2.Controllers
             return View("Receipt", model);
         }
         // =================================================================================================== Blog
-        public ActionResult Blog(int? page)
+        public ActionResult Blog()
         {
-            //if (page == null)
+            //if (page==null)
             //{
             //    page = 1;
             //}
@@ -100,9 +100,9 @@ namespace Mix_MTA2.Controllers
             var User_ = db.NguoiDungs.Where(x => x.UserID != 0).ToList();
             ViewBag.list_us = User_;
             //var page_ = (from l in db.Blogs select l).OrderBy(x => x.MaBlog);
-            //int pageSize = 3;
+            //int pageSize = 2;
             //int pageNumber = (page ?? 1);
-            //return View(page_.ToPagedList(pageNumber, pageSize));
+            //return View(page_.ToPagedList(pageNumber,pageSize));
             return View(model);
         }
         // =================================================================================================== Chi tiết công thức
@@ -116,6 +116,8 @@ namespace Mix_MTA2.Controllers
             ViewBag.rv = review;
             var congthuc = db.CongThucs.Where(x => x.ID_congthuc == id).FirstOrDefault();
             Session["Ctiet"] = congthuc;
+            var save = db.Luu_tru.Where(x => x.ID_congthuc == id).FirstOrDefault();
+            Session["Luu"] = save;
             var traloi = db.View_traloi.Where(x => x.MaTraLoi != 0).ToList();
             ViewBag.Answer = traloi;
             return View(congthuc);
@@ -129,6 +131,8 @@ namespace Mix_MTA2.Controllers
             var review = db.Reviews.Where(x => x.ID_blog == id).ToList();
             ViewBag.rv_bl = review;
             Session["Ctiet_Blog"] = blog;
+            var save = db.Luu_tru.Where(x => x.ID_blog == id).FirstOrDefault();
+            Session["Luu_blog"] = save;
             var traloi = db.View_traloi.Where(x => x.MaTraLoi != 0).ToList();
             ViewBag.Answer = traloi;
             return View(blog);
@@ -136,7 +140,8 @@ namespace Mix_MTA2.Controllers
         // =================================================================================================== Tìm kiếm trong blog
         public ActionResult Timkiem_blog(string noidung)
         {
-            var tk = db.Blogs.Where(x => x.TieuDe.Contains(noidung) || x.TenBlog.Contains(noidung)).ToList();
+            
+            var tk = db.Blogs.Where(x => x.TieuDe.Contains(noidung) || x.TenBlog.Contains(noidung)).Take(3);
             ViewBag.list = tk;
             var User_ = db.NguoiDungs.Where(x => x.UserID != 0).ToList();
             ViewBag.list_us = User_;
@@ -166,6 +171,8 @@ namespace Mix_MTA2.Controllers
         // ========================================================================================Đăng nhập
         public ActionResult Login()
         {
+            Session["ThanhVien1"] = null;
+            Session["ThanhVien"] = null;
             return View();
         }
 
@@ -173,6 +180,8 @@ namespace Mix_MTA2.Controllers
         [HttpPost]
         public ActionResult Login(string Username, string password)
         {
+            Session["ThanhVien1"] = null;
+            Session["ThanhVien"] = null;
             if (ModelState.IsValid)
             {
                 var data = db.ThanhViens.Where(s => s.Username.Equals(Username) && s.PassWord.Equals(password)).ToList();
@@ -192,6 +201,10 @@ namespace Mix_MTA2.Controllers
         public ActionResult Profile_(int id)
         {
             var tv = db.ThanhViens.Where(x => x.ID_user == id).FirstOrDefault();
+            var yeuthich = db.Yeu_thich_mon.Where(x => x.ID_user == id).ToList();
+            ViewBag.ythich = yeuthich;
+            var blog = db.Yeu_thich_blog.Where(x => x.ID_user == id).ToList();
+            ViewBag.yt_blog = blog;
             return View(tv);
         }
 
@@ -238,7 +251,7 @@ namespace Mix_MTA2.Controllers
                 PhanHoi phanhoi = new PhanHoi();
                 if (Session["ThanhVien"] != null)
                 {
-                    if (noidung != null)
+                    if (noidung != null )
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
                         CongThuc ct = Session["Ctiet"] as CongThuc;
@@ -249,7 +262,7 @@ namespace Mix_MTA2.Controllers
                         phanhoi.NoiDung = noidung;
                         db.PhanHois.Add(phanhoi);
                         db.SaveChanges();
-                        return RedirectToAction("Receipt");
+                        return RedirectToAction("Chitietcongthuc","Home",new {id = ct.ID_congthuc });
                     }
                     else
                     {
@@ -278,14 +291,14 @@ namespace Mix_MTA2.Controllers
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
                         Blog blg = Session["Ctiet_Blog"] as Blog;
-                        phanhoi.ID_blog = blg.MaBlog;
+                        phanhoi.ID_blog= blg.MaBlog;
                         phanhoi.ID_user = tv.ID_user;
                         phanhoi.NgayDang = DateTime.Now;
                         phanhoi.TieuDe = null;
                         phanhoi.NoiDung = noidung;
                         db.PhanHois.Add(phanhoi);
                         db.SaveChanges();
-                        return RedirectToAction("Blog");
+                        return RedirectToAction("ChitietBlog","Home",new {id = blg.MaBlog });
                     }
                     else
                     {
@@ -302,8 +315,8 @@ namespace Mix_MTA2.Controllers
 
             return RedirectToAction("Login");
         }
-        //=========================================================================== trả lời phản hồi blog
-        public ActionResult Traloi_ph_hoi_cthuc(int id, string noidung)
+        //=========================================================================== trả lời phản hồi cong thuc
+        public ActionResult Traloi_ph_hoi_cthuc(int id,string noidung)
         {
             if (ModelState.IsValid)
             {
@@ -313,13 +326,14 @@ namespace Mix_MTA2.Controllers
                     if (noidung != null)
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                        CongThuc ct = Session["Ctiet"] as CongThuc;
                         trl.MaThanhVien = tv.ID_user;
                         trl.NoiDung = noidung;
                         trl.MaPhanHoi = id;
                         trl.NgayDang = DateTime.Now;
                         db.TraLoi_PhanHoi.Add(trl);
                         db.SaveChanges();
-                        return RedirectToAction("Receipt");
+                        return RedirectToAction("Chitietcongthuc", "Home", new { id = ct.ID_congthuc });
                     }
                     else
                     {
@@ -347,13 +361,14 @@ namespace Mix_MTA2.Controllers
                     if (noidung != null)
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                        Blog blg = Session["Ctiet_Blog"] as Blog;
                         trl.MaThanhVien = tv.ID_user;
                         trl.NoiDung = noidung;
                         trl.MaPhanHoi = id;
                         trl.NgayDang = DateTime.Now;
                         db.TraLoi_PhanHoi.Add(trl);
                         db.SaveChanges();
-                        return RedirectToAction("Blog");
+                        return RedirectToAction("ChitietBlog", "Home", new { id = blg.MaBlog });
                     }
                     else
                     {
@@ -368,6 +383,144 @@ namespace Mix_MTA2.Controllers
                 }
             }
 
+            return RedirectToAction("Login");
+        }
+        public ActionResult Luu()   //------------------------------------------ Lưu công thức yêu thích
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    CongThuc ct = Session["Ctiet"] as CongThuc;
+                    save_.ID_congthuc = ct.ID_congthuc;
+                    save_.ID_blog = null;
+                    save_.ID_user = tv.ID_user;
+                    save_.Ngay_luu = DateTime.Now;
+                    db.Luu_tru.Add(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("Chitietcongthuc","Home",new {id = ct.ID_congthuc});
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult Boluu()   //--------------------------------- Bỏ lưu công thức yêu thích
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    CongThuc ct = Session["Ctiet"] as CongThuc;
+                    save_ = db.Luu_tru.Where(x => x.ID_congthuc == ct.ID_congthuc && x.ID_user == tv.ID_user).FirstOrDefault();
+                    db.Luu_tru.Remove(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("Chitietcongthuc", "Home", new { id = ct.ID_congthuc });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult Gobo(int id)   //-------------------Bỏ yêu thích công thức
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    save_ = db.Luu_tru.Where(x => x.ID_congthuc == id && x.ID_user == tv.ID_user).FirstOrDefault();
+                    db.Luu_tru.Remove(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("Profile_", "Home", new { id = tv.ID_user });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
+            return RedirectToAction("Login");
+        }
+
+        //---------------------- Blog ----------
+        public ActionResult Luu_blog()   //------------------------------------------ Lưu bài viết yêu thích
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    Blog blg = Session["Ctiet_Blog"] as Blog;
+                    save_.ID_blog = blg.MaBlog;
+                    save_.ID_congthuc = null;
+                    save_.ID_user = tv.ID_user;
+                    save_.Ngay_luu = DateTime.Now;
+                    db.Luu_tru.Add(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("ChitietBlog", "Home", new { id = blg.MaBlog });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult Boluu_blog()   //--------------------------------- Bỏ lưu bài viết yêu thích
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    Blog blg = Session["Ctiet_Blog"] as Blog;
+                    save_ = db.Luu_tru.Where(x => x.ID_blog == blg.MaBlog && x.ID_user == tv.ID_user).FirstOrDefault();
+                    db.Luu_tru.Remove(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("ChitietBlog", "Home", new { id = blg.MaBlog });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult Gobo_blog(int id)   //-------------------- Bỏ yêu thích blog
+        {
+            if (ModelState.IsValid)
+            {
+                Luu_tru save_ = new Luu_tru();
+                if (Session["ThanhVien"] != null)
+                {
+                    ThanhVien tv = Session["ThanhVien"] as ThanhVien;
+                    save_ = db.Luu_tru.Where(x => x.ID_blog == id && x.ID_user == tv.ID_user).FirstOrDefault();
+                    db.Luu_tru.Remove(save_);
+                    db.SaveChanges();
+                    return RedirectToAction("Profile_", "Home", new { id = tv.ID_user });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng nhập!");
+
+                }
+            }
             return RedirectToAction("Login");
         }
     }
