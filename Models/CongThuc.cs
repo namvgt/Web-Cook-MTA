@@ -52,7 +52,7 @@ namespace Mix_MTA2.Models
 
         public int? SLPH { get; set; }
 
-        [StringLength(200)]
+        [StringLength(1000)]
         public string Video { get; set; }
 
         public long? LuotXem { get; set; }

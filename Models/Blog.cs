@@ -41,7 +41,7 @@ namespace Mix_MTA2.Models
 
         public bool? TrangThai { get; set; }
 
-        public long? SLPH { get; set; }
+        public int? SLPH { get; set; }
 
         public long? LuotXem { get; set; }
 

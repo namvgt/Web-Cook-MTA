@@ -14,6 +14,6 @@ namespace Mix_MTA2.Models
         [Column(TypeName = "date")]
         public DateTime? ThoiGian { get; set; }
 
-        public long? SoTruyCap { get; set; }
+        public int? SoTruyCap { get; set; }
     }
 }

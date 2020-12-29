@@ -8,7 +8,7 @@ namespace Mix_MTA2.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model125")
+            : base("name=Model1")
         {
         }
 
@@ -79,6 +79,10 @@ namespace Mix_MTA2.Models
                 .HasMany(e => e.PhanHois)
                 .WithOptional(e => e.CongThuc)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<GioiThieu>()
+                .Property(e => e.AnhMinhHoa)
+                .IsUnicode(false);
 
             modelBuilder.Entity<NguoiDung>()
                 .Property(e => e.UserName)
