@@ -45,25 +45,18 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="Index">Trang chủ</a></li>
-                                <li class="active"><a href="About">Giới thiệu</a></li>
-                                <li><a href="Receipt">Công thức</a></li>
-                                <li><a href="Blog">Blog</a></li>
-                                <li><a href="Contact">Liên hệ</a></li>
+                                <li><a href="/Home/Index">Trang chủ</a></li>
+                                <li class="active"><a href="/Home/About">Giới thiệu</a></li>
+                                <li><a href="/Home/Receipt">Công thức</a></li>
+                                <li><a href="/Home/Blog">Blog</a></li>
+                                <li><a href="/Home/Contact">Liên hệ</a></li>
                                 @*<li><a href="Login">Đăng nhập</a></li>*@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
-                                            <i class="fa fa-search "></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -133,7 +126,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="contact-form-area">
-                    <form action="P_hoi_web" method="get">
+                    <form action="/Home/P_hoi_web" method="get">
                         <div class="row">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="col-12">
@@ -141,7 +134,7 @@
                             </div>
                             @if (Session["ThanhVien"] != null)
                             {
-                                <button class="btn delicious-btn mt-30">Đăng</button>
+                                <a href="#" class="btn delicious-btn w-100">Đăng ký</a>
                             }
                         </div>
                     </form>

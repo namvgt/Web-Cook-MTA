@@ -27,7 +27,7 @@
                 <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand " href="Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
+                    <a class="nav-brand " href="/Home/Index"><img src="/Content/User/img/core-img/your-logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <!-- Menu -->
@@ -44,16 +44,9 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
-                                            <i class="fa fa-search "></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -87,34 +80,35 @@
 </section>
 <!-- ##### Hero Area End ##### -->
 <!-- ##### Top Catagory Area Start ##### -->
-<section class="top-catagory-area section-padding-80-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading">
-                    <h3><b>Loại công thức</b></h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Top Catagory Area -->
-            @foreach (Mix_MTA2.Models.LoaiCongThuc item in ViewBag.list_lct)
-            {
-                <div class="col-12 col-lg-6">
-                    <div class="single-top-catagory">
-                        <img src="~/Content/User/img/bg-img/bg8.jpg">
-                        <!-- Content -->
-                        <div class="top-cta-content text-center">
-                            <h3>@item.TenLoaiCT</h3>
-                            <h6>Đơn giản & dễ làm</h6>
-                            <a href="/Home/Receipt" class="btn delicious-btn">Khám phá</a>
-                        </div>
+@*<section class="top-catagory-area section-padding-80-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3><b>Loại công thức</b></h3>
                     </div>
                 </div>
-            }
+            </div>
+            @*<div class="row">
+                <!-- Top Catagory Area -->
+                @foreach (Mix_MTA2.Models.LoaiCongThuc item in ViewBag.list_lct)
+                {
+                    <div class="col-12 col-lg-6">
+                        <div class="single-top-catagory">
+                            <img src="~/Content/User/img/bg-img/bg8.jpg">
+                            <!-- Content -->
+                            <div class="top-cta-content text-center">
+                                <h3>@item.TenLoaiCT</h3>
+                                <h6>Đơn giản & dễ làm</h6>
+                                <a href="/Home/Receipt" class="btn delicious-btn">Khám phá</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>*@
+<hr />
 <!-- ##### Top Catagory Area End ##### -->
 <!-- ##### Best Receipe Area Start ##### -->
 <section class="best-receipe-area">
@@ -183,12 +177,12 @@
                     <div class="single-small-receipe-area d-flex">
                         <!-- Receipe Thumb -->
                         <div class="receipe-thumb">
-                            <a href="/Home/Chitietcongthuc?id=@item.ID_congthuc"> <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt=""></a>
+                            <a href="/Home/Chitietcongthuc/@item.ID_congthuc"> <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt=""></a>
                         </div>
                         <!-- Receipe Content -->
                         <div class="receipe-content">
                             <span>@item.NgayTao.Value.ToString("dd/MM/yyyy")</span>
-                            <a href="/Home/Chitietcongthuc?id=@item.ID_congthuc">
+                            <a href="/Home/Chitietcongthuc/@item.ID_congthuc">
                                 <h5>@item.TenCongThuc</h5>
                             </a>
                             <div class="ratings">
@@ -245,7 +239,15 @@
                             @*<input type="email" name="email" placeholder="Email,Gmail,...">
                                 <input type="text" name="username" placeholder="Username...">
                                 <input type="text" name="password" placeholder="Password...">*@
-                            <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                            @if (Session["ThanhVien"] == null)
+                            {
+                                <button type="submit" class="btn delicious-btn w-100">Đăng ký</button>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn delicious-btn w-100">Đăng ký</a>
+                            }
+
                         </form>
                         <p>Đăng ký và theo dõi chúng tôi để cập nhật những công thức làm bánh hấp dẫn nhất nhé.</p>
                     </div>

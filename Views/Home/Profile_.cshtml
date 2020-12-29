@@ -7,7 +7,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
     body {
@@ -205,7 +207,7 @@
 
     .card {
         margin-top: 0px;
-        background: #eee;
+        background: #ffffff;
         padding: 3em;
         line-height: 1.5em;
     }
@@ -349,6 +351,16 @@
         padding-left: 0px;
         padding-bottom: 0px;
     }
+
+    .size_ {
+        height: 50px;
+        width: 50px;
+        border: 1px solid;
+    }
+
+    .nen {
+        background-color: white;
+    }
 </style>
 <title>Mix-MTA | Tài khoản</title>
 <div class="container">
@@ -364,26 +376,29 @@
                         <div class="profile-usertitle-job">@Model.HoTen</div>
                     </div>
                     <div class="profile-userbuttons">
-                        <a class="btn btn-success btn-sm" href="Index">Trang chủ</a>
-                        <a href="Login" class="btn btn-danger btn-sm">Đăng xuất</a>
+                        <a class="btn btn-success btn-sm" href="/Home/Index">Trang chủ</a>
+                        <a href="/Home/Login" class="btn btn-danger btn-sm">Đăng xuất</a>
                     </div>
-                    @*<div class="profile-usermenu">
+                    <div class="profile-usermenu">
                         <ul class="nav">
-                            <li class="">
-                                <a href="#" onclick="load_(1)"> <i class="glyphicon glyphicon-user"></i>Thông tin cá nhân</a>
+                            <li class="size_">
+                                <a href="#" onclick="load_(1)"> <i class="glyphicon glyphicon-user size_"></i>Thông tin cá nhân</a>
                             </li>
-                            <li class="">
-                                <a href="#" onclick="load_(0)"> <i class="glyphicon glyphicon-bell"></i>Lịch sử hoạt động </a>
+                            <li class="size_">
+                                <a href="#" onclick="load_(0)"> <i class="glyphicon glyphicon-heart size_"></i>Công thức yêu thích</a>
                             </li>
-
+                            <li class="size_">
+                                <a href="#" onclick="load_(2)"> <i class="glyphicon glyphicon-book size_"></i>Bài viết yêu thích</a>
+                            </li>
                         </ul>
-                    </div>*@
+                    </div>
+
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="profile-content">
                     @*<img src="~/Content/User/img/bg-img/kitchen.jpg" />*@
-                    <div class="container-ok" id="ctiet" >
+                    <div class="container-ok" id="ctiet">
                         <div class="card">
                             <div class="container-fliud">
                                 <div class="wrapper row">
@@ -407,10 +422,66 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-ok" id="lichsu" style="display:none;">
+                    <div class="container-ok nen" id="lichsu" style="display:none;">
+                        <div class="card nen">
+                            <div class="container-fliud nen">
+                                @*<section class="small-receipe-area section-padding-80-0">*@
+                                <div class="container nen">
+                                    <div class="row nen">
+                                        @foreach (Mix_MTA2.Models.Yeu_thich_mon item in ViewBag.ythich)
+                                        {
+                                            <!-- Small Receipe Area -->
+                                            <div class="col-12 col-sm-6 nen">
+                                                <div class="single-small-receipe-area d-flex">
+                                                    <!-- Receipe Thumb -->
+                                                    <div class="receipe-thumb">
+                                                        <a href="/Home/Chitietcongthuc/@item.ID_congthuc"> <img src="/Content/User/img/bg-img/@item.AnhMinhHoa" alt=""></a>
+                                                    </div>
+                                                    <div class="receipe-content">
+
+                                                        <a href="/Home/Chitietcongthuc/@item.ID_congthuc">
+                                                            <h5>@item.TenCongThuc</h5>
+                                                        </a>
+                                                        <span>@item.Ngay_luu.Value.ToString("dd/MM/yyyy")</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-2">
+                                                <a href="/Home/Gobo/@item.ID_congthuc" class="btn size_">Gỡ bỏ</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                @*</section>*@
+                            </div>
+                        </div>
+                    </div>
+                    @*------------------------Blog----------------------*@
+                    <div class="container-ok nen" id="blog" style="display:none;">
                         <div class="card">
-                            <div class="container-fliud">
-                                <p>dmdmdmmdmdmdmdmdm</p>
+                            <div class="container-fliud nen">
+                                @*<section class="small-receipe-area section-padding-80-0">*@
+                                @foreach (Mix_MTA2.Models.Yeu_thich_blog item in ViewBag.yt_blog)
+                                {
+                                    <div class="col-12 col-sm-10 nen">
+                                        <div class="single-small-receipe-area d-flex">
+                                            <!-- Receipe Thumb -->
+                                            <div class="receipe-thumb">
+                                                <a href="/Home/ChitietBlog/@item.MaBlog"> <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="width:200px;height:50px;" alt=""></a>
+                                            </div>
+                                            <div class="receipe-content">
+                                                <a href="/Home/ChitietBlog/@item.MaBlog">
+                                                    <h5>@item.TenBlog</h5>
+                                                </a>
+                                                <span>@item.Ngay_luu.Value.ToString("dd/MM/yyyy")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-2">
+                                        <a href="/Home/Gobo_blog/@item.MaBlog" class="btn size_">Gỡ bỏ</a>
+                                    </div>
+                                }
+                                @*</section>*@
                             </div>
                         </div>
                     </div>
@@ -424,11 +495,18 @@
         if (i == 1) {
             document.getElementById("lichsu").style.display = 'none';
             document.getElementById("ctiet").style.display = 'block';
+            document.getElementById("blog").style.display = 'none';
         }
-        else {
+        if (i == 0) {
             document.getElementById("ctiet").style.display = 'none';
+            document.getElementById("blog").style.display = 'none';
             document.getElementById("lichsu").style.display = 'block';
 
+        }
+        else if (i == 2) {
+            document.getElementById("ctiet").style.display = 'none';
+            document.getElementById("lichsu").style.display = 'none';
+            document.getElementById("blog").style.display = 'block';
         }
     }
 </script>
