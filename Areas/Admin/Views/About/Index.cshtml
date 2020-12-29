@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_admin.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">About</h1>
+    <div class="row">
+        <p class="mb-4 col-6">Điều chỉnh thông tin về chúng tôi được hiển thị ở các vị trí trên web người dùng</p>
+        <div class="col-6">
+            <a class="btn btn-primary" href="About/Add" style="float:right;"><i class="fas fa-plus-circle"> </i> Thêm mới</a>
+        </div>
+
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            @*<h6 class="m-0 font-weight-bold text-primary">Công thức làm bánh</h6>*@
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tiêu đề</th>
+                            <th>Ảnh minh họa</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tiêu đề</th>
+                            <th>Ảnh minh họa</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (Mix_MTA2.Models.GioiThieu it in ViewBag.DS)
+                        {
+                            <tr id="row_@it.MaGioiThieu">
+                                <th>@it.MaGioiThieu</th>
+                                <th style="text-align:left">@it.TieuDe</th>
+                                <th><img width="200" height="150" style="border: 3px solid #ffffff;border-radius:7px; box-shadow: 0 0 5px rgba(0, 0, 0, .5)" src="~/Content/User/img/bg-img/@it.AnhMinhHoa" alt="ERROR" /></th>
+                                <th>
+                                    @if (it.TrangThai == true)
+                                    {
+                                        <form method="post" action="Status" id="status_@it.MaGioiThieu">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaGioiThieu" />
+                                                <input class="toggle toggle-ios" id="toggle_@it.MaGioiThieu" type="checkbox" name="Trangthai" />
+                                                <label class="toggle-btn-true" for="toggle_@it.MaGioiThieu" onclick="status(@it.MaGioiThieu)"></label>
+                                            </div>
+                                        </form>
+
+                                    }
+                                    else
+                                    {
+                                        <form method="post" action="Status" id="status_@it.MaGioiThieu">
+                                            <div class="toggle-button-demo">
+                                                <input type="hidden" name="id" value="@it.MaGioiThieu" />
+                                                <input class="toggle toggle-ios" id="toggle__@it.MaGioiThieu" type="checkbox" name="Trangthai" />
+                                                <label class="toggle-btn" for="toggle__@it.MaGioiThieu" onclick="status(@it.MaGioiThieu)"></label>
+                                            </div>
+                                        </form>
+                                    }
+
+                                </th>
+                                <th class="center"><a style="color:#fff" href="About/Detail/@it.MaGioiThieu"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                                <th>
+                                    <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaGioiThieu+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete","About",new { id = it.MaGioiThieu })' style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                                </th>
+                                <th class="center"><a style="color:#fff" href="About/Edit/@it.MaGioiThieu"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+<script type="text/javascript">
+    function status(id) {
+        var form_id = "status_" + id.toString();
+        document.getElementById(form_id).submit();
+    }
+</script>
+

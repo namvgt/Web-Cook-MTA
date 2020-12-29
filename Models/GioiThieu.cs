@@ -18,6 +18,9 @@ namespace Mix_MTA2.Models
         [Column(TypeName = "ntext")]
         public string NoiDung { get; set; }
 
+        [StringLength(200)]
+        public string AnhMinhHoa { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime? NgayTao { get; set; }
 
