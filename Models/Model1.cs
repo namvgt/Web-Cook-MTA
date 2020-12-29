@@ -8,7 +8,7 @@ namespace Mix_MTA2.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model1")
+            : base("name=Model125")
         {
         }
 
@@ -17,6 +17,7 @@ namespace Mix_MTA2.Models
         public virtual DbSet<Footer> Footers { get; set; }
         public virtual DbSet<GioiThieu> GioiThieux { get; set; }
         public virtual DbSet<LoaiCongThuc> LoaiCongThucs { get; set; }
+        public virtual DbSet<Luu_tru> Luu_tru { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<NguyenLieu> NguyenLieux { get; set; }
         public virtual DbSet<NoiDung_Blog> NoiDung_Blog { get; set; }
@@ -26,9 +27,11 @@ namespace Mix_MTA2.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }
         public virtual DbSet<TraLoi_PhanHoi> TraLoi_PhanHoi { get; set; }
+        public virtual DbSet<TruyCap> TruyCaps { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<View_traloi> View_traloi { get; set; }
-        public virtual DbSet<TruyCap> TruyCaps { get; set; }
+        public virtual DbSet<Yeu_thich_blog> Yeu_thich_blog { get; set; }
+        public virtual DbSet<Yeu_thich_mon> Yeu_thich_mon { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +39,11 @@ namespace Mix_MTA2.Models
                 .Property(e => e.AnhMinhHoa)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Blog>()
+                .HasMany(e => e.Luu_tru)
+                .WithOptional(e => e.Blog)
+                .HasForeignKey(e => e.ID_blog);
 
             modelBuilder.Entity<Blog>()
                 .HasMany(e => e.NoiDung_Blog)
@@ -146,6 +154,16 @@ namespace Mix_MTA2.Models
 
             modelBuilder.Entity<View_traloi>()
                 .Property(e => e.HinhDaiDien)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Yeu_thich_blog>()
+                .Property(e => e.AnhMinhHoa)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Yeu_thich_mon>()
+                .Property(e => e.AnhMinhHoa)
+                .IsFixedLength()
                 .IsUnicode(false);
         }
     }
