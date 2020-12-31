@@ -157,7 +157,7 @@
         <div class="col-7">
             <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" style="width:700px;margin-left:120px;">
         </div>
-        <div class="col-4" style="background-color:#f2f0e9;border-radius:7px;margin-left:50px; height:700px; overflow:auto">
+        <div class="col-4" style="background-color:#f2f0e9;border-radius:7px;margin-left:50px; height:601.3px; overflow:auto">
             <div class="blog-sidebar-area">
                 <br />
                 <!-- Widget -->
@@ -165,10 +165,13 @@
                 {
                     <div class="row" style="margin-bottom:8px">
                         <div class="col-6">
-                            <img width="170" style="border-radius:4px; box-shadow:0 0 5px #ddd; margin-left:15px" src="~/Content/User/img/bg-img/@it.AnhMinhHoa"  />
+                            <a href="../../Home/Chitietcongthuc/@it.ID_congthuc">
+                                <img width="170" style="border-radius:4px; box-shadow:0 0 5px #ddd; margin-left:15px" src="~/Content/User/img/bg-img/@it.AnhMinhHoa" />
+
+                            </a>
                         </div>
                         <div class="col-6">
-                            <a style="text-decoration:none; font-size:20px">@it.TenCongThuc</a>
+                            <a href="../../Home/Chitietcongthuc/@it.ID_congthuc" style="text-decoration:none; font-size:20px">@it.TenCongThuc</a>
                             <br />
                             <div style="display:inline">
                                 <a class="ratings" style="display:inline;margin-right:5px">
@@ -206,18 +209,18 @@
                         <h2>
                             @Model.TenCongThuc @if (Session["ThanhVien"] == null)
                             {
-                                <a href="Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
+                                <a href="/Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
 
                             }
                             else
                             {
                                 if (Session["Luu"] != null && lt.ID_user == tv.ID_user)
                                 {
-                                    <a href="Home/Boluu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart fa-2x"></i></a>
+                                    <a href="/Home/Boluu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart fa-2x"></i></a>
                                 }
                                 else
                                 {
-                                    <a href="Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
+                                    <a href="/Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
                                 }
 
                             }

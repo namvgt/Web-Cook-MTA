@@ -123,7 +123,16 @@ namespace Mix_MTA2.Controllers
             ViewBag.rv = review;
             var congthuc = db.CongThucs.Where(x => x.ID_congthuc == id).FirstOrDefault();
             Session["Ctiet"] = congthuc;
-            var save = db.Luu_tru.Where(x => x.ID_congthuc == id).FirstOrDefault();
+            var save = new Luu_tru();
+            if(Session["ThanhVien"] == null)
+            {
+                save = db.Luu_tru.Where(x => x.ID_congthuc == id).FirstOrDefault();
+            }
+            else
+            {
+                var id_user = (Session["ThanhVien"] as ThanhVien).ID_user;
+                save = db.Luu_tru.Where(x => x.ID_congthuc == id && x.ID_user == id_user).FirstOrDefault();
+            }
             Session["Luu"] = save;
             var traloi = db.View_traloi.Where(x => x.MaTraLoi != 0).ToList();
             ViewBag.Answer = traloi;
