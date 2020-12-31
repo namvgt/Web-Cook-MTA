@@ -10,6 +10,20 @@ using System.Web.Security;
 
 namespace Mix_MTA2.Areas.Admin.Controllers
 {
+    public class compareLuotxem : IComparer<CongThuc>
+    {
+        public int Compare(CongThuc x, CongThuc y)
+        {
+            return x.LuotXem.Value.CompareTo(y.LuotXem.Value);
+        }
+    }
+    public class compareLuotxemBlog : IComparer<Blog>
+    {
+        public int Compare(Blog x, Blog y)
+        {
+            return x.LuotXem.Value.CompareTo(y.LuotXem.Value);
+        }
+    }
     public class GeneralController : Controller
     {
         private Model1 db = new Model1();
@@ -33,6 +47,14 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             ViewBag.Sotruycap = sotruycap;
             ViewBag.thoigian = thoigian;
             ViewBag.truycap = soluong;
+            var dsct = db.CongThucs.Where(x => x.TenCongThuc != null).ToList();
+            dsct.Sort(new compareLuotxem());
+            dsct.Reverse();
+            ViewBag.dsct = dsct;
+            var dsbg = db.Blogs.Where(x => x.TieuDe != null).ToList();
+            dsbg.Sort(new compareLuotxemBlog());
+            dsbg.Reverse();
+            ViewBag.dsbg = dsbg;
             return View("Index");
         }
         [CustomAuthorize(Roles = "Admin")]

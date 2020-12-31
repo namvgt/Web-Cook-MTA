@@ -89,6 +89,10 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         public ActionResult Blog_edit(Blog bg, long[] maND, string[] _TieuDe, string[] NoiDung, string[] _AnhMinhHoa)
         {
             var blog = db.Blogs.Find(bg.MaBlog);
+            if (bg.AnhMinhHoa == null)
+            {
+                bg.AnhMinhHoa = blog.AnhMinhHoa;
+            }
             blog = bg;
             blog.MaNguoiChinhSua = (Session["NguoiDung"] as NguoiDung).UserID;
             blog.NgayChinhSua = DateTime.Now;

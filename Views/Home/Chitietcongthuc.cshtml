@@ -86,7 +86,7 @@
 <title>Mix-MTA | @Model.TenCongThuc</title>
 <!-- Search Wrapper -->
 <!-- Navbar Area -->
-<div class="delicious-main-menu">
+<div class="delicious-main-menu" style="position:fixed;z-index:10000;top:50px;left:0;background-color:white">
     <div class="classy-nav-container breakpoint-off">
         <div class="container">
             <!-- Menu -->
@@ -120,9 +120,16 @@
                         </ul>
 
                         <!-- Newsletter Form -->
-                        <div class="search-btn">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </div>
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                        <i class="fa fa-search "></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <!-- Nav End -->
                 </div>
@@ -133,7 +140,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');">
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');margin-top:125px">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -145,8 +152,50 @@
     </div>
 </div>
 <hr />
-<div class="receipe-post-area section-padding-80">
-    <div class="mb-1000"> <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" style="width:1000px;height:800px;"></div>
+<div class="receipe-post-area ">
+    <div class="row">
+        <div class="col-7">
+            <img src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" style="width:700px;margin-left:120px;">
+        </div>
+        <div class="col-4" style="background-color:#f2f0e9;border-radius:7px;margin-left:50px; height:700px; overflow:auto">
+            <div class="blog-sidebar-area">
+                <br />
+                <!-- Widget -->
+                @foreach (Mix_MTA2.Models.CongThuc it in ViewBag.dsct)
+                {
+                    <div class="row" style="margin-bottom:8px">
+                        <div class="col-6">
+                            <img width="170" style="border-radius:4px; box-shadow:0 0 5px #ddd; margin-left:15px" src="~/Content/User/img/bg-img/@it.AnhMinhHoa"  />
+                        </div>
+                        <div class="col-6">
+                            <a style="text-decoration:none; font-size:20px">@it.TenCongThuc</a>
+                            <br />
+                            <div style="display:inline">
+                                <a class="ratings" style="display:inline;margin-right:5px">
+                                    @for (int s = 1; s <= it.DoKho; s++)
+                                    {
+                                        <i style="color:#fc9803" class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @for (int s = 1; s <= 5 - it.DoKho; s++)
+                                    {
+                                        <i style="color:#fc9803" class="fa fa-star-o" aria-hidden="true"></i>
+                                    }
+                                </a>
+                                <p style="display:inline;margin-right:5px"><i class="fa fa-eye"></i> @it.LuotXem </p>
+                                <p style="display:inline;"><i class="fa fa-heart" style="color:red"></i> @it.Luu_tru.Count()</p>
+                            </div>
+                            <span style="-webkit-line-clamp: 3; text-overflow:ellipsis; overflow:hidden; -webkit-box-orient: vertical; display:-webkit-box; text-align:justify">@it.TieuDe</span>
+                        </div>
+                    </div>
+                    <hr />
+                }
+
+                <!-- Widget -->
+
+
+            </div>
+        </div>
+    </div>
     <!-- Receipe Content Area -->
     <div class="receipe-content-area">
         <div class="container">
@@ -154,52 +203,56 @@
             <div class="row">
                 <div class="col-12 col-md-8">
                     <div class="receipe-headline my-5">
-                        <span>@Model.NgayTao</span>
-                        <h2>@Model.TenCongThuc</h2>
-                        <p>@Model.TieuDe</p>
-                        <iframe width="600" height="400" src="https://www.youtube.com/embed/@Model.Video" frameborder="0"> </iframe>
-                        <div class="receipe-duration">
-                            <h6>Chuẩn bị: @Model.ThoiGianCB</h6>
-                            <h6>Nấu/nướng: @Model.ThoiGianNau</h6>
-                            @*<h6>Khẩu phần: 8 cái</h6>*@
-                            <h6 class="ratings">
-                                Độ khó:
+                        <h2>
+                            @Model.TenCongThuc @if (Session["ThanhVien"] == null)
+                            {
+                                <a href="Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
+
+                            }
+                            else
+                            {
+                                if (Session["Luu"] != null && lt.ID_user == tv.ID_user)
+                                {
+                                    <a href="Home/Boluu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart fa-2x"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="Home/Luu" style="display:inline;float:right;color:red;margin-right:25px; margin-top:7px"><i class="fa fa-heart-o fa-2x"></i></a>
+                                }
+
+                            }
+                            <span style="display:inline;float:right; margin-right:5px; margin-top:13px">@Model.Luu_tru.Count() đã lưu</span>
+                        </h2>
+
+
+                        <div style="display:inline">
+                            <h6 class="ratings" style="display:inline;margin-right:15px">
                                 @for (int s = 1; s <= Model.DoKho; s++)
                                 {
-                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i style="color:#fc9803" class="fa fa-star" aria-hidden="true"></i>
                                 }
                                 @for (int s = 1; s <= 5 - Model.DoKho; s++)
                                 {
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i style="color:#fc9803" class="fa fa-star-o" aria-hidden="true"></i>
                                 }
                             </h6>
+                            <h6 style="display:inline;margin-right:15px"><i class="fa fa-eye"></i> @Model.LuotXem </h6>
+                            <h6 style="display:inline">@Model.NgayTao.Value.ToString("MMM dd yyyy")</h6>
                         </div>
+                        <br />
+                        <p>@Model.TieuDe</p>
+                        <iframe width="600" height="400" src="https://www.youtube.com/embed/@Model.Video" frameborder="0"> </iframe>
+                        <div class="receipe-duration">
+                            <h6>Chuẩn bị: @Model.ThoiGianCB phút</h6>
+                            <h6>Nấu/nướng: @Model.ThoiGianNau phút</h6>
+                            @*<h6>Khẩu phần: 8 cái</h6>*@
+
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    @if (Session["ThanhVien"] == null)
-                    {
-                        <div class="receipe-ratings text-right my-5">
-                            <a href="/Home/Luu" class="btn delicious-btn">Like</a>
-                        </div>
 
-                    }
-                    else
-                    {
-                        if (Session["Luu"] != null && lt.ID_user == tv.ID_user)
-                        {
-                            <div class="receipe-ratings text-right my-5">
-                                <a href="/Home/Boluu" class="btn delicious-btn">Unlike</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="receipe-ratings text-right my-5">
-                                <a href="/Home/Luu" class="btn delicious-btn">Like</a>
-                            </div>
-                        }
-
-                    }
                 </div>
             </div>
             <div class="row">
@@ -294,6 +347,7 @@
                                     }
 
                                 }
+
                             </div>
                             <div class="review-acts" id="hien" style="display:none;">
                                 <a href="#" onclick="b(@view.MaPhanHoi,1)" class="text-gray" style="font-size:12px;color: #888;">
@@ -339,29 +393,21 @@
             }
 
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="contact-form-area">
-                        <form action="/Home/P_hoi" method="post">
-                            <div class="row">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="col-12">
-                                    <textarea name="noidung" class="form-control" id="message" cols="30" rows="10" placeholder="Bình luận của bạn"></textarea>
-                                </div>
-                                @if (Session["ThanhVien"] != null)
-                                {
-                                    <button class="btn delicious-btn mt-30" type="submit">Đăng</button>
-                                }
-                            </div>
-                        </form>
-
-                        @if (Session["ThanhVien"] == null)
-                        {
-                            <button class="btn delicious-btn mt-30" data-toggle="modal" data-target="#logoutModal">Đăng</button>
-                        }
-                    </div>
+            <form action="/Home/P_hoi" method="post">
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <textarea name="noidung" class="form-control" rows="3" placeholder="Nội dung"></textarea>
+                    @if (Session["ThanhVien"] != null)
+                    {
+                        <button type="submit" class="btn btn-default" style="background-color:#40ba37; color:white">Đăng</button>
+                    }
                 </div>
-            </div>
+            </form>
+
+            @if (Session["ThanhVien"] == null)
+            {
+                <a href="/Home/Login" class="btn btn-default" style="background-color:#40ba37;color:white">Đăng ký</a>
+            }
         </div>
     </div>
 </div>
@@ -433,6 +479,7 @@
 
 
 <script>
+
     function a(i) {
         var id = "cmt_" + i.toString();
         document.getElementById(id).style.display = 'block';

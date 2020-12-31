@@ -47,7 +47,10 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             CongThuc congthuc = new CongThuc();
             congthuc = db.CongThucs.Find(ct.ID_congthuc);
             congthuc.TenCongThuc = ct.TenCongThuc;
-            congthuc.AnhMinhHoa = ct.AnhMinhHoa;
+            if (ct.AnhMinhHoa != null)
+            {
+                congthuc.AnhMinhHoa = ct.AnhMinhHoa;
+            }
             congthuc.Video = ct.Video.Trim();
             congthuc.DoKho = ct.DoKho;
             congthuc.TieuDe = ct.TieuDe;

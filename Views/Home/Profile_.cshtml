@@ -369,7 +369,7 @@
             <div class="col-md-3">
                 <div class="profile-sidebar">
                     <div class="profile-userpic">
-                        <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" class="img-responsive" alt="Thông tin cá nhân" style="width:200px;height:200px;">
+                        <img src="~/Content/User/img/bg-img/@Model.HinhDaiDien" class="img-responsive" alt="Thông tin cá nhân" style="width:200px;height:200px">
                     </div>
                     <div class="profile-usertitle">
                         @*<div class="profile-usertitle-name">@Model.Username</div>*@
@@ -381,13 +381,13 @@
                     </div>
                     <div class="profile-usermenu">
                         <ul class="nav">
-                            <li class="size_">
+                            <li class="size_" style="width:100%">
                                 <a href="#" onclick="load_(1)"> <i class="glyphicon glyphicon-user size_"></i>Thông tin cá nhân</a>
                             </li>
-                            <li class="size_">
+                            <li class="size_" style="width:100%">
                                 <a href="#" onclick="load_(0)"> <i class="glyphicon glyphicon-heart size_"></i>Công thức yêu thích</a>
                             </li>
-                            <li class="size_">
+                            <li class="size_" style="width:100%">
                                 <a href="#" onclick="load_(2)"> <i class="glyphicon glyphicon-book size_"></i>Bài viết yêu thích</a>
                             </li>
                         </ul>
@@ -399,7 +399,7 @@
                 <div class="profile-content">
                     @*<img src="~/Content/User/img/bg-img/kitchen.jpg" />*@
                     <div class="container-ok" id="ctiet">
-                        <div class="card">
+                        <div class="card" style="border:none">
                             <div class="container-fliud">
                                 <div class="wrapper row">
                                     <div class="preview col-md-6">
@@ -414,7 +414,6 @@
                                         <h5 class="sizes">Họ tên:  @Model.HoTen</h5>
                                         <h5 class="sizes">Email:  @Model.Email</h5>
                                         <h5 class="sizes">Tài khoản:  @Model.Username</h5>
-                                        <h5 class="sizes">Mật khẩu:  @Model.PassWord</h5>
                                         <h5 class="sizes">Giới tính:  @Model.GioiTinh</h5>
                                         <h5 class="sizes">Ngày đăng ký:  @Model.NgayDangky</h5>
                                     </div>
@@ -427,9 +426,10 @@
                             <div class="container-fliud nen">
                                 @*<section class="small-receipe-area section-padding-80-0">*@
                                 <div class="container nen">
-                                    <div class="row nen">
-                                        @foreach (Mix_MTA2.Models.Yeu_thich_mon item in ViewBag.ythich)
-                                        {
+
+                                    @foreach (Mix_MTA2.Models.Yeu_thich_mon item in ViewBag.ythich)
+                                    {
+                                        <div class="row nen">
                                             <!-- Small Receipe Area -->
                                             <div class="col-12 col-sm-6 nen">
                                                 <div class="single-small-receipe-area d-flex">
@@ -447,10 +447,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-2">
-                                                <a href="/Home/Gobo/@item.ID_congthuc" class="btn size_">Gỡ bỏ</a>
+                                                <a href="/Home/Gobo/@item.ID_congthuc" class="btn btn-danger" style="margin-top:10px"><i class="fa fa-minus"> </i> Gỡ bỏ</a>
                                             </div>
-                                        }
-                                    </div>
+                                        </div>
+                                        <hr style="width:700px" />
+                                    }
+
                                 </div>
                                 @*</section>*@
                             </div>
@@ -458,28 +460,31 @@
                     </div>
                     @*------------------------Blog----------------------*@
                     <div class="container-ok nen" id="blog" style="display:none;">
-                        <div class="card">
+                        <div class="card" style="border:none">
                             <div class="container-fliud nen">
                                 @*<section class="small-receipe-area section-padding-80-0">*@
                                 @foreach (Mix_MTA2.Models.Yeu_thich_blog item in ViewBag.yt_blog)
                                 {
-                                    <div class="col-12 col-sm-10 nen">
-                                        <div class="single-small-receipe-area d-flex">
-                                            <!-- Receipe Thumb -->
-                                            <div class="receipe-thumb">
-                                                <a href="/Home/ChitietBlog/@item.MaBlog"> <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="width:200px;height:50px;" alt=""></a>
-                                            </div>
-                                            <div class="receipe-content">
-                                                <a href="/Home/ChitietBlog/@item.MaBlog">
-                                                    <h5>@item.TenBlog</h5>
-                                                </a>
-                                                <span>@item.Ngay_luu.Value.ToString("dd/MM/yyyy")</span>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-10 nen">
+                                            <div class="single-small-receipe-area d-flex">
+                                                <!-- Receipe Thumb -->
+                                                <div class="receipe-thumb">
+                                                    <a href="/Home/ChitietBlog/@item.MaBlog"> <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="width:200px;height:50px;" alt=""></a>
+                                                </div>
+                                                <div class="receipe-content">
+                                                    <a href="/Home/ChitietBlog/@item.MaBlog">
+                                                        <h5>@item.TenBlog</h5>
+                                                    </a>
+                                                    <span>@item.Ngay_luu.Value.ToString("dd/MM/yyyy")</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-12 col-sm-2">
+                                            <a href="/Home/Gobo_blog/@item.MaBlog" class="btn btn-danger" style="margin-top:10px"><i class="fa fa-minus"> </i> Gỡ bỏ</a>
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-sm-2">
-                                        <a href="/Home/Gobo_blog/@item.MaBlog" class="btn size_">Gỡ bỏ</a>
-                                    </div>
+                                    <hr style="width:700px" />
                                 }
                                 @*</section>*@
                             </div>

@@ -7,6 +7,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using PagedList;
 using System.Security.Cryptography;
+using Mix_MTA2.Areas.Admin.Controllers;
 
 namespace Mix_MTA2.Controllers
 {
@@ -38,6 +39,8 @@ namespace Mix_MTA2.Controllers
         }
         public ActionResult About()
         {
+            var list = db.GioiThieux.Where(x => x.TieuDe != null).ToList();
+            ViewBag.DS = list;
             return View();
         }
         // =================================================================================================== Tìm kiếm công thức
@@ -79,6 +82,8 @@ namespace Mix_MTA2.Controllers
         {
             var model = db.CongThucs.Where(x => x.ID_congthuc != 0).ToList();
             ViewBag.DS = model;
+            var lct = db.LoaiCongThucs.Where(x => x.TenLoaiCT != null).ToList();
+            ViewBag.lct = lct;
             return View(model);
         }
         // =================================================================================================== Phân loại công thức
@@ -86,6 +91,8 @@ namespace Mix_MTA2.Controllers
         {
             var model = db.CongThucs.Where(x => x.MaLoaiCongThuc == id_lct).ToList();
             ViewBag.DS = model;
+            var lct = db.LoaiCongThucs.Where(x => x.TenLoaiCT != null).ToList();
+            ViewBag.lct = lct;
             return View("Receipt", model);
         }
         // =================================================================================================== Blog
@@ -120,6 +127,17 @@ namespace Mix_MTA2.Controllers
             Session["Luu"] = save;
             var traloi = db.View_traloi.Where(x => x.MaTraLoi != 0).ToList();
             ViewBag.Answer = traloi;
+            string sess = "ct_" + id.ToString();
+            if ((string)Session[sess] == null)
+            {
+                congthuc.LuotXem++;
+                db.SaveChanges();
+                Session[sess] = "đã xem";
+            }
+            var dsct = db.CongThucs.Where(x => x.TenCongThuc != null).ToList();
+            dsct.Sort(new compareLuotxem());
+            dsct.Reverse();
+            ViewBag.dsct = dsct;
             return View(congthuc);
         }
         // =================================================================================================== Chi tiết blog
@@ -135,12 +153,19 @@ namespace Mix_MTA2.Controllers
             Session["Luu_blog"] = save;
             var traloi = db.View_traloi.Where(x => x.MaTraLoi != 0).ToList();
             ViewBag.Answer = traloi;
+            string sess = "blog_" + id.ToString();
+            if ((string)Session[sess] == null)
+            {
+                blog.LuotXem++;
+                db.SaveChanges();
+                Session[sess] = "đã xem";
+            }
             return View(blog);
         }
         // =================================================================================================== Tìm kiếm trong blog
         public ActionResult Timkiem_blog(string noidung)
         {
-            
+
             var tk = db.Blogs.Where(x => x.TieuDe.Contains(noidung) || x.TenBlog.Contains(noidung)).Take(3);
             ViewBag.list = tk;
             var User_ = db.NguoiDungs.Where(x => x.UserID != 0).ToList();
@@ -209,6 +234,7 @@ namespace Mix_MTA2.Controllers
         }
 
         // ==============================================================================Phản hồi trang web
+        [HttpPost]
         public ActionResult P_hoi_web(string noidung)
         {
             if (ModelState.IsValid)
@@ -251,7 +277,7 @@ namespace Mix_MTA2.Controllers
                 PhanHoi phanhoi = new PhanHoi();
                 if (Session["ThanhVien"] != null)
                 {
-                    if (noidung != null )
+                    if (noidung != null)
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
                         CongThuc ct = Session["Ctiet"] as CongThuc;
@@ -262,7 +288,7 @@ namespace Mix_MTA2.Controllers
                         phanhoi.NoiDung = noidung;
                         db.PhanHois.Add(phanhoi);
                         db.SaveChanges();
-                        return RedirectToAction("Chitietcongthuc","Home",new {id = ct.ID_congthuc });
+                        return RedirectToAction("Chitietcongthuc", "Home", new { id = ct.ID_congthuc });
                     }
                     else
                     {
@@ -291,14 +317,14 @@ namespace Mix_MTA2.Controllers
                     {
                         ThanhVien tv = Session["ThanhVien"] as ThanhVien;
                         Blog blg = Session["Ctiet_Blog"] as Blog;
-                        phanhoi.ID_blog= blg.MaBlog;
+                        phanhoi.ID_blog = blg.MaBlog;
                         phanhoi.ID_user = tv.ID_user;
                         phanhoi.NgayDang = DateTime.Now;
                         phanhoi.TieuDe = null;
                         phanhoi.NoiDung = noidung;
                         db.PhanHois.Add(phanhoi);
                         db.SaveChanges();
-                        return RedirectToAction("ChitietBlog","Home",new {id = blg.MaBlog });
+                        return RedirectToAction("ChitietBlog", "Home", new { id = blg.MaBlog });
                     }
                     else
                     {
@@ -316,7 +342,7 @@ namespace Mix_MTA2.Controllers
             return RedirectToAction("Login");
         }
         //=========================================================================== trả lời phản hồi cong thuc
-        public ActionResult Traloi_ph_hoi_cthuc(int id,string noidung)
+        public ActionResult Traloi_ph_hoi_cthuc(int id, string noidung)
         {
             if (ModelState.IsValid)
             {
@@ -400,7 +426,7 @@ namespace Mix_MTA2.Controllers
                     save_.Ngay_luu = DateTime.Now;
                     db.Luu_tru.Add(save_);
                     db.SaveChanges();
-                    return RedirectToAction("Chitietcongthuc","Home",new {id = ct.ID_congthuc});
+                    return RedirectToAction("Chitietcongthuc", "Home", new { id = ct.ID_congthuc });
                 }
                 else
                 {

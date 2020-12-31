@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*@model PagedList.IPagedList<Mix_MTA2.Models.Blog>
-@using PagedList.Mvc;*@
+    @using PagedList.Mvc;*@
 @using Mix_MTA2.Models
 
 <style>
@@ -25,7 +25,7 @@
 <title>Mix-MTA | Blog</title>
 <!-- Search Wrapper -->
 <!-- ##### Header Area Start ##### -->
-<header class="header-area">
+<header class="header-area" style="position:fixed;z-index:10000;top:50px;left:0;background-color:white">
 
     <!-- Top Header Area -->
     <!-- Navbar Area -->
@@ -54,9 +54,16 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                            <i class="fa fa-search "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -67,7 +74,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');">
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb2.jpg');margin-top:125px">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -80,25 +87,6 @@
 </div>
 <hr />
 <!-- Receipe Post Search -->
-<div class="receipe-post-search mb-80">
-    <div class="container timkiem">
-        <form action="/Home/Timkiem_blog" method="get">
-            <div class="row">
-                <div class="col-12 col-lg-5">
-                    <p><b><h4>Bí quyết và mẹo vặt nấu nướng</h4></b></p>
-                </div>
-                <div class="col-12 col-lg-5">
-                    <input type="search" name="noidung" placeholder="Tìm kiếm chuyên đề...">
-                </div>
-                <div class="col-12 col-lg-2 text-right">
-                    <button type="submit" class="btn delicious-btn">Tìm kiếm</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<hr />
-
 <!-- ##### Breadcumb Area End ##### -->
 <!-- ##### Blog Area Start ##### -->
 <div class="blog-area section-padding-0-80">
@@ -113,7 +101,10 @@
                         <div class="single-blog-area mb-80">
                             <!-- Thumbnail -->
                             <div class="blog-thumbnail">
-                                <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="height:400px;width:900px" alt="">
+                                <a href="/Home/ChitietBlog/@item.MaBlog">
+                                    <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="height:400px;width:900px;border-radius:7px;box-shadow:0 0 5px #808080" alt="">
+                                </a>
+                                
                                 <!-- Post Date -->
                                 <div class="post-date">
                                     @*<a href="#"><span>30</span>Aug<br>2020</a>*@
@@ -124,7 +115,11 @@
                             </div>
                             <!-- Content -->
                             <div class="blog-content">
-                                <a href="#" class="post-title">@item.TenBlog</a>
+                                <a href="/Home/ChitietBlog/@item.MaBlog" class="post-title">@item.TenBlog</a>
+                                <div>
+                                    <h6 style="display:inline;margin-right:15px"><i class="fa fa-eye"></i> @item.LuotXem </h6>
+                                    <h6 style="display:inline;margin-right:5px; margin-top:13px"><i style="color:red" class="fa fa-heart"></i> @item.Luu_tru.Count</h6>
+                                </div>
                                 @foreach (Mix_MTA2.Models.NguoiDung us in ViewBag.list_us)
                                 {
                                     if (us.UserID == item.MaNguoiTao)
@@ -134,6 +129,7 @@
                                         @*</div>*@
                                     }
                                 }
+
                                 <p>@item.TieuDe</p>
                                 <a href="/Home/ChitietBlog/@item.MaBlog" class="btn delicious-btn mt-30">Đọc thêm</a>
                             </div>
@@ -160,31 +156,42 @@
 
                     <!-- Widget -->
                     @*<div class="single-widget mb-80">
-                        <h6>Nhật ký</h6>
-                        <ul class="list">
-                            <li><p href="#">Tháng 7-2020</p></li>
-                            <li><p href="#">Tháng 6-2020</p></li>
-                            <li><p href="#">Tháng 5-2020</p></li>
-                            <li><p href="#">Tháng 4-2020</p></li>
-                            <li><p href="#">Tháng 3-2020</p></li>
-                        </ul>
-                    </div>*@
+                            <h6>Nhật ký</h6>
+                            <ul class="list">
+                                <li><p href="#">Tháng 7-2020</p></li>
+                                <li><p href="#">Tháng 6-2020</p></li>
+                                <li><p href="#">Tháng 5-2020</p></li>
+                                <li><p href="#">Tháng 4-2020</p></li>
+                                <li><p href="#">Tháng 3-2020</p></li>
+                            </ul>
+                        </div>*@
 
                     <!-- Widget -->
                     @*<div class="single-widget mb-80">
-                        <h6>Tùy chọn</h6>
-                        <ul class="list">
-                            <li><p href="#">Nhà hàng</p></li>
-                            <li><p href="#">Food &amp; Drinks</p></li>
-                            <li><p href="#">Món chay</p></li>
-                            <li><p href="#">Ảnh &amp; Lối sống</p></li>
-                            <li><p href="#">Chưa xác định</p></li>
-                        </ul>
-                    </div>*@
-
+                            <h6>Tùy chọn</h6>
+                            <ul class="list">
+                                <li><p href="#">Nhà hàng</p></li>
+                                <li><p href="#">Food &amp; Drinks</p></li>
+                                <li><p href="#">Món chay</p></li>
+                                <li><p href="#">Ảnh &amp; Lối sống</p></li>
+                                <li><p href="#">Chưa xác định</p></li>
+                            </ul>
+                        </div>*@
+                    <div style="width:300px; margin:0 auto">
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" style="background-color:#40ba37; border-color:#40ba37">
+                                        <i class="fa fa-search "></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
                     <!-- Widget -->
                     <div class="single-widget mb-80">
-                        <h6>Đăng ký ngay</h6>
 
                         <!-- Form -->
                         <div class="newsletter-form bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg1.jpg');">

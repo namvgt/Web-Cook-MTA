@@ -97,7 +97,236 @@
         </div>
         <canvas id="myChart" height="150" width="300"></canvas>
     </div>
+    <br />
+    <div class="row">
+        @*<h1 class="h3 mb-2 text-gray-800">
+            Xem nhiều nhất tuần qua
+        </h1>*@
+        <div class="container-fluid">
 
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Top 5 công thức và blog xem nhiều nhất tuần qua</h1>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th style="width:100px">Tên món ăn</th>
+                                    <th>Thể loại</th>
+                                    @*<th>Tiêu đề</th>*@
+                                    <th>Ảnh minh họa</th>
+                                    <th>Lượt xem</th>
+                                    <th>TG nấu</th>
+                                    <th>Trạng thái</th>
+                                    <th>Top Hot</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th style="width:100px">Tên món ăn</th>
+                                    <th>Thể loại</th>
+                                    @*<th>Tiêu đề</th>*@
+                                    <th>Ảnh minh họa</th>
+                                    <th>Lượt xem</th>
+                                    <th>TG nấu</th>
+                                    <th>Trạng thái</th>
+                                    <th>Top Hot</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{ var i = 1;}
+                                @foreach (Mix_MTA2.Models.CongThuc it in ViewBag.dsct)
+                                {
+                                    if (i == 5)
+                                    {
+                                        break;
+                                    }
+                                    <tr id="row_@it.ID_congthuc">
+                                        <th>@it.ID_congthuc</th>
+                                        <th style="width:100px">@it.TenCongThuc</th>
+                                        <th>@it.LoaiCongThuc.TenLoaiCT</th>
+                                        @*<th style="text-align:left">@it.TieuDe</th>*@
+                                        <th><img width="200" height="150" style="border: 3px solid #ffffff;border-radius:7px; box-shadow: 0 0 5px rgba(0, 0, 0, .5)" src="~/Content/User/img/bg-img/@it.AnhMinhHoa" alt="ERROR" /></th>
+                                        <th>@it.LuotXem</th>
+                                        <th>@it.ThoiGianNau phút</th>
+                                        <th>
+                                            @if (it.TrangThai == true)
+                                            {
+                                                <form method="post" action="Status" id="status_@it.ID_congthuc" onsubmit="return false">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" id="tt_@it.ID_congthuc" value="@it.ID_congthuc" />
+                                                        <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                                        <label id="lb_tt" class="toggle-btn-true" for="toggle_@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                                        <button type="submit" style="position:absolute; top:-9999px; left:-9999px;"></button>
+                                                    </div>
+                                                </form>
+
+                                            }
+                                            else
+                                            {
+                                                <form method="post" action="Status" id="status_@it.ID_congthuc" onsubmit="return false">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" id="tt_@it.ID_congthuc" value="@it.ID_congthuc" />
+                                                        <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="Trangthai" />
+                                                        <label id="lb_tt" class="toggle-btn" for="toggle__@it.ID_congthuc" onclick="status(@it.ID_congthuc)"></label>
+                                                    </div>
+                                                </form>
+                                            }
+
+                                        </th>
+                                        <th>
+                                            @if (it.TopHot == true)
+                                            {
+                                                <form method="post" action="Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" id="tophot_@it.ID_congthuc" value="@it.ID_congthuc" />
+                                                        <input class="toggle toggle-ios" id="toggle_th_@it.ID_congthuc" type="checkbox" name="tophot" />
+                                                        <label id="lb_tophot" class="toggle-btn-true" for="toggle_th_@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                                    </div>
+                                                </form>
+
+                                            }
+                                            else
+                                            {
+                                                <form method="post" action="Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" id="tophot_@it.ID_congthuc" value="@it.ID_congthuc" />
+                                                        <input class="toggle toggle-ios" id="toggle_th__@it.ID_congthuc" type="checkbox" name="tophot" />
+                                                        <label id="lb_tophot" class="toggle-btn" for="toggle_th__@it.ID_congthuc" onclick="tophot(@it.ID_congthuc)"></label>
+                                                    </div>
+                                                </form>
+                                            }
+                                        </th>
+                                        <th class="center"><a style="color:#fff" href="Recipe_detail/@it.ID_congthuc"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                                        <th>
+                                            <a data-ajax="true" data-ajax-complete="$('#row_'+@it.ID_congthuc+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_recipe","Recipe",new { id_congthuc = it.ID_congthuc })' style="color:#fff"><img src="~/Content/Admin/img/delete.png" /></a>
+                                        </th>
+                                        <th class="center"><a style="color:#fff" href="Recipe_edit/@it.ID_congthuc"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th style="width:5px">ID</th>
+                                    <th>Tên Blog</th>
+
+                                    <th>Ảnh minh họa</th>
+                                    <th>Lượt xem</th>
+                                    <th>Trạng thái</th>
+                                    <th>Top hot</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th style="width:5px">ID</th>
+                                    <th>Tên món ăn</th>
+
+                                    <th>Ảnh minh họa</th>
+                                    <th>Lượt xem</th>
+                                    <th>Trạng thái</th>
+                                    <th>Top hot</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{  i = 1;}
+                                @foreach (Mix_MTA2.Models.Blog it in ViewBag.dsbg)
+                                {
+                                    if (i == 5)
+                                    {
+                                        break;
+                                    }
+                                    <tr id="row_@it.MaBlog">
+                                        <th style="width:5px">@i</th>
+                                        <th style="max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">@it.TenBlog</th>
+                                        <th><img width="200" height="150" style="border: 3px solid #ffffff;border-radius:7px; box-shadow: 0 0 5px rgba(0, 0, 0, .5)" src="~/Content/User/img/blog-img/@it.AnhMinhHoa" alt="ERROR" /></th>
+                                        <th>@it.LuotXem</th>
+                                        <th>
+                                            @if (it.TrangThai == true)
+                                            {
+                                                <form method="post" action="Status" id="status_@it.MaBlog">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" value="@it.MaBlog" />
+                                                        <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="Trangthai" />
+                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                                    </div>
+                                                </form>
+
+                                            }
+                                            else
+                                            {
+                                                <form method="post" action="Status" id="status_@it.MaBlog">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" value="@it.MaBlog" />
+                                                        <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="Trangthai" />
+                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                                    </div>
+                                                </form>
+                                            }
+
+                                        </th>
+                                        <th>
+                                            @if (it.TopHot == true)
+                                            {
+                                                <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" value="@it.MaBlog" />
+                                                        <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="tophot" />
+                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                                    </div>
+                                                </form>
+
+                                            }
+                                            else
+                                            {
+                                                <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                                    <div class="toggle-button-demo">
+                                                        <input type="hidden" name="id" value="@it.MaBlog" />
+                                                        <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="tophot" />
+                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                                    </div>
+                                                </form>
+                                            }
+                                        </th>
+                                        <th class="center" style="width:25px"><a style="color:#fff" href="Blog_detail/@it.MaBlog"><img src="~/Content/Admin/img/detail.png" /></a></th>
+                                        <th class="delete" style="width:25px;">
+                                            <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_blog","Blog",new { id = it.MaBlog})' style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
+                                        <th class="center" style="width:25px;"><a style="color:#fff;" href="Blog_edit/@it.MaBlog"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>

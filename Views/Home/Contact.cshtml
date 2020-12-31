@@ -13,7 +13,7 @@
 <title>Mix-MTA | Liên hệ</title>
 <!-- Search Wrapper -->
 <!-- ##### Header Area Start ##### -->
-<header class="header-area">
+<header class="header-area" style="position:fixed;z-index:10000;top:50px;left:0;background-color:white">
 
     <!-- Top Header Area -->
     <!-- Navbar Area -->
@@ -51,9 +51,16 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                            <i class="fa fa-search "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -64,7 +71,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb4.jpg');">
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb4.jpg');margin-top:125px">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">

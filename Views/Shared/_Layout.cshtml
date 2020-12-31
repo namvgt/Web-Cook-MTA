@@ -243,6 +243,7 @@
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="~/Content/User/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
@@ -272,7 +273,7 @@
     <header class="header-area">
 
         <!-- Top Header Area -->
-        <div class="top-header-area">
+        <div class="top-header-area" style="position:fixed;z-index:9999;top:0;left:0;background-color:white">
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-between">
                     <!-- Breaking News -->
@@ -294,7 +295,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="info">
                                 <div style="float:right" class="avatar img-circle border-white">
-                                    <img class="img-fit" style="width:30px;height:30px;border-radius:50%;" src="~/Content/User/img/bg-img/@tv.HinhDaiDien">
+                                    <img class="img-fit" style="width:30px;border-radius:50%;" src="~/Content/User/img/bg-img/@tv.HinhDaiDien">
                                     <a href="/Home/Profile_/@tv.ID_user" class="link">@tv.HoTen</a>
                                 </div>
                             </div>
@@ -395,30 +396,54 @@
         </div>
         <!-- ##### Follow Us Instagram Area End ##### -->
         <!-- ##### Footer Area Start ##### -->
-        <footer class="footer-area">
-            <div class="container h-100">
-                <div class="row h-100">
-                    <div class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between">
-                        <!-- Footer Social Info -->
-                        <div class="footer-social-info text-right">
-                            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                        </div>
-                        <!-- Footer Logo -->
-                        <div class="footer-logo">
-                            <a href="/Home/Index"><img src="~/Content/User/img/core-img/your-logo.png" alt=""></a>
-                        </div>
-                        <!-- Copywrite -->
-                        <p>
-                            &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved | Mọi hình thức sao chép nội dung trên website này mà chưa được sự đồng ý đều là trái phép. Design  <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.facebook.com/viet.bdb/" target="_blank">Mix-MTA</a>
-                        </p>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h6>Về chúng tôi</h6>
+                        <p class="text-justify" style="-webkit-line-clamp:unset">MixMTA được tạo nên với mong muốn có thể giúp cho người nội trợ sẽ dễ dàng hơn trong việc nấu ăn hàng ngày của mình. Từ công việc chuẩn bị các nguyên liệu, phải chọn món ăn hàng ngày hoặc lựa chọn những thiết bị dùng bếp sẽ trở nên dễ dàng hơn.</p>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3">
+                        <h6>Thành viên</h6>
+                        <ul class="footer-links">
+                            <li><a href="http://scanfcode.com/category/c-language/">Quách Phương Nam</a></li>
+                            <li><a href="http://scanfcode.com/category/front-end-development/">Bùi Đăng Việt</a></li>
+                            <li><a href="http://scanfcode.com/category/back-end-development/">Phạm Công Tú</a></li>
+                            <li><a href="http://scanfcode.com/category/java-programming-language/">Phy OuDom</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3">
+                        <h6>Liên Kết</h6>
+                        <ul class="footer-links">
+                            <li><a href="About">Giới thiệu</a></li>
+                            <li><a href="Contact">Liên hệ</a></li>
+                            <li><a href="Receipt">Công thức</a></li>
+                            <li><a href="Blog">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-6 col-xs-12">
+                        <p class="copyright-text" style="-webkit-line-clamp:unset">
+                            Thiết kế bởi nhóm 1
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <ul class="social-icons">
+                            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>           
 
         <!-- ##### Footer Area Start ##### -->
         <!-- ##### All Javascript Files ##### -->

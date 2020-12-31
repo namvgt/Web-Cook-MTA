@@ -2444,6 +2444,10 @@
     <Content Include="Content\User\img\bg-img\pancakebg.jpg" />
     <Content Include="Content\User\img\bg-img\pasta.jpg" />
     <Content Include="Content\User\img\bg-img\pcake.jpg" />
+    <Content Include="Content\User\img\bg-img\pexels-andrea-piacquadio-3771106.jpg" />
+    <Content Include="Content\User\img\bg-img\pexels-andrea-piacquadio-3771107.jpg" />
+    <Content Include="Content\User\img\bg-img\pexels-august-de-richelieu-4259140.jpg" />
+    <Content Include="Content\User\img\bg-img\pexels-august-de-richelieu-4262010.jpg" />
     <Content Include="Content\User\img\bg-img\pie.jpg" />
     <Content Include="Content\User\img\bg-img\pizza.jpg" />
     <Content Include="Content\User\img\bg-img\pmc.jpg" />

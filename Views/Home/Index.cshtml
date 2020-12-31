@@ -18,7 +18,7 @@
 </style>
 <title>Mix-MTA | Trang chủ</title>
 <!-- ##### Header Area Start ##### -->
-<header class="header-area">
+<header class="header-area" style="position:fixed;z-index:10000;top:50px;left:0;background-color:white">
     <!-- Navbar Area -->
     <div class="delicious-main-menu">
         <div class="classy-nav-container breakpoint-off">
@@ -44,9 +44,16 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                            <i class="fa fa-search "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -57,7 +64,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- ##### Hero Area Start ##### -->
-<section class="hero-area">
+<section class="hero-area" style="margin-top:125px">
     <div class="hero-slides owl-carousel">
         @foreach (Mix_MTA2.Models.Slider item in ViewBag.slide)
         {

@@ -12,13 +12,10 @@
 }
 <title>Mix-MTA | Giới thiệu</title>
 <!-- Search Wrapper -->
-
 <!-- ##### Header Area Start ##### -->
-<header class="header-area">
+<header class="header-area" style="position:fixed;z-index:10000;top:50px;left:0;background-color:white">
 
     <!-- Top Header Area -->
-    
-
     <!-- Navbar Area -->
     <div class="delicious-main-menu">
         <div class="classy-nav-container breakpoint-off">
@@ -54,9 +51,16 @@
                             </ul>
 
                             <!-- Newsletter Form -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin:0 auto" action="/Home/Timkiem" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" name="NoiDung">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" style="background-color:#40ba37; border-color:#40ba37">
+                                            <i class="fa fa-search "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -67,7 +71,7 @@
 </header>
 <!-- ##### Header Area End ##### -->
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb1.jpg');">
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/breadcumb1.jpg');margin-top:125px">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -84,29 +88,52 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="section-heading">
-                    <h3>Mix-MTA</h3>
+                <p style="font-size:18px;color:#1d2120;padding-left:30px; padding-right:30px;text-align:justify ">
+                    Mix MTA được tạo nên với mong muốn có thể giúp cho người nội trợ sẽ dễ dàng hơn trong việc nấu ăn hàng ngày của mình.
+                    Từ công việc chuẩn bị các nguyên liệu, phải chọn món ăn hàng ngày hoặc lựa chọn những thiết bị dùng bếp sẽ trở nên dễ dàng hơn.
+                </p>
+            </div>
+        </div>
+        <br />
+        @{ var i = 1;}
+        @foreach (Mix_MTA2.Models.GioiThieu it in ViewBag.DS)
+        {
+            if (i % 2 == 0)
+            {
+                <div class="row">
+                    <div class="col-6">
+                        <h2>@it.TieuDe</h2>
+                        <p style="font-size:14px;color:#1d2120; text-align:justify ">@it.NoiDung</p>
+                    </div>
+                    <div class="col-6">
+                        <img style="border-radius:5px; box-shadow:0 0 5px #808080; margin:auto;" src="~/Content/User/img/bg-img/@it.AnhMinhHoa" />
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <h6 class="sub-heading pb-5">Chào bạn,<br>Cảm ơn bạn đã ghé thăm Mix-MTA :)) <br> Mix-MTA là một nhóm học tập, với sự kết hợp giữa học viên MTA với học viên quốc tế.</h6>
-
-                <p class="text-center">Đây là sản phẩm đầu tiên của nhóm, các thông tin trên đây đều được thu thập từ nhiều nguồn khác nhau. Mong nhận được sự ủng hộ của các bạn.</p>
-            </div>
-        </div>
-
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-6">
+                        <img style="border-radius:5px; box-shadow:0 0 5px #808080; margin:auto; " src="~/Content/User/img/bg-img/@it.AnhMinhHoa" />
+                    </div>
+                    <div class="col-6">
+                        <h2>@it.TieuDe</h2>
+                        <p style="font-size:14px;color:#1d2120; text-align:justify ">@it.NoiDung</p>
+                    </div>
+                </div>
+            }
+            i++;
+            <br />
+        }
         <div class="row align-items-center mt-70">
             <!-- Single Cool Fact -->
-            
+
         </div>
 
         <div class="row">
             <div class="col-12">
                 <img class="mb-70" src="~/Content/img/bg-img/about.png" alt="">
-                <p class="text-center">Một lần nữa cảm ơn các bạn đã quan tâm tới Mix-MTA. Hãy gửi phản hồi của bạn cho chúng tôi về sản phảm này ở phía dưới nhé.<br>Thank you!</p>
+                <h6 class="text-center">Một lần nữa cảm ơn các bạn đã quan tâm tới Mix-MTA. Hãy gửi phản hồi của bạn cho chúng tôi về sản phảm này ở phía dưới nhé.<br>Thank you!</h6>
             </div>
         </div>
     </div>
@@ -123,29 +150,21 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="contact-form-area">
-                    <form action="/Home/P_hoi_web" method="get">
-                        <div class="row">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="col-12">
-                                <textarea name="noidung" class="form-control" id="message" cols="30" rows="10" placeholder="Nội dung"></textarea>
-                            </div>
-                            @if (Session["ThanhVien"] != null)
-                            {
-                                <a href="#" class="btn delicious-btn w-100">Đăng ký</a>
-                            }
-                        </div>
-                    </form>
-
-                    @if (Session["ThanhVien"] == null)
-                    {
-                        <a href="/Home/Login" class="btn delicious-btn mt-30" >Đăng</a>
-                    }
-                </div>
+        <form action="/Home/P_hoi_web" method="get">
+            <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <textarea name="noidung" class="form-control" rows="3" placeholder="Nội dung"></textarea>
+                @if (Session["ThanhVien"] != null)
+                {
+                    <a href="#" class="btn btn-default" style="background-color:#40ba37; color:white">Đăng</a>
+                }
             </div>
-        </div>
+        </form>
+
+        @if (Session["ThanhVien"] == null)
+        {
+            <a href="/Home/Login" class="btn btn-default" style="background-color:#40ba37;color:white">Đăng ký</a>
+        }
     </div>
 </div>
 <!-- ##### Contact Area End ##### -->

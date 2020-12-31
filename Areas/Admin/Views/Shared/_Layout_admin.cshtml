@@ -36,7 +36,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position:fixed;z-index:10000">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index">
@@ -170,7 +170,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="position:fixed; z-index:9999;top:0; right:0;width:100%">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     @*<form class="form-inline">
@@ -349,7 +349,10 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                @RenderBody()
+                <div style="margin-top:94px; margin-left:224px;">
+                    @RenderBody()
+                </div>
+                
             </div>
             <!-- End of Main Content -->
             <!-- Footer -->

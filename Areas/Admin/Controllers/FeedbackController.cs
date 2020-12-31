@@ -55,7 +55,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             tl.NgayDang = DateTime.Now;
             db.TraLoi_PhanHoi.Add(tl);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("List");
         }
         [HttpGet]
         public ActionResult Feedback_detail(long id)

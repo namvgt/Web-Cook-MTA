@@ -20,7 +20,7 @@
                         <tr>
                             <th style="width:30px">STT</th>
                             <th style="width:120px">Tên thành viên</th>
-                            <th>Email</th>
+                            <th>Nội dung</th>
                             <th>Phản hồi từ mục</th>
                             <th>Trả lời</th>
                             <th>Ngày gửi</th>
@@ -36,7 +36,7 @@
                             <tr id="row_@it.MaPhanHoi">
                                 <th>@i</th>
                                 <th style="width: 100px"><a data-toggle="modal" data-target="#info_@it.ThanhVien.ID_user" href="#">@it.ThanhVien.HoTen</a></th>
-                                <th>@it.ThanhVien.Email</th>
+                                <th>@it.NoiDung</th>
                                 @if (it.ID_congthuc != null)
                                 {
                                     <th style="text-decoration:none;max-width:185px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">Công thức-<a href="/Admin/Recipe/Recipe_detail/@it.ID_congthuc" style="text-decoration:none" >@it.CongThuc.TenCongThuc</a></th>

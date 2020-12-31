@@ -23,7 +23,9 @@
                         <tr>
                             <th style="width:5px">ID</th>
                             <th>Tên Blog</th>
-                            <th>Tiêu đề</th>
+
+                            <th>Ảnh minh họa</th>
+                            <th>Lượt xem</th>
                             <th>Trạng thái</th>
                             <th>Top hot</th>
                             <th></th>
@@ -35,7 +37,9 @@
                         <tr>
                             <th style="width:5px">ID</th>
                             <th>Tên món ăn</th>
-                            <th>Tiêu đề</th>
+
+                            <th>Ảnh minh họa</th>
+                            <th>Lượt xem</th>
                             <th>Trạng thái</th>
                             <th>Top hot</th>
                             <th></th>
@@ -50,7 +54,8 @@
                             <tr id="row_@it.MaBlog">
                                 <th style="width:5px">@i</th>
                                 <th style="max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">@it.TenBlog</th>
-                                <th style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:325px">@it.TieuDe</th>
+                                <th><img width="200" height="150" style="border: 3px solid #ffffff;border-radius:7px; box-shadow: 0 0 5px rgba(0, 0, 0, .5)" src="~/Content/User/img/blog-img/@it.AnhMinhHoa" alt="ERROR" /></th>
+                                <th>@it.LuotXem</th>
                                 <th>
                                     @if (it.TrangThai == true)
                                     {
