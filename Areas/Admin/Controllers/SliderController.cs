@@ -36,7 +36,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         {
             db.Sliders.Remove(db.Sliders.Find(id));
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult Status(long id)
@@ -45,7 +45,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
             if (slider.TrangThai == true) slider.TrangThai = false;
             else slider.TrangThai = true;
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult Add(Slider slider)

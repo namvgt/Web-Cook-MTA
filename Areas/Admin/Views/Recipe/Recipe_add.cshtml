@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label>Loại công thức</label>
-                        <input list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" />
+                        <input required list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" />
                         <datalist id="DanhSach">
                             @foreach (Mix_MTA2.Models.LoaiCongThuc it in ViewBag.DS)
                             {
@@ -41,7 +41,7 @@
                         <div class="file-upload">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <input required class="file-upload-input" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
                             </div>
                             <div class="file-upload-content">
                                 <img style="width:552px" class="file-upload-image" src="" alt="your image" />
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group" id="video-form">
                         <label>Video (Youtube code/link)</label>
-                        <input type="text" name="Video" id="inVideo" class="form-control" onchange="loadVideo()" />
+                        <input required type="text" name="Video" id="inVideo" class="form-control" onchange="loadVideo()" />
                         <br />
                         <iframe id="video" width="560" height="315" style="display:none; margin:auto; border-radius:7px" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <video id="video2" width="560" height="315" style="display:none; margin:auto; border-radius:7px" autoplay>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <textarea rows="2" class="form-control" name="TieuDe" placeholder="Nhập nội dung mô tả ngắn gọn về công thức"></textarea>
+                        <textarea required rows="2" class="form-control" name="TieuDe" placeholder="Nhập nội dung mô tả ngắn gọn về công thức"></textarea>
                     </div>
                     <h5 style="color:#5a5c69">Nguyên liệu cần thiết</h5>
                     <div class="form-group">
@@ -70,8 +70,8 @@
                             <div class="item">
                                 <label>
                                     <span>Nguyên liệu 1:</span><br />
-                                    <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" />
-                                    <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" />
+                                    <input required type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" />
+                                    <input required type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" />
                                 </label>
                                 <a href="javascript:void(0)" class="del">Xóa</a>
                             </div>
@@ -101,7 +101,7 @@
                             <div class="item1">
                                 <label>
                                     <span>Bước 1:</span><br />
-                                    <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức"></textarea>
+                                    <textarea required rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức"></textarea>
                                 </label>
                                 <a href="javascript:void(0)" class="del1">Xóa</a>
 
@@ -130,15 +130,15 @@
                     </div>
                     <div class="form-group">
                         <label>Thời gian chuẩn bị (phút)</label>
-                        <input type="text" class="form-control" name="ThoiGianCB" placeholder="" />
+                        <input required type="text" class="form-control" name="ThoiGianCB" placeholder="" />
                     </div>
                     <div class="form-group">
                         <label>Thời gian nấu (phút)</label>
-                        <input type="text" class="form-control" name="ThoiGianNau" />
+                        <input required type="text" class="form-control" name="ThoiGianNau" />
                     </div>
                     <div class="form-group">
                         <label>Độ khó</label>
-                        <input list="DoKho" autocomplete="off" class="form-control" name="DoKho" placeholder="Độ khó từ 1 đến 5" />
+                        <input required list="DoKho" autocomplete="off" class="form-control" name="DoKho" placeholder="Độ khó từ 1 đến 5" />
                         <datalist id="DoKho">
                             <option value="1"></option>
                             <option value="2"></option>

@@ -36,7 +36,7 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         {
             db.GioiThieux.Remove(db.GioiThieux.Find(id));
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult Add(GioiThieu gt)
@@ -50,6 +50,15 @@ namespace Mix_MTA2.Areas.Admin.Controllers
         {
             var gioithieu = db.GioiThieux.Find(gt.MaGioiThieu);
             gioithieu = gt;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult Status(long id)
+        {
+            var gt = db.GioiThieux.Find(id);
+            if (gt.TrangThai == true) gt.TrangThai = false;
+            else gt.TrangThai = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

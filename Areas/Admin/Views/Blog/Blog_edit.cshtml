@@ -23,14 +23,14 @@
                     <input name="MaBlog" value="@Model.MaBlog" type="hidden" />
                     <div class="form-group">
                         <label>Tên công thức</label>
-                        <textarea rows="2" class="form-control" name="Tenblog" placeholder="Nhập tên blog">@Model.TenBlog</textarea>
+                        <textarea required rows="2" class="form-control" name="Tenblog" placeholder="Nhập tên blog">@Model.TenBlog</textarea>
                     </div>
                     <div class="form-group">
                         <label>Ảnh minh họa</label>
                         <div class="file-upload">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" value="@Model.AnhMinhHoa" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <input required class="file-upload-input" value="@Model.AnhMinhHoa" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
                                 <img style="width:552px" src="~/Content/User/img/blog-img/@Model.AnhMinhHoa" />
                             </div>
                             <div class="file-upload-content">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <textarea rows="3" class="form-control" name="TieuDe" placeholder="Nhập tiêu đề cho blog">@Model.TieuDe</textarea>
+                        <textarea required rows="3" class="form-control" name="TieuDe" placeholder="Nhập tiêu đề cho blog">@Model.TieuDe</textarea>
                     </div>
                     <div class="form-group">
                         <label>Nội dung</label>
@@ -56,8 +56,8 @@
                                     <label>
                                         <span>@i .</span><br />
                                         <input type="hidden" value="@nd.ID" name="maND[]" />
-                                        <textarea rows="2" class="NoiDung" style="width:604px" name="_TieuDe[]" placeholder="Nhập tiêu đề">@nd.TieuDe</textarea>
-                                        <textarea rows="5" class="NoiDung" style="width:604px" name="NoiDung[]" placeholder="Nhập nội dung">@nd.NoiDung</textarea>
+                                        <textarea required rows="2" class="NoiDung" style="width:604px" name="_TieuDe[]" placeholder="Nhập tiêu đề">@nd.TieuDe</textarea>
+                                        <textarea required rows="5" class="NoiDung" style="width:604px" name="NoiDung[]" placeholder="Nhập nội dung">@nd.NoiDung</textarea>
                                         <span>Ảnh minh họa</span><br />
                                         <input type="file" name="_AnhMinhHoa[]" value="@nd.AnhMinhHoa"/>
                                         <br />

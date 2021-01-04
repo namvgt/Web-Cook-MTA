@@ -57,7 +57,7 @@
                                 <th>
                                     @if (it.TrangThai == true)
                                     {
-                                        <form method="post" action="Status" id="status_@it.MaSlider">
+                                        <form method="post" action="Slider/Status" id="status_@it.MaSlider">
                                             <div class="toggle-button-demo">
                                                 <input type="hidden" name="id" value="@it.MaSlider" />
                                                 <input class="toggle toggle-ios" id="toggle_@it.MaSlider" type="checkbox" name="Trangthai" />
@@ -68,7 +68,7 @@
                                     }
                                     else
                                     {
-                                        <form method="post" action="Status" id="status_@it.MaSlider">
+                                        <form method="post" action="Slider/Status" id="status_@it.MaSlider">
                                             <div class="toggle-button-demo">
                                                 <input type="hidden" name="id" value="@it.MaSlider" />
                                                 <input class="toggle toggle-ios" id="toggle__@it.MaSlider" type="checkbox" name="Trangthai" />

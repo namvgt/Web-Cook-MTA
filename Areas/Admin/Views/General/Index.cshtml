@@ -163,7 +163,7 @@
                                         <th>
                                             @if (it.TrangThai == true)
                                             {
-                                                <form method="post" action="Status" id="status_@it.ID_congthuc" onsubmit="return false">
+                                                <form method="post" action="Recipe/Status" id="status_@it.ID_congthuc" onsubmit="return false">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" id="tt_@it.ID_congthuc" value="@it.ID_congthuc" />
                                                         <input class="toggle toggle-ios" id="toggle_@it.ID_congthuc" type="checkbox" name="Trangthai" />
@@ -175,7 +175,7 @@
                                             }
                                             else
                                             {
-                                                <form method="post" action="Status" id="status_@it.ID_congthuc" onsubmit="return false">
+                                                <form method="post" action="Recipe/Status" id="status_@it.ID_congthuc" onsubmit="return false">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" id="tt_@it.ID_congthuc" value="@it.ID_congthuc" />
                                                         <input class="toggle toggle-ios" id="toggle__@it.ID_congthuc" type="checkbox" name="Trangthai" />
@@ -188,7 +188,7 @@
                                         <th>
                                             @if (it.TopHot == true)
                                             {
-                                                <form method="post" action="Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
+                                                <form method="post" action="Recipe/Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" id="tophot_@it.ID_congthuc" value="@it.ID_congthuc" />
                                                         <input class="toggle toggle-ios" id="toggle_th_@it.ID_congthuc" type="checkbox" name="tophot" />
@@ -199,7 +199,7 @@
                                             }
                                             else
                                             {
-                                                <form method="post" action="Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
+                                                <form method="post" action="Recipe/Tophot" id="tophot_@it.ID_congthuc" onsubmit="return false">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" id="tophot_@it.ID_congthuc" value="@it.ID_congthuc" />
                                                         <input class="toggle toggle-ios" id="toggle_th__@it.ID_congthuc" type="checkbox" name="tophot" />
@@ -261,7 +261,7 @@
                                     {
                                         break;
                                     }
-                                    <tr id="row_@it.MaBlog">
+                                    <tr id="row1_@it.MaBlog">
                                         <th style="width:5px">@i</th>
                                         <th style="max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">@it.TenBlog</th>
                                         <th><img width="200" height="150" style="border: 3px solid #ffffff;border-radius:7px; box-shadow: 0 0 5px rgba(0, 0, 0, .5)" src="~/Content/User/img/blog-img/@it.AnhMinhHoa" alt="ERROR" /></th>
@@ -269,22 +269,22 @@
                                         <th>
                                             @if (it.TrangThai == true)
                                             {
-                                                <form method="post" action="Status" id="status_@it.MaBlog">
+                                                <form method="post" action="Blog/Status" id="status1_@it.MaBlog">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" value="@it.MaBlog" />
                                                         <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="Trangthai" />
-                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="status1(@it.MaBlog)"></label>
                                                     </div>
                                                 </form>
 
                                             }
                                             else
                                             {
-                                                <form method="post" action="Status" id="status_@it.MaBlog">
+                                                <form method="post" action="Blog/Status" id="status1_@it.MaBlog">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" value="@it.MaBlog" />
                                                         <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="Trangthai" />
-                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="status(@it.MaBlog)"></label>
+                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="status1(@it.MaBlog)"></label>
                                                     </div>
                                                 </form>
                                             }
@@ -293,29 +293,29 @@
                                         <th>
                                             @if (it.TopHot == true)
                                             {
-                                                <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                                <form method="post" action="Blog/Tophot" id="tophot1_@it.MaBlog">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" value="@it.MaBlog" />
                                                         <input class="toggle toggle-ios" id="toggle_@it.MaBlog" type="checkbox" name="tophot" />
-                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                                        <label class="toggle-btn-true" for="toggle_@it.MaBlog" onclick="tophot1(@it.MaBlog)"></label>
                                                     </div>
                                                 </form>
 
                                             }
                                             else
                                             {
-                                                <form method="post" action="Tophot" id="tophot_@it.MaBlog">
+                                                <form method="post" action="Blog/Tophot" id="tophot1_@it.MaBlog">
                                                     <div class="toggle-button-demo">
                                                         <input type="hidden" name="id" value="@it.MaBlog" />
                                                         <input class="toggle toggle-ios" id="toggle__@it.MaBlog" type="checkbox" name="tophot" />
-                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="tophot(@it.MaBlog)"></label>
+                                                        <label class="toggle-btn" for="toggle__@it.MaBlog" onclick="tophot1(@it.MaBlog)"></label>
                                                     </div>
                                                 </form>
                                             }
                                         </th>
                                         <th class="center" style="width:25px"><a style="color:#fff" href="Blog/Blog_detail/@it.MaBlog"><img src="~/Content/Admin/img/detail.png" /></a></th>
                                         <th class="delete" style="width:25px;">
-                                            <a data-ajax="true" data-ajax-complete="$('#row_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_blog","Blog",new { id = it.MaBlog})' style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
+                                            <a data-ajax="true" data-ajax-complete="$('#row1_'+@it.MaBlog+'').remove()" data-ajax-confirm="Bạn có chắc muốn xóa" data-ajax-method="Delete" href='@Url.Action("Delete_blog","Blog",new { id = it.MaBlog})' style="color:#fff;width:30px;height:30px"><img src="~/Content/Admin/img/delete.png" /></a>
                                         <th class="center" style="width:25px;"><a style="color:#fff;" href="Blog/Blog_edit/@it.MaBlog"><img src="~/Content/Admin/img/edit-tool.png" /></a></th>
                                     </tr>
                                     i++;
@@ -395,4 +395,70 @@
             }
         }
     });
+    //function status(id) {
+    //    var form_id = "#status_" + id.toString();
+    //    //$(form_id).attr("onsubmit", "return false");
+    //    //var input_id = "#tt_" + id.toString();
+    //    //$(form_id).submit(function (event) {
+    //    //    $.ajax({
+    //    //        method: "post",
+    //    //        url: "status",
+    //    //        data: {
+    //    //            "id": $(input_id).val()
+    //    //        }
+    //    //    }).done(function (response) {
+    //    //    })
+    //    //    event.preventDefault();
+    //    //})
+    //    $(form_id).submit();
+    //}
+    //function tophot(id) {
+    //    var form_id = "#tophot_" + id.toString();
+    //    //var input_id = "#tophot_" + id.toString();
+    //    //$(form_id).submit(function (event) {
+    //    //    $.ajax({
+    //    //        method: $(this).attr('method'),
+    //    //        url: $(this).attr('action'),
+    //    //        data: {
+    //    //            "id": $(input_id).val()
+    //    //        }
+    //    //    }).done(function (response) {
+    //    //    })
+    //    //    event.preventDefault();
+    //    //});
+    //    $(form_id).submit();
+    //}
+    //function status1(id) {
+    //    var form_id = "#status1_" + id.toString();
+    //    //$(form_id).attr("onsubmit", "return false");
+    //    //var input_id = "#tt_" + id.toString();
+    //    //$(form_id).submit(function (event) {
+    //    //    $.ajax({
+    //    //        method: "post",
+    //    //        url: "status",
+    //    //        data: {
+    //    //            "id": $(input_id).val()
+    //    //        }
+    //    //    }).done(function (response) {
+    //    //    })
+    //    //    event.preventDefault();
+    //    //})
+    //    $(form_id).submit();
+    //}
+    //function tophot1(id) {
+    //    var form_id = "#tophot1_" + id.toString();
+    //    //var input_id = "#tophot_" + id.toString();
+    //    //$(form_id).submit(function (event) {
+    //    //    $.ajax({
+    //    //        method: $(this).attr('method'),
+    //    //        url: $(this).attr('action'),
+    //    //        data: {
+    //    //            "id": $(input_id).val()
+    //    //        }
+    //    //    }).done(function (response) {
+    //    //    })
+    //    //    event.preventDefault();
+    //    //});
+    //    $(form_id).submit();
+    //}
 </script>

@@ -57,7 +57,7 @@
                                 <th>
                                     @if (it.TrangThai == true)
                                     {
-                                        <form method="post" action="Status" id="status_@it.MaGioiThieu">
+                                        <form method="post" action="About/Status" id="status_@it.MaGioiThieu">
                                             <div class="toggle-button-demo">
                                                 <input type="hidden" name="id" value="@it.MaGioiThieu" />
                                                 <input class="toggle toggle-ios" id="toggle_@it.MaGioiThieu" type="checkbox" name="Trangthai" />
@@ -68,7 +68,7 @@
                                     }
                                     else
                                     {
-                                        <form method="post" action="Status" id="status_@it.MaGioiThieu">
+                                        <form method="post" action="About/Status" id="status_@it.MaGioiThieu">
                                             <div class="toggle-button-demo">
                                                 <input type="hidden" name="id" value="@it.MaGioiThieu" />
                                                 <input class="toggle toggle-ios" id="toggle__@it.MaGioiThieu" type="checkbox" name="Trangthai" />

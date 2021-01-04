@@ -23,11 +23,11 @@
                     <input name="ID_congthuc" value="@Model.ID_congthuc" type="hidden" />
                     <div class="form-group">
                         <label>Tên công thức</label>
-                        <input type="text" class="form-control" name="TenCongThuc" value="@Model.TenCongThuc" />
+                        <input required type="text" class="form-control" name="TenCongThuc" value="@Model.TenCongThuc" />
                     </div>
                     <div class="form-group">
                         <label>Loại công thức</label>
-                        <input list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" value="@Model.LoaiCongThuc.TenLoaiCT" />
+                        <input required list="DanhSach" autocomplete="off" class="form-control" name="LoaiCongThuc" placeholder="Nhập loại công thức" value="@Model.LoaiCongThuc.TenLoaiCT" />
                         <datalist id="DanhSach">
                             @foreach (var it in ViewBag.DS)
                             {
@@ -41,7 +41,7 @@
                         <div class="file-upload">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Chọn ảnh</button>
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" value="@Model.AnhMinhHoa" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
+                                <input required class="file-upload-input" value="@Model.AnhMinhHoa" type='file' name="AnhMinhHoa" onchange="readURL(this);" accept="image/*" />
                                 <img style="width:552px" src="~/Content/User/img/bg-img/@Model.AnhMinhHoa" />
                             </div>
                             <div class="file-upload-content">
@@ -54,13 +54,13 @@
                     </div>
                     <div class="form-group" id="video-form">
                         <label>Video (Youtube code/link)</label>
-                        <input type="text" name="Video" id="inVideo" value="@Model.Video" class="form-control" onchange="loadVideo()" />
+                        <input required type="text" name="Video" id="inVideo" value="@Model.Video" class="form-control" onchange="loadVideo()" />
                         <br />
                         <iframe id="video" width="560" height="315" style="display:block; margin:auto; border-radius:7px" src="https://www.youtube.com/embed/@Model.Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <textarea rows="3" class="form-control" name="TieuDe">@Model.TieuDe</textarea>
+                        <textarea required rows="3" class="form-control" name="TieuDe">@Model.TieuDe</textarea>
                     </div>
                     <div class="form-group">
                         <label>Các nguyên liệu cần thiết</label>
@@ -72,8 +72,8 @@
                                     <label>
                                         <span>Nguyên liệu @i:</span><br />
                                         <input type="hidden" name="maNL[]" value="@nl.MaNguyenLieu" />
-                                        <input type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" value="@nl.TenNguyenLieu" />
-                                        <input type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" value="@nl.SoLuong" />
+                                        <input required type="text" name="NL[]" placeholder="Tên nguyên liệu" class="NguyenLieu" value="@nl.TenNguyenLieu" />
+                                        <input required type="text" name="SL[]" placeholder="Số lượng" class="NguyenLieu" value="@nl.SoLuong" />
                                     </label>
                                     @*<a href="javascript:void(0)" class="del">Xóa</a>*@
                                     @Ajax.ActionLink("Xóa", "Delete_nguyenlieu", new { id = nl.MaNguyenLieu }, new AjaxOptions
@@ -100,7 +100,7 @@
                                     <label>
                                         <span>Bước @i:</span><br />
                                         <input type="hidden" value="@nd.MaNoiDungCT" name="maND[]" />
-                                        <textarea rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức">@nd.NoiDung</textarea>
+                                        <textarea required rows="3" class="NoiDung" name="NoiDung[]" placeholder="Nhập nội dung công thức">@nd.NoiDung</textarea>
                                     </label>
                                     @*<a href="javascript:void(0)" class="del1">Xóa</a>*@
                                     @Ajax.ActionLink("Xóa", "Delete_ND", new { id = nd.MaNoiDungCT }, new AjaxOptions
@@ -117,15 +117,15 @@
                     </div>
                     <div class="form-group">
                         <label>Thời gian chuẩn bị(phút)</label>
-                        <input type="text" class="form-control" name="ThoiGianCB" value="@Model.ThoiGianCB" />
+                        <input required type="text" class="form-control" name="ThoiGianCB" value="@Model.ThoiGianCB" />
                     </div>
                     <div class="form-group">
                         <label>Thời gian nấu(phút)</label>
-                        <input type="text" class="form-control" name="ThoiGianNau" value="@Model.ThoiGianNau" />
+                        <input required type="text" class="form-control" name="ThoiGianNau" value="@Model.ThoiGianNau" />
                     </div>
                     <div class="form-group">
                         <label>Độ khó</label>
-                        <input type="text" class="form-control" name="DoKho" value="@Model.DoKho" />
+                        <input required type="text" class="form-control" name="DoKho" value="@Model.DoKho" />
                     </div>
                     <div class="form-group">
                         <label>Top hot:</label>
