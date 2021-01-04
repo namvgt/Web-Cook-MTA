@@ -156,6 +156,44 @@
         </div>
     </div>
 </section>
+@*<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3><b>Bài viết nổi bật</b></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (Mix_MTA2.Models.Blog it in ViewBag.bghot)
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <a href="/Home/Chitietcongthuc?id=@it.MaBlog"><img src="/Content/User/img/bg-img/@it.AnhMinhHoa" alt=""></a>
+                        <div class="receipe-content">
+                            <a href="/Home/ChitietBlog?id=@it.MaBlog">
+                                <h5>@it.MaBlog</h5>
+                            </a>
+                            <div class="ratings">
+                                @for (int i = 1; i <= it.DoKho; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                }
+                                @for (int j = 1; j <= 5 - it.DoKho; j++)
+                                {
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>*@
 <!-- ##### Best Receipe Area End ##### -->
 <!-- ##### CTA Area Start ##### -->
 <section class="cta-area bg-img bg-overlay" style="background-image: url('/Content/User/img/bg-img/bg4.jpg');">
@@ -176,11 +214,11 @@
 <!-- ##### Small Receipe Area Start ##### -->
 <section class="small-receipe-area section-padding-80-0">
     <div class="container">
-        <div class="row">
+        <div class="row" >
             @foreach (Mix_MTA2.Models.CongThuc item in ViewBag.list_nm)
             {
                 <!-- Small Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-4" style="margin-bottom:7px">
                     <div class="single-small-receipe-area d-flex">
                         <!-- Receipe Thumb -->
                         <div class="receipe-thumb">
@@ -192,7 +230,7 @@
                             <a href="/Home/Chitietcongthuc/@item.ID_congthuc">
                                 <h5>@item.TenCongThuc</h5>
                             </a>
-                            <div class="ratings">
+                            <div class="ratings" style="display:inline">
                                 @for (int i = 1; i <= item.DoKho; i++)
                                 {
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -202,14 +240,9 @@
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                 }
                             </div>
-                            @if (@item.SLPH > 0)
-                            {
-                                <p>@item.SLPH phản hồi</p>
-                            }
-                            else
-                            {
-                                <p>0 phản hồi</p>
-                            }
+                            
+                                <p style="display:inline">  @item.PhanHois.Count() phản hồi</p>
+                            
 
                         </div>
                     </div>

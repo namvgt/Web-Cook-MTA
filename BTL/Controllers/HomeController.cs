@@ -19,12 +19,14 @@ namespace Mix_MTA2.Controllers
         {
             var sl = db.Sliders.Where(x => x.TieuDe != null).ToList();
             var kq = db.CongThucs.Where(x => x.TopHot == true).ToList();
-            var kq2 = db.CongThucs.Where(x => x.TopHot == false).ToList();
+            var kq4 = db.Blogs.Where(x => x.TopHot == true).ToList();
+            var kq2 = db.CongThucs.Where(x => x.TenCongThuc != null).ToList();
             var kq3 = db.LoaiCongThucs.Where(x => x.TopHot == true).ToList();
             ViewBag.slide = sl;
             ViewBag.list_lct = kq3;
             ViewBag.list_top = kq;
             ViewBag.list_nm = kq2;
+            ViewBag.bghot = kq4;
             //Session["ThanhVien"] = null;
             if (Session["ThanhVien1"] == null)
             {
@@ -124,7 +126,7 @@ namespace Mix_MTA2.Controllers
             var congthuc = db.CongThucs.Where(x => x.ID_congthuc == id).FirstOrDefault();
             Session["Ctiet"] = congthuc;
             var save = new Luu_tru();
-            if(Session["ThanhVien"] == null)
+            if (Session["ThanhVien"] == null)
             {
                 save = db.Luu_tru.Where(x => x.ID_congthuc == id).FirstOrDefault();
             }
