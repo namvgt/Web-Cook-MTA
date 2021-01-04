@@ -80,8 +80,23 @@ namespace Mix_MTA2.Controllers
             return View();
         }
         // =================================================================================================== Danh sách công thức
-        public ActionResult Receipt()
+        public ActionResult Receipt(int page)
         {
+            ViewBag.sotrang = (db.CongThucs.Where(x => x.TenCongThuc != null).Count()) / 9 + 1;
+            if (page == 0) page = 1;
+            if (page > ViewBag.sotrang) page = ViewBag.sotrang;
+            List<CongThuc> list = new List<CongThuc>();
+            var model1 = db.CongThucs.Where(x => x.ID_congthuc != 0).ToArray();
+            for (int i = 0; i < model1.Length; i++)
+            {
+                if (i <= page * 9 && i > (page - 1) * 9)
+                {
+                    list.Insert(0, model1[i]);
+                }
+            }
+            ViewBag.list = list;
+            ViewBag.page = page;
+            
             var model = db.CongThucs.Where(x => x.ID_congthuc != 0).ToList();
             ViewBag.DS = model;
             var lct = db.LoaiCongThucs.Where(x => x.TenLoaiCT != null).ToList();
@@ -92,27 +107,36 @@ namespace Mix_MTA2.Controllers
         public ActionResult Phanloai(int id_lct)
         {
             var model = db.CongThucs.Where(x => x.MaLoaiCongThuc == id_lct).ToList();
-            ViewBag.DS = model;
+            ViewBag.list = model;
             var lct = db.LoaiCongThucs.Where(x => x.TenLoaiCT != null).ToList();
             ViewBag.lct = lct;
             return View("Receipt", model);
         }
         // =================================================================================================== Blog
-        public ActionResult Blog()
+        public ActionResult Blog(int page)
         {
-            //if (page==null)
-            //{
-            //    page = 1;
-            //}
-            var model = db.Blogs.Where(x => x.MaBlog != 0).Take(3);
-            ViewBag.list = model;
+            ViewBag.sotrang = (db.Blogs.Where(x => x.TenBlog != null).Count()) / 5 + 1;
+            if (page == 0) page = 1;
+            if (page > ViewBag.sotrang) page = ViewBag.sotrang;
+            List<Blog> list = new List<Blog>();
+            var model = db.Blogs.Where(x => x.MaBlog != 0).ToArray();
+            for(int i = 0; i < model.Length; i++)
+            {
+                if (i <= page * 5 && i > (page - 1) * 5)
+                {
+                    list.Insert(0, model[i]);
+                }
+            }
+            ViewBag.list = list;
             var User_ = db.NguoiDungs.Where(x => x.UserID != 0).ToList();
             ViewBag.list_us = User_;
+            ViewBag.page = page;
+            
             //var page_ = (from l in db.Blogs select l).OrderBy(x => x.MaBlog);
             //int pageSize = 2;
             //int pageNumber = (page ?? 1);
             //return View(page_.ToPagedList(pageNumber,pageSize));
-            return View(model);
+            return View(list);
         }
         // =================================================================================================== Chi tiết công thức
         public ActionResult Chitietcongthuc(int id)

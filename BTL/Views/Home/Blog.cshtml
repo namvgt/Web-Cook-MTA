@@ -21,6 +21,26 @@
         -webkit-box-orient: vertical;
         display: -webkit-box;
     }
+    /* thiết lập style cho thẻ a */
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 12px 18px;
+        text-decoration: none;
+    }
+        /* thiết lập style cho class active */
+        .pagination a.active {
+            background-color: #40ba37;
+            color: white;
+            /*Thiết kế hình tròn với CSS*/
+            border-radius: 50%;
+        }
+        /* thêm màu nền khi người dùng hover vào class không active */
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            /*Thiết kế hình tròn với CSS*/
+            border-radius: 50%;
+        }
 </style>
 <title>Mix-MTA | Blog</title>
 <!-- Search Wrapper -->
@@ -46,7 +66,7 @@
                             <ul>
                                 <li><a href="/Home/Index">Trang chủ</a></li>
                                 <li><a href="/Home/About">Giới thiệu</a></li>
-                                <li><a href="/Home/Receipt">Công thức</a></li>
+                                <li><a href="/Home/Receipt?page=1">Công thức</a></li>
                                 <li class="active"><a href="/Home/Blog">Blog</a></li>
                                 <li><a href="/Home/Contact">Liên hệ</a></li>
                                 @*<li><a href="Login">Đăng nhập</a></li>*@
@@ -89,14 +109,14 @@
 <!-- Receipe Post Search -->
 <!-- ##### Breadcumb Area End ##### -->
 <!-- ##### Blog Area Start ##### -->
-<div class="blog-area section-padding-0-80">
+<div class="blog-area">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="blog-posts-area">
 
                     <!-- Single Blog Area -->
-                    @foreach (Mix_MTA2.Models.Blog item in Model)
+                    @foreach (Mix_MTA2.Models.Blog item in ViewBag.list)
                     {
                         <div class="single-blog-area mb-80">
                             <!-- Thumbnail -->
@@ -104,7 +124,7 @@
                                 <a href="/Home/ChitietBlog/@item.MaBlog">
                                     <img src="~/Content/User/img/blog-img/@item.AnhMinhHoa" style="height:400px;width:900px;border-radius:7px;box-shadow:0 0 5px #808080" alt="">
                                 </a>
-                                
+
                                 <!-- Post Date -->
                                 <div class="post-date">
                                     @*<a href="#"><span>30</span>Aug<br>2020</a>*@
@@ -223,6 +243,26 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            @{ var i = ViewBag.page;
+                var pre = i - 1;
+                var next = i + 1;}
+            <div class="pagination" style="display:block; margin:0 auto">
+                <a href="Blog?page=@pre">«</a>
+                @for (var j = 1; j <= ViewBag.sotrang; j++)
+                {
+                    if (i == j)
+                    {
+                        <a class="active" href="Blog?page=@j">@j</a>
+                    }
+                    else
+                    {
+                        <a href="Blog?page=@j">@j</a>
+                    }
+                }
+                <a href="Blog?page=@next">»</a>
             </div>
         </div>
     </div>
